@@ -1,0 +1,513 @@
+<!--<div class="boton-x cursor">
+  <img width="20px" height="20px" (click)="_close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+</div>-->
+<div class="conatiner">
+  <div class="centrar">
+    <div class="centrar">
+      <p class="categorias">All categories</p>
+    </div>
+    <br>
+    <!-- <div style="margin-left: 20%;margin-right: 20%;">
+      <div class="card-nav-search-m">
+        <div class="input-group mb-3">
+          <input [(ngModel)]="valorBusquedaCat" (keyup)="_buscarCategoriasConFiltro($event, 'N')" type="text"
+            class="form-control card-nav-search" placeholder="Search" [formControl]="categoriasControl"
+            [matAutocomplete]="autoCat">
+          <mat-autocomplete autoActiveFirstOption #autoCat="matAutocomplete">
+            <mat-option (click)="_buscarCategoriasConFiltro(option, 'S')"
+              *ngFor="let option of filtrosOpcionesCat | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div class="input-group-append">
+            <button class="btn card-nav-btn" type="button">
+              <span class="centrar">
+                <img (click)="_buscarCategoriasConFiltro(valorBusquedaCat,'S')" class="cursor"
+                  src="../../../assets/images/recursos/lupa.png">
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="container-fluid" mat-dialog-content perfectScrollbar>
+  <div class="row">
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">A</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'A'" class="input-group mb-3" >
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">B</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'B'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">C</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'C'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">D</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'D'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p  class="linea-p"><span class="letra">E</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'E'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">F</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'F'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">G</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'G'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">H</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'H'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--<div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">I</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'I'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">J</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'J'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>-->
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">K</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'K'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">L</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'L'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">M</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'M'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--<div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">N</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'N'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span   class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>-->
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">O</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'O'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">P</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'P'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--<div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">Q</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'Q'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span   class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>-->
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">R</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'R'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <br>
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">S</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'S'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">T</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'T'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--<div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">U</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'U'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span  class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>-->
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">V</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'V'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!--<div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">W</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'W'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span  class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">X</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'X'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span  class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">Y</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'Y'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span   class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 20px;">
+      <div class="izquierda">
+        <p class="linea-p"><span class="letra">Z</span></p>
+      </div>
+      <main>
+        <div *ngFor="let opcion of filtrosOrden" class="separador">
+          <div (click)="_filtroSeleccionado(opcion)" *ngIf="opcion.letra == 'Z'" class="input-group mb-3">
+            <div class="cuadrado-filtros-2">
+              <i *ngIf="opcion.seleccionado === 'S'" class="material-icons icon-visto-2">check</i>
+            </div>
+            <div style="margin-left: 2px;">
+              <span   class="p-list cursor">{{opcion.valor}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>-->
+  </div>
+
+  <!--<div class="row">
+    <div class="col-lg-12 centrar">
+      <button (click)="_aplicarFiltros()" class="btn-apply cursor">Apply</button>
+    </div>
+  </div>-->
+
+</div>

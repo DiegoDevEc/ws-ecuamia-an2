@@ -1,0 +1,30 @@
+<div class="top-menu">
+    <a mat-button [matMenuTriggerFor]="accountMenu" #accountMenuTrigger="matMenuTrigger">
+        <mat-icon style="color: white;" class="mat-icon-sm account-icon">person</mat-icon> <span style="color: white;"
+            fxShow="false" fxShow.gt-sm>ACCOUNT</span>
+        <mat-icon style="color: white;">arrow_drop_down</mat-icon>
+    </a>
+    <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
+        <span (mouseleave)="accountMenuTrigger.closeMenu()">
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+                <img src="assets/images/user.jpg" alt="user-image" width="50">
+                <p *ngIf="logueado">{{appService.clientLogin.nombre}}<br> <small>Desconocido (152<mat-icon
+                            class="mat-icon-xs">
+                            star</mat-icon>)</small></p>
+                <p *ngIf="!logueado">Desconocido<br> <small>Desconocido (152<mat-icon class="mat-icon-xs">star
+                        </mat-icon>)</small></p>
+            </div>
+            <div class="divider"></div>
+            <a mat-menu-item>
+                <mat-icon class="mat-icon-sm">email</mat-icon>
+                <span>{{appService.clientLogin.email}}</span>
+            </a>
+            <div class="divider"></div>
+            <a mat-menu-item (click)="cerrarSesion()">
+                <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
+                <span>Sign out</span>
+            </a>
+        </span>
+    </mat-menu>
+
+</div>

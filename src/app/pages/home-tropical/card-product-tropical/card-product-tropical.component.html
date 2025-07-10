@@ -1,0 +1,108 @@
+
+  <div class="rosas">
+    <img class="avatar cursor" (click)="bigPicture(producto)" [src]="urlImagen+producto.imagenes[0]">
+  </div>
+  
+  <div class="margen-texto-producto">
+    <p class="nombre-producto">{{producto.nombreVariedad}} - {{producto.producto}}</p>
+  </div>
+  <div class="centrar" style="margin-top: -10px !important;">
+    <div class="talla">Selected grade</div>
+  
+    <p><span class="text-grade">{{ producto.tallaSeleccionada }}</span></p>
+    <div style="margin-top: -10px !important;">
+      <div class="button-grade-garrows">
+        <img *ngIf="producto.tallas.length>3" class="button-arrowsl"
+          src="../../../../assets/images/recursos/flecha-izquierda.png" (click)="toLeft($event.target)">
+        <div class="button-grade-group">
+          <div>
+            <button type="button" class="button-grade" *ngFor="let talla of producto.tallas; let i = index"
+              [ngClass]="{'button-grade-selected': talla.tallaSeleccionada}"
+              (click)="actualizarProductoPorTalla(talla);setDesplazar($event.target,i);">{{talla.talla}}</button>
+          </div>
+        </div>
+        <img *ngIf="producto.tallas.length>3" class="button-arrowsr"
+          src="../../../../assets/images/recursos/flecha-derecha.png" (click)="toRigth($event.target)">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="indexTallaSeleccionada != undefined" class="box-combo-add" (click)="_activarRowBox()"
+    [ngClass]="{'desactivar-box': !producto.productoBuncheActivado }">
+    <div>
+      <div style="margin-left: 5px;"><span class="card-p-combo">Box</span></div>
+      <div class="card-items-producto">
+        <div matTooltip="Select grade first" matTooltipClass="tooltipclass"
+          [matTooltipDisabled]="!producto.tallaSeleccionada" matTooltipPosition="below">
+          <input [disabled]="cajaArmada.detalle.length != 0 " type="number" maxlength="2"
+            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            [(ngModel)]="cantidadCajas" class="card-input" onwheel="this.blur()"
+            [disabled]="cajaArmada.detalle.length != 0">
+        </div>
+        <mat-select value="caja" class="box-select" [disabled]="cajaArmada.detalle.length > 0">
+          <mat-option *ngFor="let caja of producto.tallas[indexTallaSeleccionada].cajas" value="caja"
+            (click)="seleccionarCaja(caja)">
+            x {{caja.cantidadPorCaja}}
+          </mat-option>
+        </mat-select>
+        <div class="box-precio-tooltip" matTooltip="Price per {{ producto.tipoPrecioVariedad=='T'?'STEM':'BUNCHE' }}"
+          matTooltipClass="tooltipclassper" matTooltipPosition="below">
+          <p *ngIf="appService.orderWebShop == 'S'" class="box-precio">
+            $ {{ precioSeleccionado |
+            number : '1.2-2' }}
+          </p>
+          <span class="box-precio-span">per {{
+            producto.tipoPrecioVariedad=='T'?'STEM':'BUNCHE'
+            }}</span>
+        </div>
+        <p *ngIf="appService.orderWebShop == 'N'" class="box-precio" style="margin-top:30px"></p>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div>
+  
+      <app-controls-box *ngIf="producto.productoBuncheActivado && producto.seguridad == 'N'" [imagen]="producto.imagen" [type]="'aumentar'"
+        [productoReferencia]="producto" (limpiarOut)="limpiarInput($event)" [cantidadCajas]="cantidadCajas" [TipoCaja]="cajaInput"
+        (emitirPopupCamion)="_informationDialogControl($event)">
+      </app-controls-box>
+  
+    <div class="centrar btn-carrito">
+      <div *ngIf="producto.seguridad == 'S'" fxLayout="row" fxLayout.xs="column" class="text-muted">
+        <div class="center centrar-contenido " style="width: 100%; position: relative;">
+          <div class="circle"></div>
+          <button mat-icon-button matTooltip="Locked" (click)="locked()" class="button-locked">
+            <mat-icon color="primary">https
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="producto.limitado == 'S' && producto.seguridad == 'N'" class="card-promo-top cursor">
+      <p class="card-limited">LIMITED
+        <span class="cursor position-absolute info-icon">
+          <div [matTooltip]="etiquetaLimited" aria-label="Button that shows a red tooltip"
+            matTooltipClass='tooltip-limited'>
+            <mat-icon>info</mat-icon>
+          </div>
+        </span>
+      </p>
+    </div>
+  
+   <!-- Tropicales Informacion -->
+   <div  *ngIf="producto.limitado != 'S'" class="card-promo-top cursor"
+   (click)="_informationDialog(marcacionSleccionada,'T')">
+   <p class="card-promo card-doortodoor">Door to Door
+       <span class="cursor position-absolute info-icon">
+           <!--div matTooltip="Tropical flowers will be shipped directly from the farm to your door. Kindly fill out the form below with the address you'd like to ship to and you desired day of arrival to your door." aria-label="Button that shows a red tooltip" matTooltipClass='tooltip-tropical'-->
+           <div matTooltip="Tropical flowers will be shipped directly from the farm to your door."
+               aria-label="Button that shows a red tooltip"
+               matTooltipClass='tooltip-tropical'>
+               <!-- <img src="../../../assets/images/recursos/iMini.png"> -->
+               <mat-icon>info</mat-icon>
+           </div>
+       </span>
+   </p>
+  </div>
+  
+    <br>

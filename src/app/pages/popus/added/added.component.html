@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="centrar">
+        <p class="awesome">Awesome!</p>
+    </div>
+    <!-- <br>
+    <br>
+    <br> -->
+    <div class="row" *ngIf="data.tipoAgrega == 'C'">
+        <div class="col-lg-12 centrar">
+            <div class="card-added">
+                <img class="avatar" [src]="urlImagen + data.imagen">
+                <img class="garrapata" src="../../../../assets/images/recursos/garrapata.png">
+                <div class="centrar info-top">
+                    <div *ngIf="data.producto.combo != 'S'">
+                        <p class="info"><span class="capitalize"> {{nombreVariedad}} - </span> <span class="capitalize">
+                {{nombreProducto}}</span></p>
+                        <p class="medida">{{data.producto.talla}}</p>
+                        <p class="medida"> {{data.cantidad}} Box x {{data.producto.cantidadPorCajaMixta}} stems</p>
+                    </div>
+                    <div *ngIf="data.producto.combo === 'S'">
+                        <p class="info"><span class="capitalize"> {{nombreCaja}}</span></p>
+                        <p class="medida">{{data.producto.tallaSeleccionada}}</p>
+                        <p class="medida"> {{data.producto.cantidadIngresada}} Box x {{data.producto.totalPiezas}} stems</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="data.tipoAgrega == 'B'">
+        <div class="col-lg-12">
+            <div class="card-added-slider">
+                <div *ngFor="let caja of _varietiesNoRepeated(data.producto)" class="card-added-bunches">
+                    <img class="avatar-bunches" [src]="caja.imagenes">
+                    <img class="garrapata-bunches" src="../../../../assets/images/recursos/garrapata.png">
+                    <div class="centrar info-top-bunches">
+                        <p class="info"><span class="capitalize"> {{caja.nombreVariedad}} - </span> <span class="capitalize">
+                {{caja.producto}}</span></p>
+                        <p class="medida">{{caja.talla}}</p>
+                        <p class="medida"> 1 Bunches x {{caja.cantidadPorBunche}} stems</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="cetrar">
+        <p class="added">These products were successfully added to the cart.</p>
+        <button class="box-p-btn-add cursor" (click)="closeAdded()">Continue
+    </button>
+    </div>
+</div>
+
+<!----CUANDO EDITA Y AGREGA MAS BUNCHES DE LA CAJA COMPLETA-->
+<div class="container">
+
+</div>

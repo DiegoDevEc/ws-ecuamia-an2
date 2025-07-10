@@ -1,0 +1,62 @@
+.menu-principal{
+    background-color:white !important; 
+}
+
+.horizontal-active-link {
+    background-color:white !important;
+}
+
+.botones-chip {
+	margin-left: 15px;
+	display: inline-block;
+	padding: 2px;
+	color: #444444 !important;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 7px;
+	text-align: center;
+	outline: none;
+	height: 24px;
+	align-items: center;
+	justify-content: center;
+	font: normal normal normal 20px/20px Montserrat;
+	height: 28px;
+	.span{
+		display: inline-block;
+        margin-top: 3px !important;
+        margin-left: 15px;
+        color: #444444 !important;
+	}
+	i {
+		font-size: xx-small;
+        top: 7px !important;
+        position: absolute;
+        color: #444444 !important;
+	}
+}
+.boton-seleccionado{
+	display: inline-flexbox;
+	padding: 2px;
+	color: white !important;
+	text-decoration: none;
+	text-align: center;
+	border: 1px solid #444444;
+	border-radius: 7px;
+	background: #444444 !important;
+	text-align: center;
+	font: normal normal normal 22px/22px Montserrat;
+	outline: none; 
+	height: 28px;
+	.span{
+		display: inline-block;
+        margin-top: 3px !important;
+        margin-left: 15px;
+        color: white !important;
+	}
+	i {
+		font-size: xx-small;
+        top: 7px !important;
+        position: absolute;
+        color: white !important;
+	}
+}

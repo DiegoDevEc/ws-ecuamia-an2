@@ -1,0 +1,535 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+        <div>
+            <div [routerLink]="['/account/orders']" class="izquierda header-sumary cursor">
+                <img src="../../../../assets/images/recursos/galon-izquierdo.png" alt="">
+                <span class="sumary">ORDER SUMARY</span>
+            </div>
+        </div>
+        <br>
+        <div class="container" id="data">
+            <br>
+            <div [ngClass]="{'card-sumary-cancelado':detalleOrdenSeleccionado.estado == 'CAN', 'card-sumary-trabajando':detalleOrdenSeleccionado.estado == 'WOR',
+            'card-sumary-aprobado':detalleOrdenSeleccionado.estado == 'APR'}">
+                <br>
+                <div class="centrar">
+                    <p class="sumary-order" *ngIf="detalleOrdenSeleccionado != undefined">Order #{{detalleOrdenSeleccionado.id}}
+                    </p>
+                    <p [ngClass]="{'sumary-state-can':detalleOrdenSeleccionado.estado == 'CAN', 'sumary-state-wor':detalleOrdenSeleccionado.estado == 'WOR',
+                    'sumary-state-apr':detalleOrdenSeleccionado.estado == 'APR'}" style="text-transform: uppercase;"> {{detalleOrdenSeleccionado.estado | translate}}
+                    </p>
+                </div>
+                <div class="row" style="margin: auto;" *ngIf="!isMobile">
+                    <div class="col-4 col-lg-3 card-linea-v">
+                        <div>
+                            <p class="card-titulos-sumary">Ship to:</p>
+                            <p class="card-data-sumary" *ngIf="detalleOrdenSeleccionado != undefined">
+                                {{detalleOrdenSeleccionado.codMarcacion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-4 col-lg-2 card-linea-v">
+                        <p class="card-titulos-sumary">Ship date:</p>
+                        <p class="card-data-sumary" *ngIf="detalleOrdenSeleccionado != undefined">
+                            {{detalleOrdenSeleccionado.fechaConexion | date:'MM/dd/yyyy'}}</p>
+                    </div>
+                    <div class="col-4 col-lg-3 card-linea-v">
+                        <p class="card-titulos-sumary">Carrier:</p>
+                        <p class="card-data-sumary" *ngIf="detalleOrdenSeleccionado != undefined">
+                            {{detalleOrdenSeleccionado.carrier}}
+                        </p>
+                    </div>
+                    <div class="col-4 col-lg-2 card-linea-v">
+                        <div>
+                            <p class="card-titulos-sumary"># Boxes:</p>
+                            <p class="card-data-sumary" style="text-align: center !important;font-weight: bold;">
+                                {{detalleOrdenSeleccionado.boxes}}</p>
+                        </div>
+                    </div>
+                    <div class="col-4 col-lg-2">
+                        <div style="margin-top: 10px;">
+                            <p class="card-titulos-sumary">Mark Code:</p>
+                            <p class="card-data-sumary" *ngIf="detalleOrdenSeleccionado != undefined">{{detalleOrdenSeleccionado.po}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="sumary-order">
+                        <div style="margin-top: 10px; margin-left: 15px;">
+                            <span class="card-titulos-sumary">Order Notes: </span><span class="card-titulos-sumary" style="color: #4e9602;">{{detalleOrdenSeleccionado.observacion}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin: auto;" *ngIf="isMobile">
+                    <div class="card-datos-mob" style="min-width: 350px !important;">
+                        <div>
+                            <div>
+                                <div class="card-p-2-mob"><strong>Ship to:</strong></div>
+                                <div class="card-p-mob mr-2" *ngIf="detalleOrdenSeleccionado != undefined">
+                                    {{detalleOrdenSeleccionado.codMarcacion}}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card-p-2-mob"><strong>Ship date:</strong></div>
+                            <div class="card-p-mob mr-2" *ngIf="detalleOrdenSeleccionado != undefined">
+                                {{detalleOrdenSeleccionado.fechaConexion | date:'MM/dd/yyyy'}}</div>
+                        </div>
+                        <div>
+                            <div class="card-p-2-mob"><strong>Carrier:</strong></div>
+                            <div class="card-p-mob mr-2" *ngIf="detalleOrdenSeleccionado != undefined">
+                                {{detalleOrdenSeleccionado.carrier}}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div class="card-p-2-mob"><strong># Boxes:</strong></div>
+                                <div class="card-p-mob mr-2" style="text-align: center !important;font-weight: bold;">
+                                    {{detalleOrdenSeleccionado.boxes}}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div class="card-p-2-mob"><strong>Mark Code:</strong></div>
+                                <div class="card-p-mob mr-2" *ngIf="detalleOrdenSeleccionado != undefined">{{detalleOrdenSeleccionado.po}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sumary-order" *ngIf="isMobile">
+                    <div style="margin-top: 10px; margin-left: 15px;">
+                        <span class="card-titulos-sumary">Order Notes: </span><span class="card-titulos-sumary" style="color: #4e9602;">{{detalleOrdenSeleccionado.observacion}}</span>
+                    </div>
+                </div>
+
+                <br>
+                <div>
+
+                    <div class="row" *ngFor="let producto of detalleOrdenSeleccionado.cajas">
+                        <div *ngIf="producto.variedades.length == 1"
+                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div *ngFor="let caja of producto.variedades" class="row card-detail card-centrar" style="margin-left: 8%;">
+                                <div class="container-fluid" *ngIf="!isMobile">
+                                    <span class="badge badge-warning d-flex justify-content-end">Mark Code: {{producto.nombreDestino}}</span>
+                                    <div class="row" style="font-size: 10px;">
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+
+                                        </div>
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                        </div>
+
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                            <b>Lenght</b>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <b>Box</b>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <b>Units</b>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <b>Total</b>
+                                        </div>
+
+                                         <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                            style="font-size: 10px; white-space: nowrap;">
+                                            <b>Price {{caja.tipoPrecioVariedad === 'T' ?
+                                                'STEM' : 'BUNCHE'}}</b>
+                                        </div>
+
+                                        <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="font-size: 10px; align-items: center;">
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+                                            <img class="img-card-detail" style="margin-top: -20px !important;"
+                                                [src]="urlImagen + caja.imagenVariedad">
+                                        </div>
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                            <div><span class="card-descripcion"> {{caja.nombreVariedad}} - {{caja.producto}}
+                                                </span></div>
+                                        </div>
+
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                            <div><span class="card-descripcion" data-toggle="tooltip">
+                                                {{caja.talla}}
+                                            </span></div>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <div>
+                                                <span class="card-descripcion" data-toggle="tooltip"
+                                                data-html="true">
+                                                    {{caja.cantidadPorCaja}}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <div><span class="card-descripcion" data-toggle="tooltip"
+                                                    data-html="true">
+                                                    x {{caja.cantidad / caja.cantidadPorCaja}}
+                                                </span></div>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <div>
+                                                <span *ngIf="caja.tipoPrecioVariedad === 'T'" class="card-descripcion" data-toggle="tooltip"
+                                                    data-html="true">
+                                                    {{caja.cantidad}}
+                                                </span>
+                                                <span *ngIf="caja.tipoPrecioVariedad !== 'T'" class="card-descripcion" data-toggle="tooltip"
+                                                data-html="true">
+                                                {{caja.cantidadPorBunche}}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                            <div style="font-size: 10px; white-space: nowrap;">
+                                                <span class="card-precio"> ${{caja.precio | number : '1.2-2'}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p card-precio-p-carrito">
+                                                    ${{producto.precioTotalPorCaja | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid" *ngIf="isMobile">
+                                    <span class="badge badge-warning d-flex justify-content-end">Mark Code: {{producto.nombreDestino}}</span>
+                                    <div class="row" style="display: flex; justify-content: center; ">
+                                        <img style="width: 50px; height: 50px; margin-top: 25px !important; border-radius: 50px;"
+                                            [src]="urlImagen + caja.imagenVariedad">
+                                    </div>
+                                    <div class="div-mob">
+                                        <div><span class="card-descripcion-mob"> {{caja.nombreVariedad}} - {{caja.producto}}
+                                            </span></div>
+                                    </div>
+
+                                    <div class="div-mob">
+                                        <div><span class="card-descripcion-mob" data-toggle="tooltip">
+                                            {{caja.talla}}
+                                        </span></div>
+                                    </div>
+                                    <br>
+
+                                    <div class="row justify-content-center">
+                                        <div style="min-width: 50px;">
+                                                <span class="card-descripcion" data-toggle="tooltip"
+                                                data-html="true">
+                                                    {{caja.cantidadPorCaja}}
+                                                </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center align-items-center"
+                                            style="min-width: 60px;">
+                                            <div><span class="card-descripcion" data-toggle="tooltip"
+                                                data-html="true">
+                                                x {{caja.cantidad / caja.cantidadPorCaja}}
+                                            </span></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center align-items-center"
+                                            style="min-width: 70px;">
+                                            <span *ngIf="caja.tipoPrecioVariedad === 'T'" class="card-descripcion" data-toggle="tooltip"
+                                            data-html="true">
+                                            {{caja.cantidad}}
+                                            </span>
+                                            <span *ngIf="caja.tipoPrecioVariedad !== 'T'" class="card-descripcion" data-toggle="tooltip"
+                                            data-html="true">
+                                            {{caja.cantidadPorBunche}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <div style="font-size: 10px; white-space: nowrap; min-width: 50px;">
+                                                <span class="card-precio"> ${{caja.precio | number : '1.2-2'}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row"
+                                    style=" display: flex; justify-content: center; align-items: center;">
+                                    <div style="min-width: 50px;">
+                                        <div>
+                                            <p class="card-precio-p ">${{producto.precioTotalPorCaja | number : '1.2-2'}}</p>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    
+
+                    <div *ngFor="let producto of detalleOrdenSeleccionado.cajas">
+                        <div *ngIf="producto.variedades.length > 1" class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                <div *ngIf="producto.variedades.length > 1"
+                                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="container-fluid" *ngIf="!isMobile">
+                                            <span class="badge badge-warning d-flex justify-content-end">Mark Code: {{producto.nombreDestino}}</span>
+                                            <div class="row" style="font-size: 10px;">
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                    <b>Lenght</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Bunches</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Units</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Total</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                    style="font-size: 10px; white-space: nowrap;">
+                                                    <b>Price </b>
+                                                </div>
+
+                                                <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+
+                                                </div>
+                                            </div>
+
+                                            <div *ngFor="let variedad of producto.variedades" class="row"
+                                                style="font-size: 10px; align-items: center; padding-bottom: 20px;">
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+                                                    <img class="img-card-detail"
+                                                        style="margin-top: -20px !important;"
+                                                        [src]="urlImagen + variedad.imagenVariedad">
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                    <div><span class="card-descripcion">
+                                                        {{variedad.nombreVariedad}} - {{variedad.producto}}
+                                                        </span></div>
+                                                </div>
+
+                                                <div style="font: normal normal normal 12px/12px Montserrat;"
+                                                    class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                    <span>{{variedad.talla}}</span>
+                                                </div>
+
+                                                <div style="font: normal normal normal 12px/12px Montserrat;"
+                                                    class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <span>
+                                                        {{variedad.cantidadPorBunche}}
+                                                    </span>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div><span class="card-descripcion" data-toggle="tooltip"
+                                                            data-html="true">
+                                                            x {{variedad.cantidad}}
+                                                        </span></div>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div>
+                                                        <span *ngIf="variedad.tipoPrecioVariedad ==='T'" class="card-descripcion" data-toggle="tooltip"
+                                                            data-html="true">
+                                                            {{variedad.cantidad}}
+                                                        </span>
+                                                        <span *ngIf="variedad.tipoPrecioVariedad !=='T'" class="card-descripcion" data-toggle="tooltip"
+                                                            data-html="true">
+                                                            {{variedad.cantidadPorBunche}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div style="font-size: 10px; white-space: nowrap;">
+                                                        <span class="card-precio"> $ {{variedad.precio | number : '1.2-2'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+                                                    <div class="centrar">
+                                                        <p *ngIf="variedad.tipoPrecioVariedad ==='T'" class="card-precio-p card-precio-p-carrito">
+                                                            $ {{variedad.precio * variedad.cantidad | number : '1.2-2'}}
+                                                        </p>
+                                                        <p *ngIf="variedad.tipoPrecioVariedad !=='T'" class="card-precio-p card-precio-p-carrito">
+                                                            $ {{variedad.precio * variedad.cantidadPorBunche | number : '1.2-2'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <hr style="margin-right: 1%;">
+                                                <div class="margin-right" style="float: right; text-align: right;">
+                                                    <p class="card-precio-t">Total Mixed Box &nbsp;&nbsp;$ {{producto.precioTotalPorCaja | number : '1.2-2'}} </p>
+                                                </div>
+                                            
+
+                                        </div>
+
+                                        <div class="container-fluid" *ngIf="isMobile">
+                                            <span class="badge badge-warning d-flex justify-content-end">Mark Code: {{producto.nombreDestino}}</span>
+                                            <div *ngFor="let variedad of producto.variedades" >
+                                                
+                                                <div class="row" style="display: flex; margin-top: 25px !important; justify-content: center; ">
+                                                    <img style="width: 50px; height: 50px;  border-radius: 50px;"
+                                                        [src]="urlImagen + variedad.imagenVariedad">
+                                                </div>
+                                                
+                                                    <div class="div-mob">
+                                                        <div><span class="card-descripcion">
+                                                            {{variedad.nombreVariedad}} - {{variedad.producto}}
+                                                            </span></div>
+                                                    </div>
+
+                                                    <div class="div-mob">
+                                                        <div><span class="card-descripcion-mob" data-toggle="tooltip">{{variedad.talla}}</span></div>
+                                                    </div>
+
+                                                <div class="row"
+                                                    style="font-size: 10px; display: flex; justify-content: center; align-items: center;">
+
+                                                    <div style="font: normal normal normal 12px/12px Montserrat; min-width: 50px;"
+                                                        class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                        <span>
+                                                            {{variedad.cantidadPorBunche}}
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 60px;">
+                                                        <div><span class="card-descripcion" data-toggle="tooltip"
+                                                                data-html="true">
+                                                                x {{variedad.cantidad}}
+                                                            </span></div>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 70px;">
+                                                        <div>
+                                                            <span *ngIf="variedad.tipoPrecioVariedad ==='T'" class="card-descripcion" data-toggle="tooltip"
+                                                                data-html="true">
+                                                                {{variedad.cantidad}}
+                                                            </span>
+                                                            <span *ngIf="variedad.tipoPrecioVariedad !=='T'" class="card-descripcion" data-toggle="tooltip"
+                                                                data-html="true">
+                                                                {{variedad.cantidadPorBunche}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 50px;">
+                                                        <div style="font-size: 10px; white-space: nowrap;">
+                                                            <span class="card-precio">
+                                                                $ {{variedad.precio | number : '1.2-2'}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div class="centrar">
+                                                        <p *ngIf="variedad.tipoPrecioVariedad ==='T'" class="card-precio-p card-precio-p-carrito">
+                                                            $ {{variedad.precio * variedad.cantidad | number : '1.2-2'}}
+                                                        </p>
+                                                        <p *ngIf="variedad.tipoPrecioVariedad !=='T'" class="card-precio-p card-precio-p-carrito">
+                                                            $ {{variedad.precio * variedad.cantidadPorBunche | number : '1.2-2'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <hr style="margin-right: 1%;">
+                                                <div class="margin-right" style="float: right; text-align: right;">
+                                                    <p class="card-precio-t">Total Mixed Box &nbsp;&nbsp;$ {{producto.precioTotalPorCaja | number : '1.2-2'}} </p>
+                                                </div>
+                                            
+
+                                        </div>
+
+
+
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 margin-totales">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                    <p class="card-order-p">Order Subtotal:</p>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda">
+                                    <p class="card-order-p">$ {{detalleOrdenSeleccionado.total | number : '1.2-2'}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                    <p class="card-aditional cursor" (click)="_cargosAdicionales()">Aditional Charges:</p>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda">
+                                    <p class="card-aditional-p">$ {{detalleOrdenSeleccionado.cargosAdicionales | number : '1.2-2'}}</p>
+                                </div>
+                            </div>
+                            <hr style="margin-right: 22%;">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                    <p class="card-order-total">Order Total: </p>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda">
+                                    <p *ngIf="appService.totalWithTruckiBoxes != undefined" class="card-order-t-p">$ {{detalleOrdenSeleccionado.total + detalleOrdenSeleccionado.cargosAdicionales | number : '1.2-2'}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="centrar">
+                        <p class="changes">To edit or cancel please contact your account manager.</p>
+                    </div>
+                </div>
+                <div style="width: 100%">
+                    <div class="print-pdf cursor centrar">
+                        <img matTooltip="Print order" (click)="imprimirOrdenPdf()" src="../../../assets/images/recursos/impresora.png">
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+<footer *ngIf="detalleOrdenSeleccionado.cajas.length > 0" class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

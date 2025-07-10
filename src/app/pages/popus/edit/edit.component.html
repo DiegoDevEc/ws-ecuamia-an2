@@ -1,0 +1,269 @@
+<!--------------------------------LISTA PARA EDITAR POR BUCNHE DE LA CAJA------------------------------------------------------------------->
+<mat-dialog-content>
+    <div *ngIf="data.verLista == 'N'">
+        <div class="centrar">
+            <p class="card-edit-p">{{data.mensajeTitulo}}</p>
+        </div>
+        <div class="container" *ngIf="data != null && data.tipoAgrega == 'B'" style="height: 150px;" perfectScrollbar>
+            <div class="row" *ngIf="data.caja.length < 3">
+                <div *ngFor="let variedad of data.caja; let i = index" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="card-edit-delete">
+                                    <img (click)="_eliminar(variedad)" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                                </div>
+                                <div class="centrar" style="margin-top: 10px;">
+                                    <p class="card-name-producto">{{variedad.nombreVariedad}} - {{variedad.producto}}</p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div class="talla-top">
+                                        <mat-select [value]="variedad.talla" placeholder="select" class="box-select">
+                                            <mat-option (click)="_actulizarTallaPorProducto(talla, variedad.productOriginal, variedad)" *ngFor="let talla of variedad.tallasVariedadSeleccionada" [value]="talla.valor">
+                                                {{talla.valor}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="data.caja.length >= 3">
+                <div *ngFor="let variedad of data.caja; let i = index" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="card-edit-delete">
+                                    <img (click)="_eliminar(variedad)" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                                </div>
+                                <div class="centrar" style="margin: 5px;">
+                                    <p class="card-name-producto" style="font-size: 12px !important;">{{variedad.nombreVariedad}} - {{variedad.producto}}
+                                    </p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <div class="talla-top">
+                                            <mat-select [value]="variedad.talla" placeholder="select" class="box-select">
+                                                <mat-option (click)="_actulizarTallaPorProducto(talla, variedad.productOriginal, variedad)" *ngFor="let talla of variedad.tallasVariedadSeleccionada" [value]="talla.valor">
+                                                    {{talla.valor}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems xxxxx</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data != null && data.tipoAgrega == 'B'" class="centrar">
+            <br>
+            <button (click)="_close()" class="edit-cancel cursor">Cancel</button>
+            <button (click)="_guardar()" class="edit-save cursor ml-md-2 mt-1 mt-sm-none">Save</button>
+        </div>
+    </div>
+
+
+    <!--------------------------------LISTA PARA EDITAR LA CAJA COMPLETA------------------------------------------------------------------->
+
+    <div *ngIf="data.verLista == 'CART'">
+        <div class="centrar">
+            <p class="card-edit-p">{{data.mensajeTitulo}}</p>
+            <p *ngIf="data.caja.tipoCaja != 'HB'" (click)="_agregarMasBunches(data)" class="add-bunches derecha underline-n cursor">Add more bunches</p>
+        </div>
+        <div class="container" *ngIf="data != null && data.tipoAgrega == 'B'" style="height: 370px;" perfectScrollbar>
+            <div class="row" *ngIf="data.caja.variedades.length < 3">
+                <div *ngFor="let variedad of data.caja.variedades; let i = index" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="card-edit-delete">
+                                    <img (click)="_eliminarVariedadCajaCompleta(data.caja, variedad, i)" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                                </div>
+                                <div class="centrar" style="margin-top: 10px;">
+                                    <p class="card-name-producto">{{variedad.nombreVariedad}} - {{variedad.producto}}</p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div class="talla-top">
+                                        <mat-select [value]="variedad.talla" placeholder="select" class="box-select">
+                                            <mat-option (click)="_actualizarBunchesCajaCompleta(talla, variedad.productOriginal, variedad, i, data.caja)" *ngFor="let talla of variedad.tallasVariedadSeleccionada" [value]="talla.valor">
+                                                {{talla.valor}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems vvvvvvvv</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="data.caja.variedades.length >= 3">
+                <div *ngFor="let variedad of data.caja.variedades; let i = index" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="card-edit-delete">
+                                    <img (click)="_eliminarVariedadCajaCompleta(data.caja, variedad, i)" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                                </div>
+                                <div class="centrar" style="margin: 5px;">
+                                    <p class="card-name-producto" style="font-size: 12px !important;">{{variedad.nombreVariedad}} - {{variedad.producto}}
+                                    </p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <div class="talla-top">
+                                            <mat-select [value]="variedad.talla" placeholder="select" class="box-select">
+                                                <mat-option (click)="_actualizarBunchesCajaCompleta(talla, variedad.productOriginal, variedad, i, data.caja)" *ngFor="let talla of variedad.tallasVariedadSeleccionada" [value]="talla.valor">
+                                                    {{talla.valor}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems bbbbbbb</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data != null && data.tipoAgrega == 'B'" class="centrar">
+            <br>
+            <button (click)="_close()" class="edit-cancel cursor">Cancel</button>
+            <button (click)="_salirCajaCompleta()" class="edit-save cursor ml-md-2 mt-1 mt-sm-none">Save</button>
+        </div>
+    </div>
+
+
+
+
+
+    <!--------------------------------lista solo para ver los productos------------------------------------------------------------------->
+
+    <div *ngIf="data.verLista == 'S'">
+        <div class="boton-x cursor">
+            <img width="20px" height="20px" (click)="_close()" src="../../../../assets/images/recursos/cerrarmin.png">
+        </div>
+        <div class="centrar">
+            <p class="card-edit-p">The products of the box</p>
+        </div>
+        <div class="container" *ngIf="data != null && data.tipoAgrega == 'B'" style="height: 400px;" perfectScrollbar>
+            <div class="row" *ngIf="data.caja.length < 3">
+                <div *ngFor="let variedad of data.caja; let i = index" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="centrar" style="margin-top: 10px;">
+                                    <p class="card-name-producto">{{variedad.nombreVariedad}} - {{variedad.producto}}</p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div class="talla-top">
+                                        <span> {{variedad.talla}} </span>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems nnnnnnnn</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="data.caja.length >= 3">
+                <div *ngFor="let variedad of data.caja; let i = index" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 centrar">
+                    <div class="row">
+                        <div class="card-detail-bunches card-centrar">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                <div class="centrar" style="margin: 5px;">
+                                    <p class="card-name-producto" style="font-size: 12px !important;">{{variedad.nombreVariedad}} - {{variedad.producto}}
+                                    </p>
+                                    <p class="card-size">Lenght:</p>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <div class="talla-top">
+                                            <span> {{variedad.talla}} </span>
+                                        </div>
+                                    </div>
+                                    <p class="card-p-bunches">Bunches</p>
+                                    <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                        <div class="box-cantidad"><span class="card-cantidad">1</span></div>
+                                        <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems</span></div>
+                                        <div>
+                                            <span class="card-precio"> $
+                      {{variedad.productOriginal[0].variedades[variedad.indexPorVariedad].precio | number : '1.2-2' }}
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

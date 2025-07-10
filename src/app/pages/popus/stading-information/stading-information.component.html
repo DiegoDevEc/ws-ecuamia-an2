@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="centrar">
+    <p class="s-p-info">Confirm your shipping information</p>
+  </div>
+  <br>
+  <div (click)="_informationDialog()" class="row cursor">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="input-fecha" style="margin-left: 30%;margin-right: 30%;">
+        <span class="fecha-p">Starting date:</span>
+        <input [min]="dateNowInit" [matDatepicker]="shippingDate" [value]="date.value" readonly #shippingDate>
+        <span class="input-group-addon cursor"><img src="../../../assets/images/recursos/editar.png" alt=""></span>
+        <mat-datepicker #shippingDate disabled="false">
+        </mat-datepicker>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="centrar">
+    <p class="shipped">Your flowers will be shipped weekly on the same day of the week you selected.</p>
+  </div>
+  <div (click)="_informationDialog()" class="row cursor">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card-datos">
+        <span class="card-p">Ship to:&nbsp;</span>
+        <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+            {{marcacionSleccionada.nombreEtiqueta}}
+            <br>
+            {{marcacionSleccionada.direccionEtiqueta}}
+            /
+            {{marcacionSleccionada.ciudad}}
+            /
+            {{marcacionSleccionada.destino}} /
+            {{marcacionSleccionada.codigoPostal}}
+            /
+            {{marcacionSleccionada.telefonoEtiqueta}}
+        </span>
+        &nbsp;&nbsp;
+        <span class="linea-v"></span>
+        &nbsp;&nbsp;
+        <span class="card-p">Carrier choice:&nbsp;</span>
+        <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}
+        </span>
+        &nbsp;&nbsp;
+        <span class="linea-v"></span>
+        &nbsp;&nbsp;
+        <span class="card-p">Mark Code:&nbsp;</span>
+        <span *ngIf="destinoSeleccionado != undefined" class="card-p-2">{{destinoSeleccionado.nombre}}
+        </span>
+        &nbsp;&nbsp;
+        <span class="input-group-addon cursor"><img
+                src="../../../assets/images/recursos/editar.png"></span>
+    </div>
+    </div>
+  </div>
+  <br>
+  <div class="centrar">
+    <button (click)="_guardar()" class="btn-stading cursor">Save</button>
+  </div>
+</div>

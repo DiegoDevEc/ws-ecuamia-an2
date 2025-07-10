@@ -1,0 +1,170 @@
+<div class="container-fluid fondo-color">
+    <br><br><br><br><br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="centrar margin-input-search">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control input-search" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="filterValue" [formControl]="myControl" (keyup)="buscarProductosFiltro($event,null)" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option (click)="buscarProductosFiltro(null,option)" *ngFor="let option of filteredOptions | async" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <div class="input-group-append">
+                            <button class="btn input-boton" type="button">
+                                <span class="centrar">
+                                    <img (click)="buscarProductosFiltro(null,filterValue)"
+                                        src="../../../assets/images/recursos/lupa.png">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div (click)="_informationDialog(marcacionSleccionada)" class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 d-none d-md-block">
+                <div class="margin-input-fecha">
+                    <div class="input-fecha">
+                        <span class="fecha-p">Date:</span>
+                        <input [min]="dateNowInit" [matDatepicker]="shippingDate" [value]="date.value" (dateChange)="_updateDate($event)" readonly #shippingDate>
+                        <span class="input-group-addon cursor"><img src="../../../assets/images/recursos/editar.png"
+                                alt=""></span>
+                        <mat-datepicker #shippingDate disabled="false">
+                        </mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 separador">
+                <div class="margin-card-datos">
+                    <div class="card-datos d-none d-md-flex">
+                        <span class="card-p">Ship to:&nbsp;</span>
+                        <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                            {{marcacionSleccionada.nombreEtiqueta}}
+                            <br>
+                            {{marcacionSleccionada.direccionEtiqueta}}
+                            /
+                            {{marcacionSleccionada.ciudad}}
+                            /
+                            {{marcacionSleccionada.destino}} /
+                            {{marcacionSleccionada.codigoPostal}}
+                            /
+                            {{marcacionSleccionada.telefonoEtiqueta}}
+                        </span> &nbsp;&nbsp;
+                        <span class="linea-v"></span> &nbsp;&nbsp;
+                        <span class="card-p">Carrier choice:&nbsp;</span>
+                        <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}
+                        </span> &nbsp;&nbsp;
+                        <span class="linea-v"></span> &nbsp;&nbsp;
+                        <span class="card-p">PO:&nbsp;</span>
+                        <span *ngIf="destinoSeleccionado != undefined" class="card-p-2">{{destinoSeleccionado.nombre}}
+                        </span> &nbsp;&nbsp;
+                        <span class="input-group-addon cursor"><img
+                                src="../../../assets/images/recursos/editar.png"></span>
+                    </div>
+                    <div class="card-datos d-block d-md-none">
+                        <div class="row mx-2 flex-row flex-nowrap align-items-center">
+                            <!-- <span class="card-p">Ship to:&nbsp;</span> -->
+                            <span class="material-icons" style="color: #689f38;">
+                                location_on
+                                </span>
+                            <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                            {{marcacionSleccionada.nombreEtiqueta}}
+                            <br>
+                            {{marcacionSleccionada.direccionEtiqueta}}
+                            /
+                            {{marcacionSleccionada.ciudad}}
+                            /
+                            {{marcacionSleccionada.destino}} /
+                            {{marcacionSleccionada.codigoPostal}}
+                            /
+                            {{marcacionSleccionada.telefonoEtiqueta}}</span>
+                        </div>
+
+                        <div class="row mt-1 mx-2 d-flex flex-row flex-nowrap">
+                            <span class="card-p">Carrier choice:&nbsp;</span>
+                            <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}</span> &nbsp;&nbsp;
+                            <span class="linea-v"></span> &nbsp;&nbsp;
+                            <span class="card-p">PO:&nbsp;</span>
+                            <span *ngIf="destinoSeleccionado != undefined" class="card-p-2" style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                            </span>&nbsp;&nbsp;
+                            <span class="linea-v"></span> &nbsp;&nbsp;
+                            <span class="card-p d-md-none">Date:&nbsp;</span>
+                            <span class="card-p-2">{{date.value | date: 'dd/MM/yyyy'}}</span>
+                            <span class="input-group-addon cursor"><img
+                                src="../../../assets/images/recursos/editar.png"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 mt-md-5">
+            <div class="col-lg-12">
+                <div class="center" style="text-align: center !important;">
+                    <span class="hub-titulo hub-underline">
+                        COMBO BOXES
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<mat-sidenav-container>
+    <mat-sidenav-content class="fondo-color" ngClass.gt-sm="p-left">
+        <!-- Form de Informacion-->
+        <!-- Filtros -->
+        <!--<div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6" style="text-align: start;">
+                </div>
+                <div class="col-lg-6" style="text-align: end;">
+                    <button *ngIf="!sidenavClose" mat-icon-button (click)="sidenav2.toggle()">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>-->
+        <br><br><br>
+        <div class="container" style="height: 100vh;">
+            <br><br>
+            <div class="row" style="margin: 0 auto;">
+                <div class="card-combo" *ngFor="let producto of productos | paginate: { itemsPerPage: numberPage, currentPage: page }; let i = index">
+                    <div class="rosas">
+                        <img loading="lazy" [src]="producto.imagen" class="avatar-combo cursor" (click)="bigPicture(producto)">
+                    </div>
+                    <div class="margen-texto-producto-combo">
+                        <p *ngIf="producto.nombreCaja != ''" class="nombre-producto">{{producto.nombreCaja}}</p>
+                    </div>
+                    <div class="box-combo-add">
+                        <div>
+                            <div style="margin-left: 5px;"><span class="card-p-combo">Box
+                                    {{producto.variedades[0].caja}}:</span></div>
+                            <div class="card-items-combo">
+                                <input [disabled]="producto.variedades[0].disabled" type="number" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="producto.cantidadCajas" class="input-combo">
+                                <span class="stems-combo">x {{producto.totalPiezas}} stems</span>
+                                <span *ngIf="this.appService.orderWebShop == 'S'" class="box-precio-combo">$
+                                    {{producto.totalPrecio | number : '1.2-2'}}</span>
+                                <span *ngIf="this.appService.orderWebShop == 'N'" class="box-precio-combo"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="centrar">
+                        <p class="card-p-combo cursor" (click)="_verDetalleCajaCombo(producto)" style="text-decoration: underline;text-align: center !important;">Show details</p>
+                    </div>
+                    <br>
+                    <div *ngIf="this.appService.orderWebShop == 'S'" class="centrar">
+                        <app-controls-box-complet [imagen]="producto.imagen" [caja]="producto" [cantidadCajas]="producto.cantidadCajas" (limpiarOut)="limpiarInput($event)">
+                        </app-controls-box-complet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<footer *ngIf="productos.length > 0" class="footer fondo-color">
+    <img src="../../../assets/images/recursos/footer.png" alt="">
+</footer>

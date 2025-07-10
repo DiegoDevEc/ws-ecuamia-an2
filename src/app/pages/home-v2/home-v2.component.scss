@@ -1,0 +1,28 @@
+.deshabilitado {
+    opacity: 0.5; /* Reducir la opacidad */
+    pointer-events: none; /* Deshabilitar eventos del mouse */
+}
+
+.deshabilitado-mob {
+  opacity: 0; /* Reducir la opacidad */
+  pointer-events: none; /* Deshabilitar eventos del mouse */
+}
+
+.deshabilitado-black {
+  background-color: black !important;
+  opacity: 0.5; /* Reducir la opacidad */
+  pointer-events: none; /* Deshabilitar eventos del mouse */
+}
+
+.fixed-mob {
+  //padding-top: 20px;
+  top: 70px;
+  background: white;
+  position: fixed;
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  text-align: center; /* Centra el texto */
+}

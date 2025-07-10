@@ -1,0 +1,604 @@
+.order-status-p {
+    text-align: left;
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    text-shadow: 0px 3px 6px #00000029;
+    margin-left: 5px;
+}
+
+.underline {
+    border-bottom: 1px solid #4e9602;
+}
+
+.card-order {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+//card-cancelado
+.card-order-cancelado {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0 8px 0px 0px #ff0000;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+//card-trabajando
+.card-order-trabajando {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0 8px 0px 0px #ffff00;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+//card-aprobado
+.card-order-aprobado {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0 8px 0px 0px #4e9602;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+//card pendiente
+.card-order-pendiente {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0 8px 0px 0px orange;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+.card-po {
+    font: normal normal normal 18px/18px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: 12px;
+}
+
+.card-titulos-cus {
+    text-align: left;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-data-cus {
+    text-align: center;
+    font: normal normal normal 14px/14px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-data-total {
+    text-align: center;
+    font: normal normal 600 14px/14px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-linea-v {
+    border-right: 1px solid #a3a3a3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.centrar-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.view-order {
+    text-decoration: underline;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602;
+    padding: 0px;
+    margin-top: 10px;
+}
+
+.header-sumary {
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+
+.sumary {
+    text-align: left;
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    text-shadow: 0px 3px 6px #00000029;
+    margin-left: 5px;
+}
+
+.card-sumary {
+    width: 600px;
+    height: 400px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #707070;
+    border-radius: 60px;
+    margin: 0 auto;
+}
+
+//card-cancelado
+.card-sumary-cancelado {
+    width: 900px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 8px 0px 0px 0px #ff0000;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+    margin: 0 auto;
+}
+
+//card-trabajando
+.card-sumary-trabajando {
+    width: 900px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 8px 0px 0px 0px #ffff00;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+    margin: 0 auto;
+}
+
+//card-aprobado
+.card-sumary-aprobado {
+    width: 900px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 8px 0px 0px 0px #4e9602;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+    margin: 0 auto;
+}
+
+//card pendiente
+.card-sumary-pendiente {
+    width: 900px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 8px 0px 0px 0px orange;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+    margin: 0 auto;
+}
+
+.sumary-order {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.sumary-cancel {
+    font: normal normal normal 14px/14px Roboto;
+    letter-spacing: 0px;
+    color: #ff0000;
+}
+
+.card-titulos-sumary {
+    text-align: left;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-data-sumary {
+    text-align: left;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-detail-order {
+    width: 400px;
+    height: auto;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+    margin-bottom: 50px;
+}
+
+.img-card-detail-order {
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-top: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.img-card-detail-bunches-order {
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    object-fit: cover;
+    margin-left: -70px;
+    margin-top: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.card-centrar {
+    margin: 0 auto;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.card-name-producto {
+    text-align: center;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    text-transform: capitalize;
+}
+
+.card-size {
+    text-align: center;
+    font: normal normal normal 10px/10px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-talla {
+    text-align: center;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-cantidad {
+    text-align: center;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-descripcion {
+    text-align: left;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-precio {
+    text-align: center;
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-p-bunches {
+    text-align: left;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.box-cantidad {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    width: 35px;
+    height: 26px;
+}
+
+.col-margen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centrar-contenido {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.linea-1 {
+    border-left: 1px solid #a2a2a2;
+    opacity: 0.5;
+    height: 100px;
+    float: left;
+}
+
+.card-precio-p {
+    letter-spacing: 0px;
+    color: #595959;
+    margin-left: 20px;
+    margin-top: 10px;
+    font: normal normal 600 20px/20px Montserrat;
+}
+
+.card-precio-t {
+    letter-spacing: 0px;
+    color: #595959;
+    margin-right: 58px;
+    margin-top: 10px;
+    font: normal normal 600 20px/20px Montserrat;
+}
+
+.card-precio-titulo-t {
+    letter-spacing: 0px;
+    color: #595959;
+    margin-right: 100px;
+    margin-top: 10px;
+    font: normal normal 600 20px/20px Montserrat;
+}
+
+// TARJETA DE PRODUCTOS BUNCHES
+.card-detail-bunches-order {
+    width: 400px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    margin-bottom: 50px;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+}
+
+.card-detail-precio {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+.card-l-bun {
+    height: 90%;
+    border-right: 1px solid #a2a2a2;
+    float: left;
+    opacity: 0.5;
+}
+
+.card-order-p,
+.card-aditional-p {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-aditional {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #05408d;
+}
+
+.card-order-total {
+    text-align: center;
+    font: normal normal 600 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-order-t-p {
+    font: normal normal 600 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.changes {
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.sumary-state-wor {
+    color: #bebe09;
+}
+
+.sumary-state-apr {
+    color: #4e9602;
+}
+
+.sumary-state-can {
+    color: red;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 90%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: start;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .50rem;
+    position: absolute;
+    right: -30px;
+    z-index: 9999;
+}
+
+.mix-box-below {
+    font: normal normal normal 15px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602;
+    text-align: center !important;
+}
+
+.card-detail {
+    height: auto;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+    margin-bottom: 50px;
+}
+
+.card-centrar {
+    margin: 0 auto;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.col-margen {
+    display: flex;
+    //align-items: center;
+    justify-content: center;
+}
+
+.margin-totales {
+    margin-left: 42%;
+    width: 50px;
+}
+
+.card-detail {
+    height: auto;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+    margin-bottom: 50px;
+}
+
+.img-card-detail {
+    height: 90px;
+    width: 90px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-top: 14px;
+    z-index: 1;
+}
+
+.card-descripcion {
+    text-align: left;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-precio-p {
+    font: normal normal 600 20px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.card-descripcion-mob {
+    text-align: center;
+    justify-content: center;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.div-mob {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.image-container-mob {
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    width: 90%;
+}
+
+.img-card-detail-mob {
+    height: 70px;
+    width: 70px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 90% auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.check-items-mob {
+    width: 288px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+}
+
+.card-observacion-mob {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    position: static;
+    width: 288px;
+    z-index: 999;
+    outline: none;
+    border: none;
+    height: 134px;
+    padding: 15px;
+    font: normal normal normal 14px/14px Montserrat;
+    margin-top: 3px;
+    color: #595959;
+}
+
+.card-check-observacion-mob {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #4e9602;
+    border-radius: 30px;
+    width: 288px;
+    height: 200px;
+    z-index: 999;
+}
+
+.check-card-mob {
+    width: 288px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    height: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .card-sumary-trabajando {
+        width: 100%;
+    }
+    .card-detail-bunches-order {
+        width: 100%;
+    }
+    .img-card-detail-bunches-order {
+        height: 60px;
+        width: 60px;
+        margin-left: -23px;
+    }
+    .card-precio-p {
+        margin-left: 10px;
+        font: normal normal 600 14px/14px Montserrat;
+        margin-right: 15px;
+    }
+    .badge {
+        right: -42px;
+    }
+    .margin-totales {
+        margin-left: 15%;
+    }
+    .card-detail-order {
+        width: 100%;
+    }
+    .img-card-detail-order {
+        height: 60px;
+        width: 60px;
+        margin-left: -23px;
+    }
+}

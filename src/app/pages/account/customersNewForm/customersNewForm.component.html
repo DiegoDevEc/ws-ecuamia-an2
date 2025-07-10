@@ -1,0 +1,363 @@
+<div class="container-fluid fondo-color">
+  <div class="container fondo-color">
+      <br><br><br><br><br><br>
+      <div (click)="routeCostumer()" class="izquierda header-new-customer">
+          <img class="cursor" src="../../../assets/images/recursos/galon-izquierdo.png">
+          <span class="new-customer cursor">{{messageFormClient}}</span>
+      </div>
+      <br>
+      <form [formGroup]="clientInformationForm">
+          <div class="card-detail">
+              <div *ngIf="appService.deleteSubClient == true" class="row" style="margin: 0 auto;">
+                  <div class="col-lg-12">
+                      <div class="basurero">
+                          <div class="card-edit-delete centrar-contenido">
+                              <img (click)="deleteSubclient()" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div style="margin-left: 10%;margin-right: 10%;">
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">Company</p>
+                          <input type="text" formControlName="subClientName">
+                          <small *ngIf="subClientName.invalid && (subClientName.dirty || subClientName.touched)">
+                              <mat-error *ngIf="subClientName.errors.required">Company name is required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-6">
+                          <p class="card-new-p">Contact (first and last name)</p>
+                          <input type="text" formControlName="subClienContactName">
+                          <small *ngIf="subClienContactName.invalid && (subClienContactName.dirty || subClienContactName.touched)">
+                              <mat-error *ngIf="subClienContactName.errors.required">Contact name is required
+                              </mat-error>
+                          </small>
+                      </div>
+                      <div class="col-lg-6">
+                          <p class="card-new-p">Phone</p>
+                          <input type="tel" min="1" maxlength="10" formControlName="subClientPhone">
+                          <small *ngIf="subClientPhone.invalid && (subClientPhone.dirty || subClientPhone.touched)">
+                              <mat-error *ngIf="subClientPhone.errors.required">Phone is required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-6">
+                          <p class="card-new-p">Address</p>
+                          <input type="text" formControlName="subClientAdress">
+                          <small *ngIf="subClientAdress.invalid && (subClientAdress.dirty || subClientAdress.touched)">
+                              <mat-error *ngIf="subClientAdress.errors.required">Adress is required
+                              </mat-error>
+                          </small>
+                      </div>
+                      <div class="col-lg-6">
+                          <p class="card-new-p">City</p>
+                          <input type="text" formControlName="subClientCity">
+                          <small *ngIf="subClientCity.invalid && (subClientCity.dirty || subClientCity.touched)">
+                              <mat-error *ngIf="subClientCity.errors.required">City required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-6">
+                          <p class="card-new-p">State</p>
+                          <input type="text" formControlName="subClientState" [matAutocomplete]="autoState">
+                          <mat-autocomplete autoActiveFirstOption #autoState="matAutocomplete">
+                              <mat-option *ngFor="let option of filteredOptionsStates | async" [value]="option">
+                                  {{option}}
+                              </mat-option>
+                          </mat-autocomplete>
+                          <small *ngIf="subClientState.invalid && (subClientState.dirty || subClientState.touched)">
+                              <mat-error *ngIf="subClientState.errors.required">Estate is required
+                              </mat-error>
+                          </small>
+                      </div>
+                      <div class="col-lg-6">
+                          <p class="card-new-p">Zip code</p>
+                          <input type="text" maxlength="5" formControlName="subClientZipCode">
+                          <small *ngIf="subClientZipCode.invalid && (subClientZipCode.dirty || subClientZipCode.touched)">
+                              <mat-error *ngIf="subClientZipCode.errors.required">Zip code is required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">Carrier choice</p>
+                          <mat-select formControlName="subClientCarrier" class="form-control mat-select">
+                              <mat-option (click)="_seleccionarCamionCliente(camion)" *ngFor="let camion of camionesAll" [value]="camion.nombre">
+                                  {{camion.nombre}}
+                              </mat-option>
+                          </mat-select>
+                          <small *ngIf="subClientCarrier.invalid && (subClientCarrier.dirty || subClientCarrier.touched)">
+                              <mat-error *ngIf="subClientCarrier.errors.required">Carrier is required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;" *ngIf="numberAccountP == true">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">Account Number</p>
+                          <input type="text" formControlName="subClientAccount">
+                      </div>
+                  </div>
+                  <div *ngIf="numberAccountP == true"><br></div>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">PO</p>
+                          <mat-select *ngIf="subClient != null" formControlName="subClientPo" class="form-control mat-select">
+                              <mat-option *ngFor="let destino of destinos" [value]="destino.nombre">
+                                  {{destino.nombre}}
+                              </mat-option>
+                          </mat-select>
+                          <!-- <div>
+                              <p *ngIf="subClient != null" class="skip cursor" (click)="_nuevoDestino(subClient)" style="text-align: end;font-size: 12px;">Add PO</p>
+                          </div> -->
+                          <input *ngIf="subClient == null" type="text" formControlName="subClientPo" (keyup)="onKeyPo($event)">
+                          <div *ngIf="subClient == null">
+                              <small *ngIf="subClientDestino.invalid && (subClientDestino.dirty || subClientDestino.touched)">
+                                  <mat-error *ngIf="subClientDestino.errors.required">PO is required
+                                  </mat-error>
+                              </small>
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <!--<div class="row" style="margin: 0 auto;">
+                  <div class="col-lg-12">
+                      <div style="display: flex;align-items: center;justify-content: center;">
+                          <span class="create">Create a FLOREX account for this customer</span> &nbsp; &nbsp;
+                          <label class="switch">
+                              <input (change)="_activarUserInformation($event)" type="checkbox">
+                              <span [ngClass]="{'slider-false': activarUserInformation == false}"
+                                  class="slider-true round"></span>
+                          </label>
+                      </div>
+                  </div>
+              </div>-->
+                  <br>
+                  <div>
+                      <!--<div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">Name</p>
+                          <input type="text" formControlName="subClientUserAllName">
+                          <small
+                              *ngIf="subClientUserAllName.invalid && (subClientUserAllName.dirty || subClientUserAllName.touched)">
+                              <mat-error *ngIf="subClientUserAllName.errors.required">Name is required
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row" style="margin: 0 auto;">
+                      <div class="col-lg-12">
+                          <p class="card-new-p">User name</p>
+                          <input type="text" formControlName="subClientUserName">
+                          <small
+                              *ngIf="subClientUserName.invalid && (subClientUserName.dirty || subClientUserName.touched)">
+                              <mat-error *ngIf="subClientUserName.errors.required">Username is required
+                              </mat-error>
+                              <mat-error *ngIf="subClientUserName.errors.minlength">Minimum 5 characters
+                              </mat-error>
+                          </small>
+                      </div>
+                  </div>
+                  <br>-->
+                      <div class="row" style="margin: 0 auto;">
+                          <div class="col-lg-12">
+                              <p class="centrar">
+                                  <span class="user-info">Webshop acces for your client</span>
+                                  <span style="margin-left: 10px;" #myPopover popover="Complete the information below to allow sub-account access to your client." popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                      [popoverDisabled]="false" [popoverAnimation]="true">
+                                      <img src="../../../assets/images/recursos/iMini.png">
+                                  </span>
+                              </p>
+                              <p class="card-new-p">Username <span style="margin-left: 5px;" #myPopover popover="Client email or create a user name." popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                      [popoverDisabled]="false" [popoverAnimation]="true">
+                                      <img src="../../../assets/images/recursos/iMini.png">
+                                  </span></p>
+                              <input type="email" style="text-transform: lowercase !important;" required formControlName="subClientUserName" autocomplete="new-password" name="clientUserName" readonly>
+                              <small *ngIf="subClientUserName.invalid && (subClientUserName.dirty || subClientUserName.touched)">
+                                  <mat-error *ngIf="subClientUserName.errors.required">Username is required
+                                  </mat-error>
+                                  <mat-error *ngIf="subClientUserName.errors.minlength">Minimum 8 characters
+                                  </mat-error>
+                              </small>
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row" style="margin: 0 auto;">
+                          <div class="col-lg-6">
+                              <p class="card-new-p">Password</p>
+                              <div class="input-group mb-3">
+                                  <input class="pass-search form-control" id="pass" [type]="passwordType" [(ngModel)]="valuePassword" (keyup)="validatePassword($event)" formControlName="subClientUserPassword" autocomplete="new-password" name="clientUserPassword">
+                                  <div class="input-group-prepend cursor">
+                                      <span (click)="togglePassword()" class="input-group-text"><i
+                                              class="fa fa-eye"></i></span>
+                                  </div>
+                              </div>
+                              <small *ngIf="valuePassword.length > 0">
+                                  <span class="icon-position" *ngIf="errorPassLongitud">
+                                      <i class="fa fa-times-circle"></i>
+                                  </span>
+                                  <span class="icon-position" *ngIf="!errorPassLongitud">
+                                      <i class="fa fa-check-circle"></i>
+                                  </span>
+                                  <mat-error
+                                      [ngClass]="{'error-invalid': errorPassLongitud, 'error-valid': !errorPassLongitud}">
+                                      {{contieneLongitud}}
+                                  </mat-error>
+                                  <br>
+                                  <span class="icon-position" *ngIf="errorPassMayuscula">
+                                      <i class="fa fa-times-circle"></i>
+                                  </span>
+                                  <span class="icon-position" *ngIf="!errorPassMayuscula">
+                                      <i class="fa fa-check-circle"></i>
+                                  </span>
+                                  <mat-error
+                                      [ngClass]="{'error-invalid': errorPassMayuscula, 'error-valid': !errorPassMayuscula}">
+                                      {{contieneMayuscula}}</mat-error>
+                                  <br>
+                                  <span class="icon-position" *ngIf="errorPassNumero">
+                                      <i class="fa fa-times-circle"></i>
+                                  </span>
+                                  <span class="icon-position" *ngIf="!errorPassNumero">
+                                      <i class="fa fa-check-circle"></i>
+                                  </span>
+                                  <mat-error
+                                      [ngClass]="{'error-invalid': errorPassNumero, 'error-valid': !errorPassNumero}">
+                                      {{contieneNumero}}</mat-error>
+                                  <br>
+                                  <span class="icon-position" *ngIf="errorPassEspacio">
+                                      <i class="fa fa-times-circle"></i>
+                                  </span>
+                                  <span class="icon-position" *ngIf="!errorPassEspacio">
+                                      <i class="fa fa-check-circle"></i>
+                                  </span>
+                                  <mat-error
+                                      [ngClass]="{'error-invalid': errorPassEspacio, 'error-valid': !errorPassEspacio}">
+                                      {{contieneEspacio}}</mat-error>
+                              </small>
+                          </div>
+                          <div class="col-lg-6">
+                              <div class="form-group">
+                                  <p class="card-new-p">Confirm password</p>
+                                  <div class="input-group mb-3">
+                                      <input class="pass-search form-control" [type]="passwordType" (keyup)="validatePassword($event)" formControlName="subClientUserConfirmPassword">
+                                      <div class="input-group-prepend cursor">
+                                          <span (click)="togglePassword()" class="input-group-text"><i
+                                                  class="fa fa-eye"></i></span>
+                                      </div>
+                                  </div>
+                                  <small>
+                                      <mat-error *ngIf="valuePassword.length > 0"
+                                          [ngClass]="{'error-invalid': show, 'error-valid': !show}">Password does
+                                          not match</mat-error>
+                                  </small>
+                              </div>
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row" style="margin: 0 auto;">
+                          <div class="col-lg-4">
+                              <p class="card-new-p">Margin</p>
+                              <div class="input-group" style="display: flex;align-items: center;">
+                                  <span class="signos">+</span>&nbsp; &nbsp;<input type="number" formControlName="subClientUserMargin" class="input-margin"> &nbsp; &nbsp;
+                                  <span class="signos">%</span>
+                              </div>
+                              <small *ngIf="subClientUserMargin.invalid && (subClientUserMargin.dirty || subClientUserMargin.touched)">
+                                  <mat-error *ngIf="subClientUserMargin.errors.required">Margin is required
+                                  </mat-error>
+                              </small>
+                          </div>
+                          <div class="col-lg-4">
+                              <p class="card-new-p">Active
+                                  <span style="margin-left: 5px;" #myPopover popover="If this field is with ALLOWED, your client can log in. If this field is with DENIED, your client can't log in." popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                      [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false" [popoverAnimation]="true">
+                                      <img src="../../../assets/images/recursos/iMini.png">
+                                  </span>
+                              </p>
+                              <div style="display: flex;align-items: center;justify-content: center;">
+                                  <span *ngIf="activeValor == false">
+                                      <span class="create">Denied</span>
+                                  </span>
+                                  <span>
+                                      <span *ngIf="activeValor" class="create">Allowed</span>
+                                  </span>
+                                  &nbsp; &nbsp;
+                                  <label class="switch">
+                                      <input (change)="_activeValor()" type="checkbox">
+                                      <span [ngClass]="{'slider-s': activeValor == false}"
+                                          class="slider-true round"></span>
+                                  </label>
+                              </div>
+                          </div>
+                          <div class="col-lg-4">
+                              <p class="card-new-p">Order
+                                  <span style="margin-left: 5px;" #myPopover popover="If your client is Active and Order is allowed, your client can Order through the webshop. If your client is Active but Order is Denied, yout client can see the availability but he/she can't order through the webshop."
+                                      popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false" [popoverAnimation]="true">
+                                      <img src="../../../assets/images/recursos/iMini.png">
+                                  </span>
+                              </p>
+                              <div style="display: flex;align-items: center;justify-content: center;">
+                                  <span *ngIf="orderValor == false">
+                                      <span class="create">Denied</span>
+                                  </span>
+                                  <span>
+                                      <span *ngIf="orderValor" class="create">Allowed</span>
+                                  </span>
+                                  &nbsp; &nbsp;
+                                  <label class="switch">
+                                      <input (change)="_orderValor()" type="checkbox">
+                                      <span [ngClass]="{'slider-s': orderValor == false}"
+                                          class="slider-true round"></span>
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row" style="margin: 0 auto;">
+                          <div class="col-lg-12 izquierda">
+                              <button (click)="_verCargosAdiconales()" class="btn-truck" mat-raised-button>
+                                  Trucking Charges <mat-icon>local_shipping</mat-icon>
+                              </button>
+                          </div>
+                      </div>
+                      <br>
+                      <br>
+                      <div class="row" style="margin: 0 auto;">
+                          <div class="col-lg-12 centrar">
+                              <button class="btn-create cursor" type="submit" *ngIf="appService.createSubClient == true" (click)="saveChanges('C')">Create
+                              </button>
+                              <button *ngIf="appService.updateSubClient == true" [routerLink]="['/account/mycustomers']" class="btn-cancelar cursor">
+                                  Cancel
+                              </button>
+                              <button style="margin-left: 10px;" *ngIf="appService.updateSubClient == true" class="btn-create cursor" type="submit" (click)="saveChanges('U')">Save
+                              </button>
+                          </div>
+                      </div>
+                      <br>
+                      <br>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <br>
+      </form>
+  </div>
+</div>
+<footer class="footer fondo-color">
+  <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

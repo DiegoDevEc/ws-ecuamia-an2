@@ -1,0 +1,161 @@
+<div class="container-fluid fondo-color" style="height: 100vh;">
+    <div style="margin-left: 5%;margin-right: 5%;">
+        <br><br><br><br><br><br><br><br>
+        <div>
+            <p class="order-status-p"><span class="underline">ORDER STATUS</span></p>
+        </div>
+        <br>
+        <div *ngIf="orders.length == 0" class="centrar">
+            <!-- <img src="https://www.fiberondecking.com/interface/images/loading.gif"> -->
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+        </div>
+        <div *ngIf="orders.length == 0" class="centrar">
+            <p class="p-found">{{mostrarMensaje}}</p>
+        </div>
+        <br>
+        <br>
+        <div class="row inv-margin">
+            <div class="col-lg-5 col-12 centrar-contenido search-mp">
+                <div class="input-group">
+                    <input [(ngModel)]="filterValue" (keyup)="applyFilter($event, 'N')" placeholder="Search" class="invoice-search">
+                    <div class="input-group-append">
+                        <button class="btn btn-invoice" type="button">
+                            <span class="centrar">
+                                <img (click)="applyFilter(null,'S')" class="cursor"
+                                    src="../../../assets/images/recursos/lupa.png">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-12 centrar-contenido">
+                <div class="card-fecha centrar-contenido">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 borde-fecha">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">From:</span>
+                                <input style="text-align: center;" (click)="_openCalendar(dataSince)" [(ngModel)]="filterFechaSince" [matDatepicker]="dataSince" (dateChange)="_updateDate($event)" readonly #dataSince>
+                                <span (click)="_openCalendar(dataSince)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #dataSince disabled="false"></mat-datepicker>
+                                <div style="margin-left: 10px;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">To:</span>
+                                <input style="text-align: center;" (click)="_openCalendar(until)" [(ngModel)]="filterFechaUntil" [matDatepicker]="until" (dateChange)="_updateDate($event)" readonly #until>
+                                <span (click)="_openCalendar(until)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #until disabled="false"></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <span (click)="_limpiarFiltros()" class="clean cursor">
+                    Clean
+                </span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngFor="let order of orders | paginate: { itemsPerPage: 5, currentPage: page, totalItems: count}; let i = index">
+                <div>
+                    <div class="row card-order" [ngClass]="{'card-order-cancelado':order.estado == 'CAN', 'card-order-trabajando':order.estado == 'WOR', 'card-order-aprobado':order.estado == 'APR'}">
+                        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Order number:</p>
+                            <p class="card-data-cus" style="font-weight: bold;">{{order.id}}</p>
+                        </div>
+                        <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 card-linea-v centrar-data">
+                            <p class="card-titulos-cus">Order number:</p>
+                            <p class="card-po cursor">{{order.id}}</p>
+                        </div> -->
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <div>
+                                <p class="card-titulos-cus">Ship to:</p>
+                                <p class="card-data-cus">{{order.codMarcacion}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Ship date:</p>
+                            <p class="card-data-cus">{{order.fechaConexion | date:'MM/dd/yyyy' }}</p>
+                        </div>
+                        <div class="col-xl-2 col-lg-1 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Carrier:</p>
+                            <p class="card-data-cus">{{order.carrier}}</p>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Mark Code:</p>
+                            <p class="card-data-cus">{{order.po}}</p>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Boxes:</p>
+                            <p class="card-data-cus" style="font-weight: bold;">{{order.boxes}}</p>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Total:</p>
+                            <p class="card-data-total">$ {{order.total + order.cargosAdicionales | number : '1.2-2'}}</p>
+                        </div>
+                        <div class="col-xl-1 col-lg-2 col-md-2 col-sm-12 col-12 card-linea-v">
+                            <p class="card-titulos-cus">Status:</p>
+                            <p class="card-data-cus" style="text-transform: uppercase;">{{order.estado | translate}}</p>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12 col-12 centrar-data">
+                            <!--<p class="view-order cursor" (click)="openOrdersDetallesDialog(order, order.cargosAdicioanles)">View order</p>-->
+                            <p class="view-order cursor" (click)="_detalleOrden(order)">View order
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div *ngIf="orders.length > 0" fxLayout="row wrap" style="margin-top: -15px;">
+                    <div fxFlex="100" style="font-size: 10px;">
+                        <form class="text-center">
+                            <pagination-controls class="product-pagination" maxSize="5" (pageChange)="onPageChanged($event)">
+                            </pagination-controls>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div *ngIf="orders.length > 0" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="50" style="font-size: 12px;">
+                  <form class="text-center">
+                    <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged2($event)"></pagination-controls>
+                  </form>
+                </div>
+                <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
+                    <button class="btn btn-homeEnd" (click)="goToFirstPage()">
+                        <img src="../../assets/images/recursos/HOME.png" alt="First Page" class="img-icon">
+                    </button>
+                  <span style="color: #000000; font-size: 14px;" font="Roboto"> Page:</span>&nbsp;&nbsp;
+                  <input
+                    class="form-control"
+                    style="width: 55px; height: 20px; text-align: center;"
+                    type="number"
+                    [(ngModel)]="page"  
+                    (ngModelChange)="onPageChanged2($event)"  
+                  />
+                  <button class="btn btn-homeEnd" (click)="goToLastPage()">
+                    <img src="../../assets/images/recursos/END.png" alt="First Page" class="img-icon">
+                </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer *ngIf="orders.length > 0" class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

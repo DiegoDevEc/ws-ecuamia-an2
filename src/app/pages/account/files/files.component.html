@@ -1,0 +1,44 @@
+<div class="fondo-color">
+    <div class="container fondo-color" style="height: 100vh;">
+        <br><br><br><br><br><br><br>
+        <div>
+            <p class="billing-p"><span class="underline">BILLING</span></p>
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <p class="balance-p">Balance to date <span> {{balanceDate | date: 'MM-dd-yyyy'}} </span></p>
+            <h3 class="balance-monto"> $ {{balanceToClient | number : '1.2-2'}}
+                <!-- [routerLink]="['/account/statements']" -->
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="img-files">
+                    <a [routerLink]="['/account/statements']"><img src="../../../../assets/images/recursos/account.png" alt=""></a>
+                </div>
+                <div>
+                    <p class="p-descripcion centrar">Account Statement</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="img-files">
+                    <a [routerLink]="['/account/invoices']"><img src="../../../../assets/images/recursos/invoice.png" alt=""></a>
+                </div>
+                <div>
+                    <p class="p-descripcion centrar">Invoices</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="img-files">
+                    <a [routerLink]="['/account/creditnote']"><img src="../../../../assets/images/recursos/credit.png" alt=""></a>
+                </div>
+                <div>
+                    <p class="p-descripcion centrar">Credit notes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png">
+</footer>

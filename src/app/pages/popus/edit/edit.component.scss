@@ -1,0 +1,222 @@
+.card-edit-p {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+
+/*CAJAS*/
+
+.card-detail {
+    width: 380px;
+    height: auto;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+    margin-bottom: 50px;
+}
+
+.img-card-detail {
+    height: 90px;
+    width: 90px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-top: 18px;
+    z-index: 1;
+}
+
+.card-centrar {
+    margin: 0 auto;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.card-name-producto {
+    text-align: center;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    text-transform: capitalize;
+    margin-right: 24px;
+}
+
+.card-size {
+    text-align: center;
+    font: normal normal normal 10px/10px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-talla {
+    text-align: center;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-cantidad {
+    text-align: center;
+    font: normal normal normal 10px/10px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-descripcion {
+    text-align: left;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-precio {
+    text-align: center;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-p-bunches {
+    text-align: left;
+    font: normal normal normal 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: -8px;
+}
+
+.card-edit-select {
+    width: 100px;
+    text-align: center;
+    font: normal normal normal 20px/24px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: -12px;
+}
+
+.box-cantidad {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    width: 50px;
+    height: 26px;
+}
+
+.edit-cancel {
+    width: 122px;
+    height: 28px;
+    box-shadow: 0px 3px 6px #0000001A;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    background: #FFFFFF;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.edit-save {
+    width: 122px;
+    height: 28px;
+    background: #4E9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    font: normal normal normal 18px/22px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+}
+
+.edit-cancel:focus {
+    width: 122px;
+    height: 28px;
+    box-shadow: 0px 3px 6px #0000001A;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    background: #FFFFFF;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    outline: none;
+}
+
+.edit-save:focus {
+    width: 122px;
+    height: 28px;
+    background: #4E9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    font: normal normal normal 18px/22px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    outline: none;
+}
+
+.card-edit-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 5px;
+    border: 1px solid #707070;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        object-fit: contain;
+    }
+}
+
+.card-detail-bunches {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 11px;
+    box-shadow: 0 2px 0px 0px #00000029;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 130px;
+}
+
+.img-card-detail-bunches {
+    height: 90px;
+    width: 90px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    object-fit: cover;
+    margin-top: 20px;
+    margin-left: -40px;
+    z-index: 999;
+}
+
+.box-select {
+    width: 100px !important;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.talla-top {
+    margin-top: -14px;
+}
+
+.add-bunches {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-right: 12px;
+    ;
+}
+
+@media only screen and (max-width: 600px) {
+    .img-card-detail-bunches {
+        height: 60px;
+        width: 60px;
+        margin-top: 10px;
+        margin-left: -11px;
+    }
+}

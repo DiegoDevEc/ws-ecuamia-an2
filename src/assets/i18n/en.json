@@ -1,0 +1,14 @@
+{
+  "": "",
+  "Factura": "Invoice",
+  "Saldo Inicial": "Opening Balance",
+  "Pago":"Payment",
+  "PEN": "Pending",
+  "APR" : "Confirmed",
+  "WOR" : "In Progress",
+  "CAN" : "Cancelled",
+  "WORKING ON IT": "WORKING ON IT",
+  "CANCELADA": "CANCELLED",
+  "APROBADA": "APPROVED",
+  "Pago TRF": "PAYMENT"
+}

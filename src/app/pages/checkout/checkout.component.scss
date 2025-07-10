@@ -1,0 +1,618 @@
+.review-order-table.mat-table {
+    display: block;
+    overflow-x: auto;
+    .mat-row,
+    .mat-header-row {
+        display: flex;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        align-items: center;
+        min-height: 48px;
+        padding: 0 24px;
+        min-width: 760px;
+    }
+    .mat-row {
+        min-height: 60px;
+    }
+    .mat-cell,
+    .mat-header-cell {
+        flex: 1;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+    .mat-header-cell {
+        font-size: 14px;
+    }
+    .mat-cell {
+        img {
+            width: 60px;
+        }
+    }
+}
+
+.header-check {
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+
+.checkout {
+    text-align: left;
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    text-shadow: 0px 3px 6px #00000029;
+    margin-left: 5px;
+}
+
+.check-card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    height: 220px;
+}
+
+.check-card-mob {
+    width: 288px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    height: auto;
+}
+
+.paso1 {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4e9602;
+    border-radius: 50%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4e9602;
+    font-weight: bold;
+    top: 15px;
+    position: absolute;
+    margin-left: 30px;
+}
+
+.paso1-mob {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4e9602;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4e9602;
+    font-weight: bold;
+    position: relative; /* Cambiado a relative para evitar problemas de posición */
+    margin: 15px 0 0 30px; /* Ajustado el margen para posicionar correctamente */
+}
+
+.paso2 {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4e9602;
+    border-radius: 50%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4e9602;
+    font-weight: bold;
+    top: 15px;
+    position: relative;
+    margin-left: 30px;
+}
+
+.confirmar-p {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-check-info {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    position: static;
+    width: 300px;
+    z-index: 999;
+}
+
+.card-check-observacion {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #4e9602;
+    border-radius: 30px;
+    position: static;
+    width: 300px;
+    height: 185px;
+    z-index: 999;
+}
+
+.card-check-observacion-mob {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #4e9602;
+    border-radius: 30px;
+    width: 288px;
+    height: 200px;
+    z-index: 999;
+}
+
+.card-observacion {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    position: static;
+    width: 300px;
+    z-index: 999;
+    outline: none;
+    border: none;
+    height: 134px;
+    padding: 15px;
+    font: normal normal normal 14px/14px Montserrat;
+    margin-top: 3px;
+    color: #595959;
+}
+
+.card-observacion-mob {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    position: static;
+    width: 288px;
+    z-index: 999;
+    outline: none;
+    border: none;
+    height: 134px;
+    padding: 15px;
+    font: normal normal normal 14px/14px Montserrat;
+    margin-top: 3px;
+    color: #595959;
+}
+
+.card-order {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-order-p,
+.card-aditional-p {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-aditional {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #05408d;
+}
+
+.card-order-total {
+    text-align: center;
+    font: normal normal 600 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-order-t-p {
+    font: normal normal 600 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.salto-1 {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.btn-place {
+    width: 150px;
+    height: 34px;
+    background: #4e9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    color: white;
+    outline: none;
+    font: normal normal normal 16px/16px Montserrat;
+    cursor: pointer !important;
+}
+
+.btn-place:focus {
+    width: 150px;
+    height: 34px;
+    background: #4e9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    color: white;
+    outline: none;
+    font: normal normal normal 16px/16px Montserrat;
+    cursor: pointer !important;
+}
+
+.btn-buying {
+    width: 130px;
+    height: 28px;
+    box-shadow: 0px 3px 6px #0000001A;
+    background: #ffffff;
+    border: 1px solid #4e9602;
+    border-radius: 7px;
+    font: normal normal bold 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602 !important;
+}
+
+.boxes-c {
+    font: normal normal normal 16px/16px Roboto;
+    color: #707070;
+}
+
+.check-items {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+}
+
+
+.check-items-mob {
+    width: 100%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 30px;
+    padding: 5px;
+}
+
+//TARJETA DE PRODUCTOS CAJA
+.card-detail {
+    width: 400px;
+    height: auto;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+    margin-bottom: 50px;
+}
+
+.img-card-detail {
+    height: 70px;
+    width: 70px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 90% auto;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.image-container-mob {
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    width: 90%;
+}
+
+.img-card-detail-mob {
+    height: 70px;
+    width: 70px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 90% auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.img-card-detail-bunches {
+    height: 70px;
+    width: 70px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 50%;
+    background-size: 90% auto;
+    object-fit: cover;
+    margin-left: -70px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    z-index: 1;
+    border: 1px solid #f6f6f6;
+}
+
+.card-centrar {
+    margin: 0 auto;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.card-name-producto {
+    text-align: center;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    text-transform: capitalize;
+}
+
+.card-size {
+    text-align: center;
+    font: normal normal normal 10px/10px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: -10px;
+}
+
+.card-talla {
+    text-align: center;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-cantidad {
+    text-align: center;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-descripcion {
+    text-align: left;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-descripcion-mob {
+    text-align: center;
+    justify-content: center;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.div-mob {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.card-precio {
+    text-align: center;
+    font: normal normal normal 15px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-p-bunches {
+    text-align: left;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: -14px;
+}
+
+.box-cantidad {
+    background: #ffffff 0% 0% no-repeat padding-box;
+  //  border: 1px solid #707070;
+    border-radius: 5px;
+    width: 35px;
+    height: 26px;
+}
+
+.col-margen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centrar-contenido {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.linea-1 {
+    border-left: 1px solid #a2a2a2;
+    opacity: 0.5;
+    height: 90px;
+    float: left;
+}
+
+.card-precio-p {
+    letter-spacing: 0px;
+    color: #595959;
+    margin-left: 20px;
+    margin-top: 10px;
+    font: normal normal 600 14px/14px Montserrat;
+}
+
+//FIN TARJETA PRODUCTO CUANDO ES CAJA
+.card-farm {
+    text-align: center;
+}
+
+.farm-p {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.farm-p1 {
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: 10px;
+}
+
+.farm-optional {
+    font: normal normal normal 12px/14px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.farm-select {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 22px;
+}
+
+.farm-select {
+     ::ng-deep .mat-select-placeholder {
+        color: #f100007a !important;
+    }
+}
+
+.farm-select-po {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 22px;
+    width: 500px;
+    text-align: center;
+}
+
+.myInput {
+    height: 40px !important;
+    width: 100% !important;
+    outline: none !important;
+    z-index: 999 !important;
+    padding: 15px;
+    text-align: center;
+}
+
+// TARJETA DE PRODUCTOS BUNCHES
+.card-detail-bunches {
+    width: 400px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    margin-bottom: 50px;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 11px;
+}
+
+.card-detail-precio {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+.card-l-bun {
+    height: 99%;
+    border-right: 1px solid #a2a2a2;
+    float: left;
+    opacity: 0.5;
+}
+
+.btn-buying {
+    position: relative;
+    width: 130px;
+    height: 40px;
+    box-shadow: 0px 3px 6px #0000001A;
+    background: #ffffff;
+    border: 1px solid #4e9602;
+    border-radius: 7px;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602 !important;
+    outline: none;
+    overflow: hidden;
+    box-shadow: 0px 3px 6px #0000001A, 0px 5px 0px 2px #3a6809; /*Efecto 3d*/
+}
+
+.btn-buying::after {
+    content: "\2190"; /* Unicode arrow character, you can replace it with your preferred arrow character */
+    position: absolute;
+    top: 50%;
+    left: 10px; /* Adjust the right spacing as needed */
+    transform: translateY(-50%);
+    font-size: 18px; /* Adjust the font size of the arrow */
+    line-height: 1; /* Reset line-height to prevent unwanted spacing */
+}
+
+.btn-buying:focus {
+    width: 130px;
+    height: 28px;
+    box-shadow: 0px 3px 6px #0000001A;
+    background: #ffffff;
+    border: 1px solid #4e9602;
+    border-radius: 7px;
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602 !important;
+    outline: none;
+}
+
+.tropical-m {
+    width: 100%;
+    text-align: center;
+    p {
+        font: normal normal normal 16px/16px Montserrat;
+        letter-spacing: 0px;
+        color: #4e9602 !important;
+    }
+}
+
+.po-farm {
+    margin-left: -5%;
+}
+
+@media only screen and (max-width: 600px) {
+    .confirmar-p {
+        font: normal normal 600 10px/13px Montserrat;
+    }
+    .card-detail {
+        width: auto;
+    }
+    .card-precio-p {
+        margin-right: 14px;
+        margin-left: 5px;
+        font: normal normal 600 14px/14px Montserrat;
+        white-space: nowrap;
+    }
+    .img-card-detail {
+        height: 80px;
+        width: auto;
+        margin-left: -30px;
+        margin-top: 8px;
+    }
+    .po-farm {
+        margin-left: 0%;
+        /* margin-bottom: 8%; */
+        border-bottom: 2px solid #dad6d6;
+        padding-bottom: 8%;
+    }
+    .card-detail-bunches {
+        width: auto;
+    }
+    .img-card-detail-bunches {
+        height: 80px;
+        width: auto;
+        margin-left: -44px;
+        margin-top: 30px;
+    }
+    .box-cantidad {
+        width: 25px;
+    }
+    .card-precio {
+        font: normal normal 600 12px/12px Montserrat;
+    }
+    .card-check-info {
+        // background: #ffffff 0% 0% no-repeat padding-box;
+        // box-shadow: 0px 3px 6px #00000029;
+        // border-radius: 30px;
+        position: relative;
+        width: auto;
+        // z-index: 999;
+    }
+}
+
+.form-control{
+    font-size: 12px !important;
+}

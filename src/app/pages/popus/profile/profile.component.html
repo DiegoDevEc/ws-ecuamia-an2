@@ -1,0 +1,20 @@
+<div class="boton-x cursor">
+  <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+</div>
+<div>
+  <div class="centrar profile">
+    <p class="profile-p">Profile</p>
+  </div>
+  <br>
+  <div class="izquierda">
+    <p class="pa-1">{{appService.clientLogin.nombre}}</p>
+    <p class="pa-2">{{appService.clientLogin.email}}</p>
+  </div>
+  <br>
+  <div class="centrar">
+    <button (click)="_settigns()" class="setting-b cursor">Settings</button>
+    <br>
+    <br>
+    <button (click)="cerrarSesion()" class="logout-b cursor">Log Out</button>
+  </div>
+</div>

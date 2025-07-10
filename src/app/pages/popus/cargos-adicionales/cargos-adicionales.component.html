@@ -1,0 +1,48 @@
+<div class="boton-x cursor">
+  <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+</div>
+<div class="container" >
+  <div class="centrar">
+    <p class="coast-p">Shipping cost detail</p>
+  </div>
+  <br>
+  <div class="tabla-radio">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="coast-titulo">Box</th>
+          <th class="coast-titulo">Price per box</th>
+          <th class="coast-titulo">Quantity</th>
+          <th class="coast-titulo">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="coast-detalle">EB</td>
+          <td class="coast-detalle">$<span *ngIf="boxesEB == null">0</span>{{appWebShopService.data.cargosTransporte.precioEb   | number : '1.2-2'}}</td>
+          <td class="coast-detalle">{{appWebShopService.data.cargosTransporte.cantidadEb}}</td>
+          <td class="coast-detalle">${{appWebShopService.data.cargosTransporte.totalEb  | number : '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <td class="coast-detalle">QB</td>
+          <td class="coast-detalle">$<span *ngIf="boxesEB == null">0</span>{{appWebShopService.data.cargosTransporte.precioQb  | number : '1.2-2'}}</td>
+          <td class="coast-detalle">{{appWebShopService.data.cargosTransporte.cantidadQb}}</td>
+          <td class="coast-detalle">${{appWebShopService.data.cargosTransporte.totalQb  | number : '1.2-2'}}</td>
+        </tr>
+        <tr>
+          <td class="coast-detalle">HB</td>
+          <td class="coast-detalle">$<span *ngIf="boxesEB == null">0</span>{{appWebShopService.data.cargosTransporte.precioHb  | number : '1.2-2'}}</td>
+          <td class="coast-detalle">{{appWebShopService.data.cargosTransporte.cantidadHb}}</td>
+          <td class="coast-detalle">${{appWebShopService.data.cargosTransporte.totalHb  | number : '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <div>
+    <span>
+      <p class="coast-total">Total : $ {{ appWebShopService.data.cargosTransporte.totalCargosPorTransporte | number :
+        '1.2-2'}} </p>
+    </span>
+  </div>
+</div>

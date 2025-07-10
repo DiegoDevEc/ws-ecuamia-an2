@@ -1,0 +1,7 @@
+<div style="text-align: center;">
+  <button class="btn-controller" (click)="decreaseQuantity()">-</button>
+  <input class="inp-value" type="number" [(ngModel)]="quantity" (change)="editQuantity(quantity)" readonly>
+  <button class="btn-controller" (click)="increaseQuantity()">+</button>
+</div>
+
+

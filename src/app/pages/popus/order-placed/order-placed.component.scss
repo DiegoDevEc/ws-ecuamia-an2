@@ -1,0 +1,73 @@
+.order-p {
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.order-p-1 {
+    text-align: center;
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-medalla {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.medalla {
+    height: 190px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.card-p-2 {
+    text-align: center;
+    font: bold 13px/13px Montserrat;
+    letter-spacing: 0px;
+    color: #4E9602;
+}
+
+.card-p-3 {
+    font: bold 10px/10px Roboto;
+    letter-spacing: 0px;
+    color: #4E9602;
+}
+
+.card-p-email {
+    text-decoration: underline;
+    font: normal normal normal 12px/12px Roboto;
+    letter-spacing: 0px;
+    color: #4E9602;
+}
+
+.btn-order-status {
+    width: 122px;
+    height: 28px;
+    background: #4E9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    outline: none;
+    color: white;
+}
+
+.btn-order-status:focus {
+    width: 122px;
+    height: 28px;
+    background: #4E9602 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    outline: none;
+    color: white;
+}

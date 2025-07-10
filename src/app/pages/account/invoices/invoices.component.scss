@@ -1,0 +1,220 @@
+.header-invoice {
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+
+.invoice {
+    text-align: left;
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    text-shadow: 0px 3px 6px #00000029;
+    margin-left: 5px;
+}
+
+.invoice-search {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-top-left-radius: 44px;
+    border-bottom-left-radius: 44px;
+    border-top: 1px solid #707070;
+    border-left: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-right: 1px solid white;
+    height: 40px;
+    outline: none !important;
+    padding: 10px;
+    font-size: 14px;
+    font: normal normal normal 18px/18px Roboto;
+    letter-spacing: 0px;
+    color: #595959;
+    width: 250px;
+}
+
+.invoice-search:focus {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-top-left-radius: 44px;
+    border-bottom-left-radius: 44px;
+    border-top: 1px solid #707070;
+    border-left: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-right: 1px solid white;
+    height: 40px;
+    outline: none !important;
+    padding: 10px;
+    font-size: 14px;
+    font: normal normal normal 18px/18px Roboto;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.btn-invoice {
+    height: 40px;
+    border-top-right-radius: 44px;
+    border-bottom-right-radius: 44px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-top: 1px solid #707070;
+    border-right: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-left: 1px solid white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    outline: none !important;
+    img {
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+    }
+}
+
+.btn-invoice:focus {
+    height: 40px;
+    border-top-right-radius: 44px;
+    border-bottom-right-radius: 44px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-top: 1px solid #707070;
+    border-right: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-left: 1px solid white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    outline: none !important;
+    img {
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+    }
+}
+
+.btn-homeEnd {
+    padding: 0; /* Elimina el relleno del botón */
+    background: none; /* Fondo transparente */
+    border: none; /* Sin borde */
+  }
+  
+  .img-icon {
+    width: 30px; /* Ancho de la imagen */
+    height: 30px; /* Alto de la imagen */
+    vertical-align: middle; /* Alinea verticalmente la imagen */
+  }
+
+.card-fecha {
+    width: 100%;
+    height: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 40px;
+}
+
+.fechas {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    input {
+        outline: none;
+        border: 1px solid white;
+        font: normal normal normal 18px/22px Roboto;
+        letter-spacing: 0px;
+        color: #707070;
+        width: 100px;
+    }
+    img {
+        object-fit: contain;
+    }
+}
+
+.fecha-p-ac {
+    text-align: left;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+input {
+    text-align: left;
+    font: normal normal normal 16px/16px Roboto !important;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.clean {
+    text-align: center;
+    text-decoration: underline;
+    font: normal normal normal 16px/19px Roboto;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.tabla-radio {
+    border-radius: 28px;
+    border: 1px solid #707070;
+    border-radius: 28px;
+    background: white !important;
+}
+
+table {
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+table.table-bordered {
+    border: 1px solid #707070;
+}
+
+table.table-bordered>thead>tr>th {
+    border: 1px solid #707070;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid #707070;
+}
+
+.borde-fecha {
+    border-right: 1px solid #707070;
+}
+
+.inv-margin {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .fechas {
+        margin: auto 25px;
+        input {
+            width: 130px;
+        }
+    }
+    .borde-fecha {
+        border-right: none;
+    }
+    .card-fecha {
+        height: auto;
+    }
+    .table td,
+    .table th {
+        padding: 0.05rem !important;
+    }
+    .hoverTable th {
+        font: normal normal 600 8px/10px Montserrat !important;
+    }
+    .hoverTable td {
+        font: normal normal normal 6px/13px Roboto !important;
+    }
+    .inv-margin {
+        margin: auto 1%
+    }
+    .invoice-search {
+        width: 70%;
+    }
+    .search-mp {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+}

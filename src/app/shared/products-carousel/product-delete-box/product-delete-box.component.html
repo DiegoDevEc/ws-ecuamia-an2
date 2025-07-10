@@ -1,0 +1,15 @@
+<div class="boton-x">
+    <button type="button" (click)="close()" class="btn btn-default btn-circle"><i
+            class="fa fa-times"></i></button>
+</div>
+<div class="centrar-img">
+    <img src="../../../assets/images/logo_home.png" style="width: 150px;height: 70px;">
+</div>
+<div mat-dialog-content>
+    <div fxFlex="100" fxFlex.gt-sm="100" ngClass.gt-sm="px-2 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+        <h3 class="py-2"> ¿ Are you sure that you want to delete this item ? </h3>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+        <button mat-raised-button style="margin-left: 10px;background: #CC3333;color: white;" (click)="close()">No,
+            Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,621 @@
+<mat-dialog-content>
+    <div class="boton-x cursor">
+        <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png">
+    </div>
+    <div *ngIf="appWebShopService.data.cartListCaja.length == 0">
+        <div class="centrar posicion-cart">
+            <p class="cart">Cart</p>
+        </div>
+        <div class="centrar">
+            <p class="frase-agregar">Go ahead and add something!</p>
+            <p class="frase-items">0 items in your cart</p>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="appWebShopService.data.cartListCaja?.length > 0" class="centrar">
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div (click)="_activarTab(true)" [ngClass]="{'cart-tab-green': activarTab == true}"
+                        class="col-lg-6 col-6 cart-tabs-bottom cursor">
+                        <div class="centrar">
+                            <p [ngClass]="{'disabled-tab': activarTab == false}" class="cart">STORE <br> <span
+                                    class="cart">Cart</span> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="!isMobile" class="container-fluid" [ngStyle]="{'height': '100%'}" style="width: 100%;">
+        <div class="list-wrapper">
+            <div class="list">
+                <div>
+                    <!-----------------------------------DETALLE CARRITO THE HUB------------------------------------------------------------------------>
+                    <div *ngIf="activarTab == true">
+                        <div *ngIf="appWebShopService.data.cartListCaja?.length > 0">
+                            <!--TARJETA CUANDO ES POR CAJAS-->
+                            <div *ngIf="cartItemNoTropicalCount>0" class="center">
+                                <p class="mix-box-below">Solid boxes below</p>
+                            </div>
+                            <div class="row" *ngFor="let caja of appWebShopService.data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoCaja === 'S'"
+                                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="container-fluid">
+                                            <div class="row" style="font-size: 10px;">
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Box</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Units</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <b>Total</b>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                    style="font-size: 10px; white-space: nowrap;">
+                                                    <b>Price {{caja.detalle[0].producto.tipoPrecioVariedad === 'T' ?
+                                                        'STEM' : 'BUNCHE'}}</b>
+                                                </div>
+
+                                                <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="font-size: 10px; align-items: center;">
+                                                
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+                                                    <img class="img-card-detail" style="margin-top: -20px !important;"
+                                                        [src]="urlImagen + caja.detalle[0].producto.imagenes[0]">
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                    <div><span class="card-descripcion"> {{caja.nombreCaja}}
+                                                        </span></div>
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                    <mat-select
+                                                        [value]="obtenerTallaSeleccionada(caja.detalle[0]).talla"
+                                                        placeholder="select" class="box-select">
+                                                        <mat-option
+                                                            *ngFor="let talla of caja.detalle[0].producto.tallas"
+                                                            [value]="talla.talla"
+                                                            (click)="actualizarCajaPorTalla(caja, talla, i)">
+                                                            {{talla.talla}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <input
+                                                        (keyup)="actualizarCajaPorCantidad($event, caja, obtenerTallaSeleccionada(caja.detalle[0]), i)"
+                                                        class="card-input card-input-carrito" type="number"
+                                                        value="{{caja.cantidadCajas}}" min="1" min="1" maxlength="2"
+                                                        oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div><span class="card-descripcion" data-toggle="tooltip"
+                                                            title="Stems: {{caja.detalle[0].cantidadBunchePorCaja / caja.cantidadCajas}}&#10;Bunches: {{(caja.detalle[0].cantidadBunchePorCaja / caja.cantidadCajas) /caja.detalle[0].cantidadBunches}}"
+                                                            data-html="true">
+                                                            x {{caja.detalle[0].cantidadBunchePorCaja /
+                                                            caja.cantidadCajas}}
+                                                        </span></div>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div>
+                                                        <span
+                                                            *ngIf="caja.detalle[0].producto.tipoPrecioVariedad === 'T'"
+                                                            class="card-descripcion" data-toggle="tooltip"
+                                                            title="Stems: {{caja.detalle[0].cantidadBunchePorCaja}}&#10;Bunches: {{caja.detalle[0].cantidadBunchePorCaja /caja.detalle[0].cantidadBunches}}"
+                                                            data-html="true">
+                                                            {{caja.detalle[0].cantidadBunchePorCaja }}
+                                                        </span>
+                                                        <span
+                                                            *ngIf="caja.detalle[0].producto.tipoPrecioVariedad !== 'T'"
+                                                            class="card-descripcion" data-toggle="tooltip"
+                                                            title="Stems: {{caja.detalle[0].cantidadBunchePorCaja}}&#10;Bunches: {{caja.detalle[0].cantidadBunchePorCaja / appWebShopService.obtenerCajaProducto(caja.detalle[0].producto).cantidadPorBunche}}"
+                                                            data-html="true">
+                                                            {{caja.detalle[0].cantidadBunchePorCaja /
+                                                            appWebShopService.obtenerCajaProducto(caja.detalle[0].producto).cantidadPorBunche
+                                                            }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                    <div style="font-size: 10px; white-space: nowrap;">
+                                                        <span class="card-precio"> ${{caja.detalle[0].precio | number :
+                                                            '1.2-2'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+                                                    <div class="linea-1"></div>
+                                                    <div class="centrar">
+                                                        <p [ngClass]="{
+                                                            'card-precio-p': !caja.detalle[0].variedadInactiva,
+                                                            'card-precio-p-carrito': true,
+                                                            'precio-tachado': caja.detalle[0].variedadInactiva
+                                                          }">
+                                                            ${{caja.precioTotalCaja
+                                                            |
+                                                            number : '1.2-2'}}</p>
+
+                                                    </div>
+                                                    <div *ngIf="!caja.detalle[0].precioModificado && !caja.detalle[0].variedadInactiva">
+                                                        <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px;">
+                                                    </div>
+                                                    <div *ngIf="caja.detalle[0].precioModificado && !caja.detalle[0].variedadInactiva">
+                                                        <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px;"
+                                                        src="../../assets/images/recursos/cambio_dinero.png" title="Price on this item has changed since you last logged on">
+                                                    </div>
+                                                    <div *ngIf="caja.detalle[0].variedadInactiva && !caja.detalle[0].precioModificado">
+                                                        <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px; cursor: pointer;"
+                                                        src="../../assets/images/recursos/advertencia-02.png" title="This item is no longer available for online ordering, please select a different item or contact your account manager for help."  (click)="_eliminarCaja(caja)">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja)"
+                                                    class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <!--TARJETA CUANDO ES POR BUNCHES-->
+                            <div *ngIf="false" class="center">
+                                <p class="mix-box-below">Mix boxes below</p>
+                            </div>
+                            <div *ngFor="let caja of appWebShopService.data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoCaja === 'M'" class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                        <div *ngIf="caja.tipoCaja  === 'M'"
+                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                                <div class="container-fluid">
+                                                    <div class="row" style="font-size: 10px;">
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+
+                                                        </div>
+                                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                                        </div>
+
+                                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <b>Bunches</b>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <b>Units</b>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <b>Total</b>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                            style="font-size: 10px; white-space: nowrap;">
+                                                            <b>Price </b>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngFor="let detalle of caja.detalle" class="row"
+                                                        style="font-size: 10px; align-items: center; padding-bottom: 20px;">
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1">
+                                                            <img class="img-card-detail"
+                                                                style="margin-top: -20px !important;"
+                                                                [src]="urlImagen + detalle.producto.imagenes[0]">
+                                                        </div>
+                                                        <div class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                            <div><span class="card-descripcion">
+                                                                    {{detalle.producto.nombreVariedad}} -
+                                                                    {{detalle.producto.producto}}
+                                                                </span></div>
+                                                        </div>
+
+                                                        <div style="font: normal normal normal 12px/12px Montserrat;"
+                                                            class="col-xl-2 col-lg-2 col-md-2 col-2 col-margen">
+                                                            <span>{{obtenerTallaSeleccionada(detalle).talla}}</span>
+                                                        </div>
+
+                                                        <div style="font: normal normal normal 12px/12px Montserrat;"
+                                                            class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <span>
+                                                                {{detalle.cantidadBunches}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <div><span class="card-descripcion" data-toggle="tooltip"
+                                                                    title="Stems: {{detalle.totalTallos / detalle.cantidadBunches}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                    data-html="true">
+                                                                    x {{detalle.totalTallos / detalle.cantidadBunches}}
+                                                                </span></div>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <div>
+                                                                <span
+                                                                    *ngIf="detalle.producto.tipoPrecioVariedad === 'T'"
+                                                                    class="card-descripcion" data-toggle="tooltip"
+                                                                    title="Stems: {{detalle.totalTallos}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                    data-html="true">
+                                                                    {{detalle.totalTallos}}
+                                                                </span>
+                                                                <span
+                                                                    *ngIf="detalle.producto.tipoPrecioVariedad !== 'T'"
+                                                                    class="card-descripcion" data-toggle="tooltip"
+                                                                    title="Stems: {{detalle.totalTallos}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                    data-html="true">
+                                                                    {{detalle.cantidadBunches}}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                            <div style="font-size: 10px; white-space: nowrap;">
+                                                                <span class="card-precio"> ${{detalle.precioCajaMixta |
+                                                                    number : '1.2-2'}}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 col-md-3  col-3 col-margen">
+                                                            <div class="linea-1"></div>
+                                                            <div class="centrar">
+                                                                <p [ngClass]="{
+                                                                    'card-precio-p': !detalle.variedadInactiva,
+                                                                    'card-precio-p-carrito': true,
+                                                                    'precio-tachado': detalle.variedadInactiva
+                                                                  }">
+                                                                    ${{detalle.precio | number : '1.2-2'}}
+                                                                </p>
+                                                            </div>
+                                                            <div *ngIf="!detalle.precioModificado && !detalle.variedadInactiva">
+                                                                <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px;">
+                                                            </div>
+                                                            <div *ngIf="detalle.precioModificado && !detalle.variedadInactiva">
+                                                                <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px;"
+                                                                src="../../assets/images/recursos/cambio_dinero.png" title="Price on this item has changed since you last logged on">
+                                                            </div>
+                                                            <div *ngIf="detalle.variedadInactiva && !detalle.precioModificado">
+                                                                <img style="width: 50px; margin-top: -10px !important; border-radius: 50px; margin-left: 50px; cursor: pointer;"
+                                                                src="../../assets/images/recursos/advertencia-02.png" title="This item is no longer available for online ordering, please select a different item or contact your account manager for help." (click)="editarCajaMixta(caja)">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div  class="row" style="margin-top: -30px;">
+                                                <div  class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                                    <button (click)="editarCajaMixta(caja)"
+                                                        class="card-acciones cursor">Edit</button>
+                                                </div>
+                                                <div 
+                                                    class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda linea-2">
+                                                    <button (click)="_eliminarCaja(caja)"
+                                                        class="card-acciones cursor">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div *ngIf="isMobile" class="container">
+        <div class="list-wrapper">
+            <div class="list">
+                <div>
+
+                    <!-----------------------------------DETALLE CARRITO THE HUB------------------------------------------------------------------------>
+                    <div *ngIf="activarTab == true">
+                        <div *ngIf="appWebShopService.data.cartListCaja?.length > 0">
+                            <!--TARJETA CUANDO ES POR CAJAS-->
+                            <div *ngIf="cartItemNoTropicalCount>0" class="center">
+                                <p class="mix-box-below">Solid boxes below</p>
+                            </div>
+                            <div class="row" style="min-width: 300px; margin-top: 10px;"
+                                *ngFor="let caja of appWebShopService.data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoCaja === 'S'">
+                                    <div class="row card-detail card-centrar">
+                                        <div class="container-fluid" style="margin: 5px;">
+                                            <div class="row" style="display: flex; justify-content: center; ">
+                                                <img style="width: 50px; height: 50px; margin-top: -20px !important; border-radius: 50px;"
+                                                    [src]="urlImagen + caja.detalle[0].producto.imagenes[0]">
+                                            </div>
+                                            <div class="row" style="padding: 20px;">
+                                                <div><span class="card-descripcion"> {{caja.nombreCaja}}
+                                                    </span>
+                                                </div>
+
+                                                <div>
+                                                    <mat-select
+                                                        [value]="obtenerTallaSeleccionada(caja.detalle[0]).talla"
+                                                        placeholder="select" class="box-select">
+                                                        <mat-option
+                                                            *ngFor="let talla of caja.detalle[0].producto.tallas"
+                                                            [value]="talla.talla"
+                                                            (click)="actualizarCajaPorTalla(caja, talla, i)">
+                                                            {{talla.talla}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </div>
+
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div style="min-width: 50px;">
+                                                    <input
+                                                        (keyup)="actualizarCajaPorCantidad($event, caja, obtenerTallaSeleccionada(caja.detalle[0]), i)"
+                                                        class="card-input card-input-carrito" type="number"
+                                                        value="{{caja.cantidadCajas}}" min="1" min="1" maxlength="2"
+                                                        oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                </div>
+
+                                                <div class="d-flex justify-content-center align-items-center"
+                                                    style="min-width: 60px;">
+                                                    <div><span class="card-descripcion" data-toggle="tooltip"
+                                                            title="Stems: {{caja.detalle[0].cantidadBunchePorCaja / caja.cantidadCajas}}&#10;Bunches: {{(caja.detalle[0].cantidadBunchePorCaja / caja.cantidadCajas) /caja.detalle[0].cantidadBunches}}"
+                                                            data-html="true">
+                                                            x {{caja.detalle[0].cantidadBunchePorCaja /
+                                                            caja.cantidadCajas}}
+                                                        </span></div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center align-items-center"
+                                                    style="min-width: 70px;">
+                                                    <span *ngIf="caja.detalle[0].producto.tipoPrecioVariedad === 'T'"
+                                                        class="card-descripcion" data-toggle="tooltip"
+                                                        title="Stems: {{caja.detalle[0].cantidadBunchePorCaja}}&#10;Bunches: {{caja.detalle[0].cantidadBunchePorCaja /caja.detalle[0].cantidadBunches}}"
+                                                        data-html="true">
+                                                        {{caja.detalle[0].cantidadBunchePorCaja }}
+                                                    </span>
+                                                    <span *ngIf="caja.detalle[0].producto.tipoPrecioVariedad !== 'T'"
+                                                        class="card-descripcion" data-toggle="tooltip"
+                                                        title="Stems: {{caja.detalle[0].cantidadBunchePorCaja}}&#10;Bunches: {{caja.detalle[0].cantidadBunchePorCaja / appWebShopService.obtenerCajaProducto(caja.detalle[0].producto).cantidadPorBunche}}"
+                                                        data-html="true">
+                                                        {{caja.detalle[0].cantidadBunchePorCaja /
+                                                        appWebShopService.obtenerCajaProducto(caja.detalle[0].producto).cantidadPorBunche
+                                                        }}
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div style="font-size: 10px; white-space: nowrap; min-width: 50px;">
+                                                        <span class="card-precio"> ${{caja.detalle[0].precio | number :
+                                                            '1.2-2'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row"
+                                                style=" display: flex; justify-content: center; align-items: center;">
+                                                <div style="min-width: 50px;">
+                                                    <div>
+                                                        <p class="card-precio-p ">${{caja.precioTotalCaja | number :
+                                                            '1.2-2'}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja)"
+                                                    class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <!--TARJETA CUANDO ES POR BUNCHES-->
+                            <div *ngFor="let caja of appWebShopService.data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoCaja  === 'M'">
+                                    <div class="row card-detail" style="min-width: 300px !important;">
+                                        <div class="container-fluid">
+                                            <div *ngFor="let detalle of caja.detalle; let i = index">
+
+                                                <div class="row" style="display: flex; margin-top: -20px !important; justify-content: center; ">
+                                                    <img style="width: 40px; height: 40px;  border-radius: 50px;"
+                                                        [src]="urlImagen + caja.detalle[i].producto.imagenes[0]">
+                                                </div>
+
+
+                                                <div class="row" style="font-size: 10px; align-items: center;">
+                                                    <div style="padding: 20px;">
+                                                        <div><span class="card-descripcion">
+                                                                {{detalle.producto.nombreVariedad}} -
+                                                                {{detalle.producto.producto}}
+                                                            </span></div>
+                                                    </div>
+
+                                                    <div style="min-width: 60px;"
+                                                        style="font: normal normal normal 12px/12px Montserrat;">
+                                                        <span>{{obtenerTallaSeleccionada(detalle).talla}}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row"
+                                                    style="font-size: 10px; display: flex; justify-content: center; align-items: center;">
+
+                                                    <div style="font: normal normal normal 12px/12px Montserrat; min-width: 50px;"
+                                                        class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen">
+                                                        <span>
+                                                            {{detalle.cantidadBunches}}
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 60px;">
+                                                        <div><span class="card-descripcion" data-toggle="tooltip"
+                                                                title="Stems: {{detalle.totalTallos / detalle.cantidadBunches}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                data-html="true">
+                                                                x {{detalle.totalTallos /
+                                                                detalle.cantidadBunches}}
+                                                            </span></div>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 70px;">
+                                                        <div>
+                                                            <span *ngIf="detalle.producto.tipoPrecioVariedad === 'T'"
+                                                                class="card-descripcion" data-toggle="tooltip"
+                                                                title="Stems: {{detalle.totalTallos}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                data-html="true">
+                                                                {{detalle.totalTallos}}
+                                                            </span>
+                                                            <span *ngIf="detalle.producto.tipoPrecioVariedad !== 'T'"
+                                                                class="card-descripcion" data-toggle="tooltip"
+                                                                title="Stems: {{detalle.totalTallos}}&#10;Bunches: {{detalle.cantidadBunches}}"
+                                                                data-html="true">
+                                                                {{detalle.cantidadBunches}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-margen"
+                                                        style="min-width: 50px;">
+                                                        <div style="font-size: 10px; white-space: nowrap;">
+                                                            <span class="card-precio">
+                                                                ${{detalle.precioCajaMixta |
+                                                                number : '1.2-2'}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row"
+                                                    style=" display: flex; justify-content: center; align-items: center;">
+                                                    <div style="min-width: 50px;">
+                                                        <div>
+                                                            <p class="card-precio-p ">
+                                                                ${{detalle.precio
+                                                                |
+                                                                number : '1.2-2'}}</p>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div *ngIf="true" class="row" style="margin-top: -30px;">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                            <button (click)="editarCajaMixta(caja)"
+                                                class="card-acciones cursor">Edit</button>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda linea-2">
+                                            <button (click)="_eliminarCaja(caja)"
+                                                class="card-acciones cursor">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="appWebShopService.data.cartListCaja?.length > 0" [ngStyle]="isMobile ? {'margin-top': '50px'} : {}">
+        <div class="container-fluid">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div style="margin-left: 30%;margin-right: 4%;">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 derecha">
+                            <p class="card-order-p">Order Subtotal:</p>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                            <p class="card-order-p">${{appWebShopService.data.totalPrice -
+                                appWebShopService.data.cargosTransporte.totalCargosPorTransporte | number : '1.2-2'}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 derecha">
+                            <p class="card-aditional cursor" (click)="cargosAdicionales()">Aditional Charges:
+                            </p>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                            <p class="card-aditional-p">
+                                ${{appWebShopService.data.cargosTransporte.totalCargosPorTransporte | number :
+                                '1.2-2'}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
+                            <p class="card-order-total">Order Total: </p>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                            <p *ngIf="appService.totalWithTruckiBoxes != undefined" class="card-order-t-p">
+                                ${{appWebShopService.data.totalPrice | number : '1.2-2'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="appWebShopService.data.cartListCaja?.length > 0" 
+                    class="row d-flex justify-content-center align-items-center" 
+                    style="margin-top: 30px;">
+                    <button type="button" (click)="close()" class="btn-checkout cursor mx-2">Continue shopping</button>
+                    <button *ngIf="!mostrarCheckout()" type="button" (click)="_checkout()" class="btn-checkout cursor mx-2">Check out</button>
+               </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

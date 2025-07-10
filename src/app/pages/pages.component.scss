@@ -1,0 +1,165 @@
+.main {
+    min-height: 400px;
+    min-height: calc(100vh - 288px);
+    padding: 16px;
+}
+
+.sidenav {
+    width: 250px;
+    padding: 8px 16px;
+    position: fixed;
+
+    .close {
+        margin-left: 178px;
+    }
+
+    .divider {
+        margin: 8px 0;
+    }
+}
+
+.cart-items-count {
+    border-radius: 50%;
+    background: #4e9602;
+    position: absolute;
+    color: white;
+    width: 18px;
+    height: 18px;
+    margin-top: -7px;
+    margin-left: -10px;
+}
+
+.circle-container {
+    width: 500px;
+    height: 250px; /* Mitad de la altura para ajustar la disposición horizontal */
+    background-color: #f0f3ed;
+    border-radius: 250px 250px 0 0; /* Medio círculo invertido desde abajo */
+    overflow: hidden;
+    position: relative;
+  }
+
+  .circle-image {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0; /* Posición en la parte superior del círculo */
+  }
+
+/*NUEVO DISEÑO*/
+
+.mat-side-container {
+    position: fixed !important;
+    background: #ffffff !important;
+    width: 100% !important;
+    z-index: 999 !important;
+}
+
+.logo-florex {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 130;
+    position: relative;
+    display: block;
+
+    img {
+        margin-top: auto;
+        object-fit: contain;
+        object-position: center center center;
+        // z-index: -1 !important;
+    }
+}
+
+// .logo-on {
+//     margin-top: auto;
+//     z-index: 5;
+//     text-align: center;
+//     width: 200px;
+//     height: 65px;
+//     position: absolute;
+//     top: 0;
+//     left: 52%;
+//     margin-top: 5px;
+//     transform: translateX(-50%);
+//     img {
+//         margin-top: auto;
+//         object-fit: contain;
+//         object-position: center center center;
+//     }
+// }
+
+.botonF1 {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background: #595959 0% 0% no-repeat padding-box !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        object-fit: cover;
+    }
+}
+
+.logo-pages-npadding {}
+
+.logo-toolbar-npadding {}
+
+@media only screen and (max-width: 600px) {
+
+    // .logo-florex {
+    //     margin-left: 0%;
+    //     width: 210px;
+    //     height: auto;
+    //     // align-items: center;
+    //     // justify-content: center;
+    //     // z-index: 130;
+    // }
+    .logo-pages-nmargin {
+        margin-left: 0;
+        width: auto;
+    }
+
+    .logo-toolbar-npadding {
+        padding-left: 0;
+    }
+
+    .button-menu {
+        min-width: 0px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+.image-container {
+    position: relative;
+    /* Establece el contenedor como posición relativa */
+}
+
+.logo-image {
+    width: 400px;
+    /* Ajusta el tamaño de la imagen según tus necesidades */
+    //height: 350px; /* Ajusta el tamaño de la imagen según tus necesidades */
+}
+
+.logo-overlay {
+    position: absolute;
+    /* Establece la imagen superpuesta como posición absoluta */
+    top: 15px;
+    /* Ajusta la posición vertical de la imagen superpuesta */
+    left: 215px;
+    /* Ajusta la posición horizontal de la imagen superpuesta */
+    width: 75px;
+    z-index: 1;
+}
+
+.imagen-ajustada {
+    border-radius: 50%;
+    width: 90px;
+    top: 1px;
+    /* Puedes cambiar este valor al ancho deseado */
+    height: 90px; /* Puedes cambiar este valor a la altura deseada */
+    object-fit: contain;
+    /* Esto asegura que la imagen se ajuste sin distorsión */
+}

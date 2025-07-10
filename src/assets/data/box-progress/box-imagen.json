@@ -1,0 +1,55 @@
+[
+    {
+        "caja": "EB",
+        "imagen": "../../../assets/images/box-images/small-eb-25.png"
+    },
+    {
+        "caja": "EB",
+        "imagen": "../../../assets/images/box-images/small-eb-50.png"
+    },
+    {
+        "caja": "EB",
+        "imagen": "../../../assets/images/box-images/small-eb-75.png"
+    },
+    {
+        "caja": "EB",
+        "imagen": "../../../assets/images/box-images/small-eb-100.png"
+    },
+
+
+
+    {
+        "caja": "QB",
+        "imagen": "../../../assets/images/box-images/medium-qb-25.png"
+    },
+    {
+        "caja": "QB",
+        "imagen": "../../../assets/images/box-images/medium-qb-50.png"
+    },
+    {
+        "caja": "QB",
+        "imagen": "../../../assets/images/box-images/medium-qb-75.png"
+    },
+    {
+        "caja": "QB",
+        "imagen": "../../../assets/images/box-images/medium-qb-100.png"
+    },
+
+
+    {
+        "caja": "HB",
+        "imagen": "../../../assets/images/box-images/large-hb-25.png"
+    },
+    {
+        "caja": "HB",
+        "imagen": "../../../assets/images/box-images/large-hb-50.png"
+    },
+    {
+        "caja": "HB",
+        "imagen": "../../../assets/images/box-images/large-hb-75.png"
+    },
+    {
+        "caja": "HB",
+        "imagen": "../../../assets/images/box-images/large-hb-100.png"
+    }
+]

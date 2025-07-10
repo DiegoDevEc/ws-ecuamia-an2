@@ -1,0 +1,53 @@
+.pa-1 {
+    font: normal normal normal 20px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-2 {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-3 {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.btn-addcart {
+    background: #4e9602 0% 0% no-repeat padding-box;
+    border: 1px solid #3d3939;
+    border-radius: 7px;
+    width: 150px;
+    height: 28px;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    outline: none !important;
+    bottom: 0px;
+    right: 0px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    width: 350px;
+  }
+  
+  .content {
+    text-align: center;
+  }
+  
+  .centrar {
+    margin: 0 auto;
+  }
+  
+  .imagen-logo img {
+    max-width: 50%; /* Ajusta el tamaño máximo según tus necesidades */
+    height: auto;
+  }
+

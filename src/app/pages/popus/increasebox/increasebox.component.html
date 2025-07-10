@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="content">
+    <div class="imagen-logo centrar">
+      <img src="../../../assets/images/recursos/logoPartner.png">
+    </div>
+    <div *ngIf="appService.cajaSeleccionada == 'EB'" class="centrar">
+      <p class="pa-1">Your EB is Full</p><br>
+    </div>
+    <div *ngIf="appService.cajaSeleccionada == 'QB'" class="centrar">
+      <p class="pa-1">Your QB is Full</p><br>
+    </div>
+    <div *ngIf="appService.cajaSeleccionada == 'HB'" class="centrar">
+      <p class="pa-1">Your HB is Full</p><br>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="content">
+    <div class="centrar">
+      <button *ngIf="appService.CajaArmada.totalProcentajeLleno >= 90 && appService.cajaSeleccionada != 'HB' && appService.cajaSeleccionada == 'EB'"
+        class="btn-addcart cursor" (click)="actualizarCajaSeleccionada()">
+        Upgrade to QB
+      </button>
+      <button *ngIf="appService.CajaArmada.totalProcentajeLleno >= 90 && appService.cajaSeleccionada != 'HB' && appService.cajaSeleccionada == 'QB'"
+        class="btn-addcart cursor" (click)="actualizarCajaSeleccionada()">
+        Upgrade to HB
+      </button>
+      <span style="margin-right: 10px;"></span>
+      <button *ngIf="agregoCarrito == false" class="btn-addcart cursor" (click)="agregarACaja('S')">
+        Add to cart
+      </button>
+    </div>
+  </div>
+</div>

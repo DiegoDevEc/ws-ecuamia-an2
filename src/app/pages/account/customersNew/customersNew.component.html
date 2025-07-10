@@ -1,0 +1,489 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+        <div (click)="routeCostumer()" class="izquierda header-new-customer">
+            <img class="cursor" src="../../../assets/images/recursos/galon-izquierdo.png">
+            <span class="new-customer cursor">{{messageFormClient}}</span>
+        </div>
+        <br>
+        <form [formGroup]="clientInformationForm">
+            <div class="card-details">
+                <!-- <div *ngIf="appService.deleteSubClient == true" class="row" style="margin: 0 auto;">
+                <div class="col-lg-12">
+                    <div class="basurero">
+                        <div class="card-edit-delete centrar-contenido">
+                            <img (click)="deleteSubclient()" class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                        </div>
+                    </div>
+                </div>
+            </div>        -->
+                <div style="margin-left: 10%;margin-right: 10%;">
+                    <br><br>
+                    <div>
+                        <div style="margin-left: 30%;">
+                            <span class="Cabecera">Company:</span>
+                            <span> {{subClient[0].marcacion.nombreEtiqueta}}</span><br>
+                        </div>
+
+                        <div style="margin-left: 30%;">
+                            <span class="Cabecera">Adress: </span>
+                            <span>{{subClient[0].marcacion.direccionEtiqueta}}</span>
+                            <span>{{subClient[0].marcacion.ciudad}} {{subClient[0].marcacion.destino}}
+                                {{subClient[0].marcacion.codigoPostal}}</span>
+                        </div>
+
+                        <div style="margin-left: 30%;">
+                            <span class="Cabecera">Phone: </span>
+                            <span>{{subClient[0].marcacion.telefonoEtiqueta}}</span><br>
+                        </div>
+
+
+                        <div style="margin-left: 30%;">
+                            <span class="Cabecera">PO:</span>
+                            <div class="col-lg-6">
+                                <mat-select *ngIf="subClient != null" formControlName="subClientPo"
+                                    class="form-control mat-select">
+                                    <mat-option *ngFor="let destino of destinos" [value]="destino.nombre">
+                                        {{destino.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+
+                        <!-- <div style="margin-left: 30%;">
+                            <span class="Cabecera">Carrier choice:</span>
+                            <div class="col-lg-8">
+                                <mat-select formControlName="subClientCarrier" class="form-control mat-select">
+                                    <mat-option (click)="_seleccionarCamionCliente(camion)"
+                                        *ngFor="let camion of camionesAll" [value]="camion.nombre">
+                                        {{camion.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <br>
+                        </div> -->
+                    </div>
+
+                    <br>
+
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col-lg-4">
+                            <p class="Cabecera">Margin</p>
+                            <div class="input-group" style="display: flex;align-items: center;">
+                                <span class="signos">+</span>&nbsp; &nbsp;<input type="number"
+                                    formControlName="subClientUserMargin" class="input-margin"> &nbsp; &nbsp;
+                                <span class="signos">%</span>
+                            </div>
+                            <small
+                                *ngIf="subClientUserMargin.invalid && (subClientUserMargin.dirty || subClientUserMargin.touched)">
+                                <mat-error *ngIf="subClientUserMargin.errors.required">Margin is required
+                                </mat-error>
+                            </small>
+                        </div>
+                        <div class="col-lg-4">
+                            <p class="Cabecera">Active
+                                <span #myPopover
+                                    popover="If this field is with ALLOWED, your client can log in. If this field is with DENIED, your client can't log in."
+                                    popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                    [popoverDisabled]="false" [popoverAnimation]="true">
+                                    <img src="../../../assets/images/recursos/iMini.png">
+                                </span>
+                            </p>
+                            <div style="display: flex;align-items: center;justify-content: left;">
+                                <span *ngIf="activeValor == false">
+                                    <span class="create">Denied</span>
+                                </span>
+                                <span>
+                                    <span *ngIf="activeValor" class="create">Allowed</span>
+                                </span>
+                                &nbsp; &nbsp;
+                                <label class="switch">
+                                    <input (change)="_activeValor()" type="checkbox">
+                                    <span [ngClass]="{'slider-s': activeValor == false}"
+                                        class="slider-true round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <p class="Cabecera">Order
+                                <span #myPopover
+                                    popover="If your client is Active and Order is allowed, your client can Order through the webshop. If your client is Active but Order is Denied, yout client can see the availability but he/she can't order through the webshop."
+                                    popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                    [popoverDisabled]="false" [popoverAnimation]="true">
+                                    <img src="../../../assets/images/recursos/iMini.png">
+                                </span>
+                            </p>
+                            <div style="display: flex;align-items: center;justify-content: left;">
+                                <span *ngIf="orderValor == false">
+                                    <span class="create">Denied</span>
+                                </span>
+                                <span>
+                                    <span *ngIf="orderValor" class="create">Allowed</span>
+                                </span>
+                                &nbsp; &nbsp;
+                                <label class="switch">
+                                    <input (change)="_orderValor()" type="checkbox">
+                                    <span [ngClass]="{'slider-s': orderValor == false}"
+                                        class="slider-true round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col-lg-12 izquierda">
+                            <button (click)="_verCargosAdiconales()" class="btn-truck" mat-raised-button>
+                                Trucking Charges <mat-icon>local_shipping</mat-icon>
+                            </button>
+                        </div>
+                    </div><br>
+
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col-lg-12 centrar">
+                            <button class="boton-saved cursor" type="submit" *ngIf="appService.createSubClient == true"
+                                (click)="saveChanges('C')">Create
+                            </button>
+                            <button *ngIf="appService.updateSubClient == true" [routerLink]="['/account/mycustomers']"
+                                class="btn-cancelar cursor">
+                                Cancel
+                            </button>
+                            <button style="margin-left: 10px;" *ngIf="appService.updateSubClient == true"
+                                class="boton-saved cursor" type="submit" (click)="saveChanges('U')">Update Customer
+                            </button>
+                        </div>
+                    </div><br>
+                    <!-- <div class="col-lg-12 centrar">
+                    <button (click)="saveChanges2()" class="boton-saved cursor">Update Customer</button>
+                </div><br><br> -->
+                </div>
+
+                <!-- <div style="margin-left: 10%;margin-right: 10%;">
+                <span class="Cabecera">Phone:</span><br>
+                <span class="account cursor">{{cliente.telefonos[0].telefono}}</span>
+            </div> -->
+            </div>
+            <br>
+        </form>
+        <br>
+
+
+        <div class="card-details">
+
+            <div style="margin-left: 10%;margin-right: 10%;">
+                <br><br>
+                <div>
+                    <div style="margin-left: 30%;">
+                        <span class="Cabecera">Carrier choice:</span>
+                        <br>
+                        <div class="col-lg-8">
+                            <mat-select class="form-control mat-select">
+                                <mat-option (click)="_seleccionarCamionClienteAdd(camion)"
+                                    *ngFor="let camion of camionesAll" [value]="camion.nombre">
+                                    {{camion.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div style="width: 100%;">
+                        <table>
+                            <tr>
+                                <th style="width: 350px !important;">
+                                    Carrier
+                                </th>
+                                <th>
+                                    Monday
+                                </th>
+                                <th>
+                                    Tuesday
+                                </th>
+                                <th>
+                                    Wednesday
+                                </th>
+                                <th>
+                                    Thursday
+                                </th>
+                                <th>
+                                    Friday
+                                </th>
+                                <th>
+                                    Saturday
+                                </th>
+                                <th>
+                                    Sunday
+                                </th>
+                            </tr>
+                            <ng-container
+                                *ngIf="camionMarcacionesDiasDTO !== null && camionMarcacionesDiasDTO !== undefined">
+                                <tr *ngFor="let camion of camionMarcacionesDiasDTO; let i = index">
+                                    <td>
+                                        {{camion.nombreCamion}}
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('lunes', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.lunes === 'S'" class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('martes', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.martes === 'S'" class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 25px;">
+                                        <div (click)="changeValueDay('miercoles', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.miercoles === 'S'"
+                                                class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('jueves', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.jueves === 'S'" class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('viernes', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.viernes === 'S'"
+                                                class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('sabado', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.sabado === 'S'" class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div (click)="changeValueDay('domingo', i)" class="cuadrado-filtros">
+                                            <i *ngIf="camion.domingo === 'S'"
+                                                class="material-icons icon-visto">check</i>
+                                        </div>
+                                    </td>
+                                    <td style="padding-left: 20px;">
+                                        <div class="delete-item">
+                                            <img (click)="deleteCarrier(camion)"  class="cursor" src="./../../../../assets/images/recursos/eliminar.png">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </ng-container>
+                        </table>
+
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="margin: 0 auto;">
+                    <div class="col-lg-12 centrar">
+                        <button [routerLink]="['/account/mycustomers']" class="btn-cancelar cursor">
+                            Cancel
+                        </button>
+                        <button style="margin-left: 10px;" class="boton-saved cursor" type="submit"
+                            (click)="_updateSubClienteCarriers('U')">Update Carriers
+                        </button>
+                    </div>
+                </div><br>
+            </div>
+
+            <!-- <div style="margin-left: 10%;margin-right: 10%;">
+                <span class="Cabecera">Phone:</span><br>
+                <span class="account cursor">{{cliente.telefonos[0].telefono}}</span>
+            </div> -->
+        </div>
+        <br>
+
+
+
+        <form [formGroup]="userInformacionForm1">
+            <div class="card-details">
+                <div class="row margen-row" style="margin-left: 20%;">
+                    <!-- <div class="col-lg-12">
+                        <p class="user-info">User information</p>
+                        <p class="confi-p">Name</p>
+                        <input class="input" type="text" formControlName="currentNamePerson">
+                        <small
+                            *ngIf="currentNamePerson.invalid && (currentNamePerson.dirty || currentNamePerson.touched)">
+                            <mat-error *ngIf="currentNamePerson.errors.required">Username is required
+                            </mat-error>
+                            <mat-error *ngIf="currentNamePerson.errors.minlength">Minimum 5 characters
+                            </mat-error>
+                        </small>
+                    </div> -->
+                </div>
+                <br>
+                <!-- <div class="row margen-row" style="margin-left: 20%;">
+                    <div class="col-lg-8">
+                        <p class="confi-p">User name</p>
+                        <input class="input" type="text" [(ngModel)]="valueUsusario"
+                        formControlName="currentUserName1" (keyup)="validarUsuario($event)">
+                        <small *ngIf="validarUsuario.length > 0">
+                            <span class="icon-position" *ngIf="errorUsuarioExiste">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                            <span class="icon-position" *ngIf="!errorUsuarioExiste">
+                                <i class="fa fa-check-circle"></i>
+                            </span>
+                            <mat-error
+                                [ngClass]="{'error-invalid': errorUsuarioExiste, 'error-valid': !errorUsuarioExiste}">
+                                {{usuarioExiste}}
+                            </mat-error>
+                            <br>
+                        </small>
+                    </div>
+                </div> -->
+                <!-- <div class="row margen-row" style="margin-left: 20%;">
+                    <div class="col-lg-8">
+                      <p class="confi-p">User name</p>
+                      <input class="input" type="text" [(ngModel)]="valueUsuario" formControlName="currentUserName1" (keyup)="validarUsuario(valueUsuario)">
+                      <small *ngIf="valueUsuario.length > 0">
+                        <span class="icon-position" *ngIf="errorUsuarioExiste">
+                          <i class="fa fa-times-circle"></i>
+                        </span>
+                        <span class="icon-position" *ngIf="!errorUsuarioExiste">
+                          <i class="fa fa-check-circle"></i>
+                        </span>
+                        <mat-error [ngClass]="{'error-invalid': errorUsuarioExiste, 'error-valid': !errorUsuarioExiste}">
+                          {{ usuarioExiste }}
+                        </mat-error>
+                        <br>
+                      </small>
+                    </div>
+                </div> -->
+                <div class="row margen-row" style="margin-left: 20%;">
+                    <!-- <div class="col-lg-8">
+                        <p class="confi-p">User name</p>
+                        <input class="input" type="text" style="opacity: 0.5;" formControlName="currentUserName1">
+                    </div> -->
+                    <div class="col-lg-8">
+                        <p class="confi-p">User name</p>
+                        <input *ngIf="appService.updateUsuarioSubcliente == true" class="input" type="text"
+                            formControlName="currentUserName1" (keyup.enter)="validarUsuario($event)"
+                            (keyup.tab)="validarUsuario($event)" disabled>
+                    </div>
+                    <div class="col-lg-8">
+                        <input *ngIf="appService.updateUsuarioSubcliente == false" class="input" type="text"
+                            formControlName="currentUserName1" (keyup.enter)="validarUsuario($event)"
+                            (keyup.tab)="validarUsuario($event)">
+                    </div>
+                </div>
+                <br>
+                <div class="row margen-row" style="margin-left: 20%;">
+                    <div class="col-lg-8">
+                        <p class="confi-p">E-mail</p>
+                        <input class="input" type="email" formControlName="currentEmail1">
+                    </div>
+                </div>
+                <br>
+                <div class="row margen-row" style="margin-left: 20%;">
+                    <div class="col-lg-4">
+                        <p class="confi-p">Password</p>
+                        <div class="input-group mb-3">
+                            <input class="pass-search form-control" id="pass" [type]="passwordType"
+                                [(ngModel)]="valuePassword" (keyup)="validarpassword($event)"
+                                formControlName="currentPassword">
+                            <div class="input-group-prepend cursor">
+                                <span (click)="togglePassword()" class="input-group-text"><i
+                                        class="fa fa-eye"></i></span>
+                            </div>
+                        </div>
+                        <small *ngIf="valuePassword.length > 0">
+                            <span class="icon-position" *ngIf="errorPassLongitud">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                            <span class="icon-position" *ngIf="!errorPassLongitud">
+                                <i class="fa fa-check-circle"></i>
+                            </span>
+                            <mat-error
+                                [ngClass]="{'error-invalid': errorPassLongitud, 'error-valid': !errorPassLongitud}">
+                                {{contieneLongitud}}
+                            </mat-error>
+                            <br>
+                            <span class="icon-position" *ngIf="errorPassMayuscula">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                            <span class="icon-position" *ngIf="!errorPassMayuscula">
+                                <i class="fa fa-check-circle"></i>
+                            </span>
+                            <mat-error
+                                [ngClass]="{'error-invalid': errorPassMayuscula, 'error-valid': !errorPassMayuscula}">
+                                {{contieneMayuscula}}</mat-error>
+                            <br>
+                            <span class="icon-position" *ngIf="errorPassNumero">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                            <span class="icon-position" *ngIf="!errorPassNumero">
+                                <i class="fa fa-check-circle"></i>
+                            </span>
+                            <mat-error [ngClass]="{'error-invalid': errorPassNumero, 'error-valid': !errorPassNumero}">
+                                {{contieneNumero}}</mat-error>
+                            <br>
+                            <span class="icon-position" *ngIf="errorPassEspacio">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                            <span class="icon-position" *ngIf="!errorPassEspacio">
+                                <i class="fa fa-check-circle"></i>
+                            </span>
+                            <mat-error
+                                [ngClass]="{'error-invalid': errorPassEspacio, 'error-valid': !errorPassEspacio}">
+                                {{contieneEspacio}}</mat-error>
+                        </small>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="confi-p">Confirm password</p>
+                        <div class="input-group mb-3">
+                            <input class="pass-search form-control" [type]="passwordType"
+                                (keyup)="validarpassword($event)" formControlName="currentConfirmPassword">
+                            <div class="input-group-prepend cursor">
+                                <span (click)="togglePassword()" class="input-group-text"><i
+                                        class="fa fa-eye"></i></span>
+                            </div>
+                        </div>
+                        <small>
+                            <mat-error *ngIf="valuePassword.length > 0"
+                                [ngClass]="{'error-invalid': show, 'error-valid': !show}">Password does
+                                not match</mat-error>
+                        </small>
+                    </div>
+                </div>
+                <br>
+                <!-- <div *ngIf="cliente.codigoClientePadre == undefined" class="row margen-row">
+                    <div class="col-lg-12 centrar">
+                        <p class="update-logo">Update LOGO</p>
+                        <div *ngIf="verImagen == true">
+                            <img style="width: 100px;object-fit: contain;"
+                                src="../../../../assets/images/recursos/imagen.png">
+                        </div>
+                        <div class="centar-contenido" *ngIf="viewUploadImage == true">
+                            <img *ngIf="temporaryImage" [src]="temporaryImage"
+                                style="width: 100px;object-fit: contain;">
+                            <br>
+                            <br>
+                            <input style="border-radius: 20px;" lang="us" type="file"
+                                (change)="loadImage($event.target.files[0])" class="form-control">
+                        </div>
+                    </div>
+                </div> -->
+                <br>
+                <div class="row">
+                    <div class="col-lg-12 centrar">
+                        <button type="submit" *ngIf="appService.createUsuarioSubcliente == true"
+                            (click)="saveChanges2()" class="btn-update cursor">Create User</button>
+
+                        <button type="submit" *ngIf="appService.updateUsuarioSubcliente == true"
+                            (click)="saveChanges2()" class="btn-update cursor">Update User</button>
+                    </div>
+                </div>
+
+
+
+                <br>
+            </div>
+        </form>
+        <br><br><br>
+
+    </div>
+</div>
+<footer class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

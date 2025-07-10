@@ -1,0 +1,114 @@
+.underline {
+    border-bottom: 1px solid #4E9602;
+}
+
+.btn-homeEnd {
+    padding: 0; /* Elimina el relleno del botón */
+    background: none; /* Fondo transparente */
+    border: none; /* Sin borde */
+  }
+  
+  .img-icon {
+    width: 30px; /* Ancho de la imagen */
+    height: 30px; /* Alto de la imagen */
+    vertical-align: middle; /* Alinea verticalmente la imagen */
+  }
+
+.customer-p {
+    text-align: left;
+    font: normal normal normal 25px/25px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+    text-shadow: 0px 3px 6px #00000029;
+}
+
+.new-customer {
+    text-decoration: underline;
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-customer {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 39px;
+    margin-bottom: 30px;
+}
+
+.card-po {
+    font: normal normal normal 14px/14px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: 12px;
+}
+
+.card-titulos-cus {
+    text-align: left;
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.card-data-cus {
+    text-align: center;
+    font: normal normal normal 13px/13px Roboto;
+    letter-spacing: 0px;
+    color: #707070;
+    margin-top: -10px;
+}
+
+.card-linea-v {
+    border-right: 1px solid #a3a3a3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.centrar-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .card-titulos-cus {
+        float: left;
+        width: 56px;
+    }
+    .card-linea-v {
+        border-right: 0;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .card-data-cus {
+        margin-top: 0px;
+        float: left;
+        padding-left: 13px;
+    }
+}
+
+.tabla-radio {
+    border-radius: 28px;
+    border: 1px solid #707070;
+    border-radius: 28px;
+    background: white !important;
+}
+
+
+table {
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+table.table-bordered {
+    border: 1px solid #707070;
+}
+
+table.table-bordered>thead>tr>th {
+    border: 1px solid #707070;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid #707070;
+}

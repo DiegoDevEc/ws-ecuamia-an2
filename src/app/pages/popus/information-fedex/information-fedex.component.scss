@@ -1,0 +1,271 @@
+.fecha-p {
+    font: normal normal normal 20px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #4e9602;
+}
+
+.fecha {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    outline: none;
+    color: #707070;
+    border: 1px solid #595959;
+    border-radius: 22px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    font: normal normal normal 18px/22px Roboto;
+}
+
+.pa-1 {
+    font: normal normal normal 20px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-2 {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-3 {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-4 {
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-5 {
+    font: normal normal normal 12px/12px Montserrat;
+    letter-spacing: 0px;
+    color: #d11313;
+}
+
+.pa-1-tropical {
+    font: normal normal normal 20px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    background-color: #ff9a00;
+    padding: 8px 0px;
+    border-radius: 35px 35px 0 0;
+}
+
+.pa-2-tropical {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}
+
+.pa-2-red {
+    color: #cc0b0b;
+}
+
+.mat-select {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #595959;
+    border-radius: 22px;
+    height: 35px;
+    align-items: center;
+    outline: none;
+    font-size: 14px;
+}
+
+.boton-save {
+    background: #4e9602;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    width: 122px;
+    height: 28px;
+    color: white;
+    outline: none;
+    font: normal normal normal 16px/16px Montserrat;
+}
+
+.boton-saved {
+    background: #4e9602;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    width: 200px;
+    height: 28px;
+    color: white;
+    outline: none;
+    font: normal normal normal 16px/16px Montserrat;
+}
+
+.skip {
+    text-decoration: underline;
+    font: normal normal normal 14px/14px Segoe UI;
+    letter-spacing: 0px;
+    color: #505050;
+}
+
+.cancel {
+    background: #4e9602;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    width: 100px;
+    height: 28px;
+    outline: none;
+    font: normal normal normal 16px/16px Montserrat;
+    color: #ffffff;
+}
+
+select {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    white-space: nowrap;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    outline: none;
+}
+
+.myInput {
+    height: 40px !important;
+    width: 100% !important;
+    outline: none !important;
+    z-index: 999 !important;
+    padding: 15px;
+    text-align: center;
+}
+
+.ng-autocomplete {
+     ::ng-deep .autocomplete-container {
+        box-shadow: none;
+        border-radius: 22px;
+        input {
+            border: 1px solid #707070;
+            border-radius: 22px;
+            padding-right: 30px;
+            font-size: 1em;
+        }
+    }
+}
+
+mat-dialog-content {
+    max-height: unset;
+}
+
+green_color {
+    color: #4e9602 !important;
+}
+
+.shipinput {
+    border: 1px solid #707070;
+    border-radius: 22px;
+    font-size: 14px;
+    box-sizing: border-box;
+    /* border: none; */
+    //box-shadow: none;
+    outline: 0;
+    background-color: #fff;
+    color: rgba(0, 0, 0, .87);
+    width: 100%;
+    padding: 0 15px;
+    //line-height: 40px;
+    height: 40px;
+     ::ng-deep .mat-form-field-underline {
+        display: none;
+    }
+}
+
+.shipinput:disabled {
+    background-color: #eee;
+    color: #666 !important;
+}
+
+.disabledInput {
+    background-color: #eee;
+    //background-color: rgb(243, 118, 61);
+    color: #666 !important;
+    pointer-events: none;
+}
+
+.shipinputext {
+    border: none;
+    line-height: 0;
+    width: 95%;
+    height: 100%;
+    background-color: #ffffff00;
+    position: absolute;
+    top: 2px;
+    font-size: 1em;
+}
+
+.shipinputext:focus {
+    outline: none;
+}
+
+.sipinputicon {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.scroll-content {
+    overflow-y: auto;
+    max-height: 55vh;
+}
+
+::ng-deep .autocomplete-container .suggestions-container ul {
+    max-height: 150px !important;
+}
+
+.select-day {
+    height: 70px;
+     ::ng-deep .mat-select-value-text {
+        font: normal normal normal 18px/20px Montserrat;
+        letter-spacing: 0px;
+        color: #1b2e06;
+        padding-left: 16px;
+    }
+     ::ng-deep .mat-select-value {
+        padding-top: 5px;
+    }
+     ::ng-deep .mat-select-arrow-wrapper {
+        display: inline-flex;
+        vertical-align: middle;
+        padding-right: 8px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    mat-dialog-content {
+        max-height: 95vh;
+    }
+     ::-webkit-scrollbar {
+        width: 5px;
+    }
+    .pa-4 {
+        font: 13px/13px Montserrat;
+    }
+    .ancho-tropical {
+        min-width: 25%;
+    }
+    .ancho-input-tropical {
+        max-width: 80%;
+    }
+    .margen-especial {
+        margin-top: 17px;
+    }
+    .scroll-content {
+        max-height: 40vh;
+    }
+    .margen-po {
+        margin-top: 15px;
+    }
+}

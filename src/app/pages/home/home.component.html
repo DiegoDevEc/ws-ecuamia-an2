@@ -1,0 +1,823 @@
+<!--<div class="fondo-color" *ngIf="cajaArmada.variedades.length > 0 && appService.showBoxProgress"
+    style="position: fixed;z-index: 3;width: 100%;">
+    <app-box-progress (addToCart)="agregarACaja()"></app-box-progress>
+</div>-->
+<div class="container-fluid fondo-color">
+    <div class="container-fluid">
+        <!-- <div >
+            <div class="logo-on-power">
+                <img loading="lazy" class="" width="100%" height="100%" src="../../../assets/images/recursos/powered_only.png">
+            </div>
+        </div> -->
+        <br><br><br><br><br>
+        <div *ngIf="appService.showNabvarCard" class="row fixed-top navbar-light bg-light"
+            style="margin-top: 70px;display: flex;justify-content: center;align-items: center;z-index: 3 !important;">
+            <div class="col-lg-3">
+                <div class="centrar" style="margin-top: 35px;">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control input-search" placeholder="Search"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="filterValue"
+                            [formControl]="myControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option (click)="buscarProductosFiltro(option,'S')"
+                                *ngFor="let option of filteredOptions | async" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <div class="input-group-append">
+                            <button class="btn input-boton" type="button">
+                                <span class="centrar">
+                                    <img (click)="buscarProductosFiltro(filterValue,'S')"
+                                        src="../../../assets/images/recursos/lupa.png">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 16px;">
+                <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span> </span>&nbsp;
+                &nbsp; &nbsp; &nbsp;
+            </div>
+
+            <div class="col-lg-6">
+                <div (click)="_informationDialog(marcacionSleccionada,'NT')" class="cursor" style="margin-top: 35px;">
+                    <div class="card-datos">
+                        <span class="card-p">Ship to:&nbsp;</span>
+                        <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                            {{marcacionSleccionada.nombreEtiqueta}}
+                        </span> &nbsp;&nbsp;
+                        <span class="linea-v"></span> &nbsp;&nbsp;
+                        <span class="card-p">Carrier choice:&nbsp;</span>
+                        <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}
+                        </span> &nbsp;&nbsp;
+                        <span class="linea-v"></span> &nbsp;&nbsp;
+                        <span class="card-p">Mark Code:&nbsp;</span>
+                        <span *ngIf="destinoSeleccionado != undefined" class="card-p-2">{{destinoSeleccionado.nombre}}
+                        </span> &nbsp;&nbsp;
+                        <span class="input-group-addon cursor"><img
+                                src="../../../assets/images/recursos/editar.png"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-3">
+            </div>
+
+            <div class="col-lg-7">
+
+                <div *ngIf="appService.showNabvarCardActive" class="row cursor"
+                    (click)="_informationDialog(marcacionSleccionada,'NT')">
+
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 separador">
+                        <div class="margin-card-datos">
+
+                            <div *ngIf="!isLoadingDate" class="card-datos d-none d-md-flex">
+                                <div class="">
+                                    <div class="input-fecha"
+                                        style="border: none !important; box-shadow: none !important;">
+                                        <span class="fecha-p">Date: </span>
+                                        <span class="card-p-2">  &nbsp;&nbsp;{{dateMostrar}} </span>
+
+                                        <!-- <mat-datepicker #shippingDate disabled="false">
+                                        </mat-datepicker> -->
+                                    </div>
+                                </div>
+                                &nbsp;&nbsp;
+                                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                                <span class="caFFrd-p">Ship to:&nbsp;</span>
+                                <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                                    {{marcacionSleccionada.nombreEtiqueta}}
+                                </span> &nbsp;&nbsp;
+                            </div>
+                            <br>
+                            <div class="card-datos d-none d-md-flex">
+                                <span class="card-p">Carrier choice:&nbsp;</span>
+                                <span *ngIf="camionSeleccionado != undefined"
+                                    class="card-p-2">{{camionSeleccionado.nombre}}</span>
+
+                                &nbsp;&nbsp;
+
+                                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                                <span class="card-p">Mark Code:&nbsp;</span>
+                                <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                                    style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                                </span>
+
+                                <span class="input-group-addon cursor"><img
+                                        src="../../../assets/images/recursos/editar.png"></span>
+                            </div>
+
+                            <div class="card-datos d-block d-md-none">
+                                <div class="row mx-2 flex-row flex-nowrap align-items-center">
+                                    <!-- <span class="card-p">Ship to:&nbsp;</span> -->
+                                    <span class="material-icons" style="color: #689f38;">
+                                        location_on
+                                    </span>
+                                    <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                                        {{marcacionSleccionada.nombreEtiqueta}}</span>
+                                </div>
+
+                                <div class="row mt-1 mx-2 d-flex flex-row flex-nowrap">
+                                    <span class="card-p">Carrier choice:&nbsp;</span>
+                                    <span *ngIf="camionSeleccionado != undefined"
+                                        class="card-p-2">{{camionSeleccionado.nombre}}</span> &nbsp;&nbsp;
+                                    <span class="linea-v"></span> &nbsp;&nbsp;
+                                    <span class="card-p">Mark Code:&nbsp;</span>
+                                    <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                                        style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                                    </span>&nbsp;&nbsp;
+                                    <span class="linea-v"></span> &nbsp;&nbsp;
+                                    <span class="card-p d-md-none">Date:&nbsp;</span>
+                                    <span class="card-p-2">{{date.value | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="input-group-addon cursor"><img
+                                            src="../../../assets/images/recursos/editar.png"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1" *ngIf="cajaArmada.variedades.length <= 0">
+                <div class="padre">
+                    <img loading="lazy" class="" width="100%" height="100%"
+                        src="../../../assets/images/recursos/newsucanuse3.png">
+                    <p><strong> {{messagePublishTitle}}</strong><br><br>
+                        {{messagePublish}}
+                    </p>
+                    <p class="contenido2"><strong>NEWS YOU</strong> <br>
+                        <strong>CAN USE</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <mat-sidenav-container style="background-color: #f6f6f6 !important;">
+
+            <mat-sidenav-content class="all-products fondo-color" style="overflow-x: hidden;" ngClass.gt-sm="p-left">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 text-left text-md-rigth my-2">
+                            <button *ngIf="!sidenavClose" mat-button style="color: #096905; font-style: italic;"
+                                (click)="sidenav2.toggle()">
+                                Filters
+                                <mat-icon [ngStyle]="{'color':'#096905'}">filter_alt</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="centrar" *ngIf="productoNoEncontrado">
+                    <p class="producto-not">Your search couldn´t be found. However, one our representatives <br> will be
+                        happy to offer options.
+                    </p>
+                    <p class="producto-not-1">Contact us</p>
+                </div>
+                <div
+                    *ngIf="productosProveedor.length > 0 && productos.length > 0 && appService.realizoBusquedaProducto == false">
+                    <p class="centrar card-p1-mensaje">
+                        Varieties that can be combined with your search
+                    </p>
+                    <br>
+                </div>
+
+                <!--Busqueda tipo mezcla de proveedores-->
+                <div *ngIf="productosProveedor.length > 0" class="row busqueda-mezcla">
+                    <div class="col-lg-8 col-md-8 col-6 px-0 px-md-3">
+                        <form class="example-form">
+                            <div class="input-group">
+                                <input class="form-control input-search" [(ngModel)]="appService.busquedaGeneralWs"
+                                    (keyup)="buscarProductosListaFiltrada($event,'N')"
+                                    [formControl]="appService.controlBusquedaWs" [matAutocomplete]="auto"
+                                    placeholder="Search">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option (click)="buscarProductosListaFiltrada(option, 'S')"
+                                        *ngFor="let option of appService.opcionesDeBusquedaWs | async" [value]="option"
+                                        [ngClass]="_allowSelection(option)">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div class="input-group-append">
+                                    <button class="btn input-boton" type="button">
+                                        <span class="centrar">
+                                            <img (click)="buscarProductosListaFiltrada(appService.busquedaGeneralWs, 'S')"
+                                                src="../../../assets/images/recursos/lupa.png">
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-6 pr-0 px-md-3">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                <mat-select [value]="appService.limpiarFiltroColor" placeholder="Search by color"
+                                    class="form-control mat-select-color">
+                                    <mat-option *ngFor="let color of appService.busquedaGeneralColorWS"
+                                        (click)="_buscarPorColorListaFiltrada(color)" [value]="color">
+                                        {{color}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br><br>
+                </div>
+                <!--Busqueda tipo mezcla de proveedores-->
+                <div *ngIf="appService.activarBusquedaCuandoElimina === true && productosProveedor.length == 0"
+                    class="row" style="margin-left: 10%;margin-right: 10%;">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <form class="example-form">
+                            <div class="input-group">
+                                <input class="form-control input-search" [(ngModel)]="appService.busquedaGeneralWs"
+                                    (keyup)="buscarProductosListaFiltrada($event,'N')"
+                                    [formControl]="appService.controlBusquedaWs" [matAutocomplete]="auto"
+                                    placeholder="Search">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option (click)="buscarProductosListaFiltrada(option, 'S')"
+                                        *ngFor="let option of appService.opcionesDeBusquedaWs | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div class="input-group-append">
+                                    <button class="btn input-boton" type="button">
+                                        <span class="centrar">
+                                            <img (click)="buscarProductosListaFiltrada(appService.busquedaGeneralWs, 'S')"
+                                                src="../../../assets/images/recursos/lupa.png">
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="row separador">
+                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                <mat-select [value]="appService.limpiarFiltroColor" placeholder="Search by color"
+                                    class="form-control mat-select-color">
+                                    <mat-option *ngFor="let color of appService.busquedaGeneralColorWS"
+                                        (click)="_buscarPorColorListaFiltrada(color)" [value]="color">
+                                        {{color}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+                <!--PRODUCTOS WEB SHOP-->
+                <div  id="miDiv" class="container-fluid"
+                    style="min-height: 800px !important; margin-left: 40px; margin-right: 0 !important;">
+
+                    <div class="tropical-show" *ngIf="mensajeTropical != ''">
+                        <p class="p-title-tropical">Tropical Flowers</p>
+                        <p class="p-color-ws center">{{mensajeTropical}}</p>
+                        <br>
+                    </div>
+                    <div>
+                        <p *ngIf="appService.resultadoBusqueda" class="card-result">Result</p>
+                    </div>
+
+
+                    <div class="row margin-top-productos margin-tropical">
+                        <div [ngClass]="{'card-productos-v2-promo': producto.promocion == 'S','card-productos-v2-tropical': this.paginado.isTropical, 'card-productos-v2-limited': producto.limitado == 'S' }"
+                            class="card-productos-v2" *ngFor="let producto of productosPaginados let i = index">
+                            <div class="rosas">
+                                <img class="avatar cursor" (click)="bigPicture(producto)" [src]="producto.imagen">
+                            </div>
+                            <div class="margen-texto-producto">
+                                <p class="nombre-producto">{{producto.nombreProducto}}</p>
+                            </div>
+                            <div class="centrar" style="margin-top: -10px !important;">
+                                <div class="talla">Selected grade</div>
+
+                                <p><span class="text-grade">{{ producto.tallaSeleccionada }}</span></p>
+                                <div style="margin-top: -10px !important;">
+                                    <div class="button-grade-garrows">
+                                            <img *ngIf="producto.tallasFinales.length>3" class="button-arrowsl" src="../../../../assets/images/recursos/flecha-izquierda.png" (click)="toLeft($event.target)">
+                                        <div class="button-grade-group">
+                                            <div>
+                                                <button type="button" class="button-grade"
+                                                    *ngFor="let talla of producto.tallasFinales; let i = index"
+                                                    [ngClass]="{'button-grade-selected': talla.valor==producto.tallaSeleccionada}"
+                                                    (click)="actualizarProductoPorTalla(talla, producto);setDesplazar($event.target,i);">{{talla.valor}}</button>
+                                            </div>
+                                        </div>
+                                        <!-- <button *ngIf="producto.tallasFinales.length>3" class="button-arrowsr"
+                                            (click)="toRigth($event.target)">
+                                        </button> -->
+                                        <img *ngIf="producto.tallasFinales.length>3" class="button-arrowsr" src="../../../../assets/images/recursos/flecha-derecha.png" (click)="toRigth($event.target)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-combo-add" (click)="_activarRowBox(producto)"
+                                [ngClass]="{'desactivar-box': producto.variedades[0].disabledBox == true || cajaArmada.variedades.length > 0 }">
+                                <div>
+                                    <div style="margin-left: 5px;"><span class="card-p-combo">Box</span></div>
+                                    <div class="card-items-producto">
+                                        <div matTooltip="Select grade first" matTooltipClass="tooltipclass"
+                                            [matTooltipDisabled]="!producto.tallaSeleccionada.includes('/')"
+                                            matTooltipPosition="below">
+                                            <input [disabled]="cajaArmada.variedades.length > 0 " type="number"
+                                                maxlength="2"
+                                                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                [(ngModel)]="producto.cantidadCajas" class="card-input"
+                                                onwheel="this.blur()" [disabled]="cajaArmada.variedades.length > 0">
+                                        </div>
+                                        <mat-select value="caja" class="box-select"
+                                            [disabled]="cajaArmada.variedades.length > 0">
+                                            <mat-option
+                                                *ngFor="let caja of _orderCaja(producto.variedades[producto.indexVariedadSeleccionada].cajasCantidad)"
+                                                value="caja" (click)="actualizarProductoPorCaja(caja, producto)">
+                                                x {{caja}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <div class="box-precio-tooltip"
+                                            matTooltip="Price per {{ producto.variedades[producto.indexVariedadSeleccionada].tipoPrecioVariedad=='T'?'STEM':'BUNCHE' }}"
+                                            matTooltipClass="tooltipclassper" matTooltipPosition="below">
+                                            <p *ngIf="this.appService.orderWebShop == 'S'" class="box-precio">
+                                                $ {{producto.variedades[producto.indexVariedadSeleccionada].precio |
+                                                number : '1.2-2' }}
+                                            </p>
+                                            <span class="box-precio-span">per {{
+                                                producto.variedades[producto.indexVariedadSeleccionada].tipoPrecioVariedad=='T'?'STEM':'BUNCHE'
+                                                }}</span>
+                                        </div>
+
+                                        <p *ngIf="this.appService.orderWebShop == 'N'" class="box-precio"
+                                            style="margin-top:30px"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-combo-add" (click)="_activarRowBunches(producto)"
+                                [ngClass]="{'desactivar-box': producto.variedades[0].disabledBunches == true}"
+                                *ngIf="!this.paginado.isTropical">
+                                <div>
+                                    <div style="margin-left: 5px;" class="card-p-combo-size"><span
+                                            class="card-p-combo">Bunches</span></div>
+                                    <div class="card-items-producto">
+                                        <div matTooltip="Select grade first" matTooltipClass="tooltipclass"
+                                            [matTooltipDisabled]="!producto.tallaSeleccionada.includes('/')"
+                                            matTooltipPosition="below">
+                                            <input
+                                                [attr.disabled]="producto.tallaSeleccionada.includes('/')? true : null"
+                                                type="number" maxlength="2"
+                                                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                [(ngModel)]="producto.cantidadBunches" class="card-input"
+                                                onwheel="this.blur()">
+                                        </div>
+                                        <p class="stems">
+                                            x {{producto.variedades[producto.indexPorTipoCaja].cantidadPorBunche}}
+                                        </p>
+                                        <div class="box-precio-tooltip"
+                                            matTooltip="Price per {{ producto.variedades[producto.indexPorTipoCaja].tipoPrecioVariedad=='T'?'STEM':'BUNCHE' }}"
+                                            matTooltipClass="tooltipclassper" matTooltipPosition="below">
+                                            <!--p *ngIf="this.appService.orderWebShop == 'S'" class="box-precio"> $ {{producto.variedades[producto.indexPorTipoCaja].precio *1.1 | number : '1.2-2' }}-->
+                                            <p *ngIf="this.appService.orderWebShop == 'S'" class="box-precio"> $
+                                                {{producto.variedades[producto.indexPorTipoCaja].precio | number :
+                                                '1.2-2' }}
+                                            </p>
+                                            <p *ngIf="this.appService.orderWebShop == 'N'" class="box-precio"></p>
+                                            <span class="box-precio-span">per {{
+                                                producto.variedades[producto.indexPorTipoCaja].tipoPrecioVariedad=='T'?'STEM':'BUNCHE'
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div *ngIf="this.appService.orderWebShop == 'S'">
+                                <!-- Add to cart -->
+                                <div *ngIf="producto.botonBox == 'S' && cajaArmada.variedades.length == 0"
+                                    class="centrar btn-carrito"
+                                    [ngClass]="{'btn-carrito-top': producto.variedades[0].mostrarPrecioPorCaja === 'si'}">
+                                    <app-controls-box
+                                        *ngIf="producto.variedades[producto.indexVariedadSeleccionada].seguridad === 'no'"
+                                        [variedad]="variedad" [imagen]="producto.imagen" [type]="'aumentar'"
+                                        [producto]="producto" [indexVariedad]="producto.indexVariedadSeleccionada"
+                                        (limpiarOut)="limpiarInput($event)"
+                                        [DatosProductosIu]="producto.variedades[0].codigosProveedor"
+                                        [cantidadCajas]="producto.cantidadCajas" [TipoCaja]="cajaInput"
+                                        [marcacionSleccionada]="marcacionSleccionada"
+                                        (emitirPopupCamion)="_informationDialogControl($event)"
+                                        [camionSeleccionado]="camionSeleccionado" [isTropical]="paginado.isTropical">
+                                    </app-controls-box>
+                                </div>
+                                <!-- Add to box -->
+                                <div *ngIf="producto.variedades[producto.indexVariedadSeleccionada].seguridad === 'no' && producto.variedades[0].mostrarPrecioPorCaja === 'no'"
+                                    class="centrar btn-carrito">
+                                    <app-controls
+                                        *ngIf="(producto.botonBunches == 'S') || cajaArmada.variedades.length > 0"
+                                        [producto]="producto" [type]="'aumentar'" [imagen]="producto.imagen"
+                                        [indexVariedad]="producto.indexVariedadSeleccionada"
+                                        [variedadCajaSeleccionadaNumber]="appService.cajaSeleccionadaNumber"
+                                        (DatosProductosOu)="productosXProveedorEvent($event, null)"
+                                        [DatosProductosIu]="producto.variedades[0].codigosProveedor"
+                                        [cajaSeleccionada]="appService.cajaSeleccionada"
+                                        [cantidadBunches]="producto.cantidadBunches"
+                                        (cajaSeleccionadaActualizada)="cajaSeleccionadaActualizada($event)"
+                                        [tallasVariedadProducto]="producto.tallasCajaCm"
+                                        [cajasVariedadProducto]="producto.cajasDisponiblesMixtas"
+                                        [sePuedeMezclar]="producto.variedades[0].sePuedeMezclar"
+                                        [tiposCajaProducto]="producto.variedades[producto.indexVariedadSeleccionada].cajasPorVariedad"
+                                        (agregarACaja)="agregarACaja($event)"
+                                        (emitirPopupCamion)="_informationDialogControl($event)"
+                                        [marcacionSleccionada]="marcacionSleccionada"
+                                        [camionSeleccionado]="camionSeleccionado">
+                                    </app-controls>
+                                </div>
+                                <!-- Candado -->
+                                <div *ngIf="producto.variedades[producto.indexVariedadSeleccionada].seguridad === 'si'"
+                                    fxLayout="row" fxLayout.xs="column" class="text-muted">
+                                    <div class="center centrar-contenido" style="width: 100%;">
+                                        <button mat-icon-button matTooltip="Locked" (click)="locked()"
+                                            class="button-locked">
+                                            <mat-icon color="primary">https
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Limited -->
+                                <div *ngIf="producto.limitado == 'S'" class="card-promo-top cursor">
+                                    <p class="card-limited">LIMITED
+                                        <span class="cursor position-absolute info-icon">
+                                            <div [matTooltip]="etiquetaLimited"
+                                                aria-label="Button that shows a red tooltip"
+                                                matTooltipClass='tooltip-limited'>
+                                                <mat-icon>info</mat-icon>
+                                            </div>
+                                        </span>
+                                    </p>
+                                </div>
+                                <!-- Promo -->
+                                <div *ngIf="producto.promocion == 'S'" class="card-promo-top">
+                                    <p class="card-promo">PROMO</p>
+                                </div>
+                                <!-- Tropicales Informacion -->
+                                <div *ngIf=" this.paginado.isTropical" class="card-promo-top cursor"
+                                    (click)="_informationDialog(marcacionSleccionada,'T')">
+                                    <p class="card-promo card-doortodoor">Door to Door
+                                        <span class="cursor position-absolute info-icon">
+                                            <!--div matTooltip="Tropical flowers will be shipped directly from the farm to your door. Kindly fill out the form below with the address you'd like to ship to and you desired day of arrival to your door." aria-label="Button that shows a red tooltip" matTooltipClass='tooltip-tropical'-->
+                                            <div matTooltip="Tropical flowers will be shipped directly from the farm to your door."
+                                                aria-label="Button that shows a red tooltip"
+                                                matTooltipClass='tooltip-tropical'>
+                                                <!-- <img src="../../../assets/images/recursos/iMini.png"> -->
+                                                <mat-icon>info</mat-icon>
+                                            </div>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div *ngIf="isLoadingOne" class="centrar">
+                        <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+                        <p style="margin-top: 0px;">Loading...</p>
+                    </div>
+
+                </div>
+
+                <!---LISTA BUSQUEDA PRODUCTOS MEZCLA-->
+
+            </mat-sidenav-content>
+
+            <!--NAVBAR NAVIGATION-->
+            <mat-sidenav #sidenav2 [opened]="sidenavClose" [mode]="sidenavClose ? 'side' : 'over'"
+                style="position: fixed; margin-top: 140px;"
+                class="filter-sidenav fondo-color navbar-page pr-xs-4 pr-md-0" perfectScrollbar>
+
+
+                <div style="margin-right: 10px;">
+                    <div class="col-lg-2">
+                        <div class="izquierda">
+                            <p>
+                                <span class="hub-titulo hub-underline cursor" (click)="_eliminarFitros()">
+                                    STORE
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Buscador por nombre -->
+                    <div class="centrar margin-br-top">
+                        <div class="card-nav-search-m">
+                            <div class="input-group mb-3 search-nbutton">
+                                <input type="text" class="form-control input-search" placeholder="Search"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                    [(ngModel)]="filterValue" [formControl]="myControl" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option (click)="buscarProductosFiltro(option,'S')"
+                                        *ngFor="let option of filteredOptions | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div class="input-group-append">
+                                    <button class="btn input-boton" type="button">
+                                        <span class="centrar">
+                                            <img (click)="buscarProductosFiltro(filterValue,'S')"
+                                                src="../../../assets/images/recursos/lupa.png">
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px;">
+                                <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span>
+                                </span>&nbsp; &nbsp; &nbsp; &nbsp;
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="centrar card-dutch margin-br-top cursor" (click)="dutchDirect()">
+                        <button class="btn-dutch cursor">Dutch Direct</button>
+                    </div>
+
+                    <div class="centrar card-tropical cursor margin-br-top" (click)="_tropicalFlowers()">
+                        <button class="btn-dutch cursor">Tropical Flowers</button>
+                    </div>
+
+                    <div class="card-navbar margin-br-top">
+                        <br>
+                        <div class="centrar">
+                            <p class="p-filters">Filters</p>
+                        </div>
+                        <div class="margen-chip">
+                            <div *ngIf="listaFiltrosSeleccionados.length > 0">
+                                <div class="centrar">
+                                    <p (click)="_eliminarFitros()" class="delete-all cursor">Reset Filters</p>
+                                </div>
+                                <mat-chip-list>
+                                    <mat-chip class="chip-filters" *ngFor="let filtro of listaFiltrosSeleccionados">
+                                        {{filtro.valor}}
+                                        <span class="derecha"><img class="cursor"
+                                                (click)="eliminarFiltroSeleccionado(filtro,filtro.valor)"
+                                                src="../../../assets/images/recursos/x.png"></span>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+
+                        <div class="margin-filtros margin-br-top">
+                            <p class="p-categorias"><strong>Search by categories</strong></p>
+                        </div>
+
+                        <div class="centrar" *ngIf="productosWebShopFilter.length > 0">
+                            <p (click)="_verFiltrosCategorias(listaFiltros)" class="see-all cursor">
+                                Show More ({{productosWebShopFilter.length}})
+                            </p>
+                        </div>
+
+                        <div *ngIf="productosWebShopFilter.length <= 0" class="centrar">
+                            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+                            <p style="margin-top: 0px;">Loading...</p>
+                        </div>
+
+                        <!-- <div class="centrar margin-br-top">
+                            <div class="card-nav-search-m">
+                                <div class="input-group mb-3">
+                                    <input [(ngModel)]="valorBusquedaCat"
+                                        (keyup)="_buscarCategoriasConFiltro($event, 'N')" type="text"
+                                        class="form-control card-nav-search" placeholder="Search"
+                                        [formControl]="categoriasControl" [matAutocomplete]="autoCat">
+                                    <mat-autocomplete autoActiveFirstOption #autoCat="matAutocomplete">
+                                        <mat-option (click)="_buscarCategoriasConFiltro(option, 'S')"
+                                            *ngFor="let option of filtrosOpcionesCat | async" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <div class="input-group-append">
+                                        <button class="btn card-nav-btn" type="button">
+                                            <span class="centrar">
+                                                <img (click)="_buscarCategoriasConFiltro(valorBusquedaCat,'S')"
+                                                    class="cursor" src="../../../assets/images/recursos/lupa.png">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="margin-filtros">
+                            <div class="card-filtros-color">
+                                <main class="main-filtros">
+                                    <div *ngFor="let filtro of productosWebShopFilter.slice(0, 15)">
+                                        <div (click)="_buscarCategoriasConFiltroCheck(filtro)"
+                                            class="input-group mb-3 cursor">
+                                            <div class="cuadrado-filtros">
+                                                <i *ngIf="filtro.select === 'S'"
+                                                    class="material-icons icon-visto">check</i>
+                                            </div>
+                                            <div class="margen-p-span">
+                                                <span class="p-filtros"
+                                                    style="text-transform: capitalize;">{{filtro.nombre}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                            </div>
+                        </div>
+
+
+                        <div class="margin-filtros margin-br-top">
+                            <p class="producto-descuento">Products with discount</p>
+                        </div>
+                        <div class="margin-filtros">
+                            <main class="main-filtros">
+                                <div (click)="_mostrarPromociones()" class="input-group mb-3 cursor">
+                                    <div class="cuadrado-filtros">
+                                        <i *ngIf="appService.mostrarPromociones === true"
+                                            class="material-icons icon-visto">check</i>
+                                    </div>
+                                    <div class="margen-p-span">
+                                        <span class="p-filtros cursor p-promo">PROMO</span>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+
+                        <div class="centrar margin-br-top">
+                            <p class="search-color"><strong> Search by color</strong></p>
+                        </div>
+                        <!-- <div class="centrar">
+                            <div class="card-nav-search-m">
+                                <div class="input-group mb-3">
+                                    <input [(ngModel)]="valorBusquedaCol" (keyup)="_buscarColoresConFiltro($event, 'N')"
+                                        type="text" class="form-control card-nav-search" placeholder="Search"
+                                        [formControl]="coloresControl" [matAutocomplete]="autoCol">
+                                    <mat-autocomplete autoActiveFirstOption #autoCol="matAutocomplete">
+                                        <mat-option (click)="_buscarColoresConFiltro(option, 'S')"
+                                            *ngFor="let option of filtrosOpcionesColores | async" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <div class="input-group-append">
+                                        <button class="btn card-nav-btn" type="button">
+                                            <span class="centrar">
+                                                <img (click)="_buscarColoresConFiltro(valorBusquedaCol, 'S')"
+                                                    class="cursor" src="../../../assets/images/recursos/lupa.png">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="margin-filtros">
+                            <div class="card-filtros-color">
+                                <main class="main-filtros">
+                                    <div *ngFor="let item of coloresWebShop">
+                                        <div (click)="changeColor(item.nombre)" class="input-group mb-3 cursor">
+                                            <div class="cuadrado-filtros">
+                                                <i *ngIf="item.select === 'S'"
+                                                    class="material-icons icon-visto">check</i>
+                                            </div>
+                                            <div class="margen-color">
+                                                <span>
+                                                    <!--div *ngIf="item.color2Hex != undefined" class="color-circle" [ngStyle]="getBackgroundGradient(item.colorHex, item.color2Hex)"></div-->
+                                                    <div *ngIf="item.color2Hex != undefined" class="color-circle2">
+                                                        <div class="color-half-left" [style.background-color]="item.colorHex"></div>
+                                                        <div class="color-half-right" [style.background-color]="item.color2Hex"></div>
+                                                    </div>
+                                                    <div *ngIf="item.color2Hex == undefined" class="color-circle" [style.background-color]="item.colorHex"></div>
+                                                    <!--div [ngClass]="item.estilo"></div-->
+                                                </span>
+                                            </div>
+                                            <div class="margen-p-span">
+                                                <span class="p-filtros"
+                                                    style="text-transform: capitalize;">{{item.nombre}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                            </div>
+                        </div>
+                        <div class="centrar margin-br-top pb-4">
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </mat-sidenav>
+
+            <!--ARMAR CAJA-->
+            <mat-sidenav position="end" #sidenav3 [opened]="cajaArmada.variedades.length > 0"
+                [mode]="cajaArmada.variedades.length > 0 ? 'side' : 'over'"
+                style="position: fixed; margin-top: 70px; width: 250px !important;"
+                class="filter-sidenav fondo-color navbar-page " perfectScrollbar>
+                <div *ngIf="cajaArmada.variedades.length > 0">
+
+                    <div style="margin-top: 10px; text-align: center;">
+                        <p>
+                            <span class="card-your-box">Your box</span>
+                            <span class="card-icon-stems cursor">
+                                <div #myPopover
+                                    popover="The following varieties have been selected by you to build the box."
+                                    popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                    [popoverDisabled]="false" [popoverAnimation]="true">
+                                    <img src="../../../assets/images/recursos/iMini.png" alt="">
+                                </div>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="box-p-linea"></div>
+                        <div class="box-p-img">
+                            <div class="centrar">
+                                <p class="box-p-p">Your
+                                    <span *ngIf="appService.cajaSeleccionada == 'EB'">small</span>
+                                    <span *ngIf="appService.cajaSeleccionada == 'QB'">medium</span>
+                                    <span *ngIf="appService.cajaSeleccionada == 'HB'">large</span>
+                                    ({{appService.cajaSeleccionada}}) box is
+                                    <span *ngIf="appService.CajaArmada.totalProcentajeLleno >= 95 &&  appService.CajaArmada.totalProcentajeLleno <= 105"> 100% full.</span>
+                                    <span *ngIf="appService.CajaArmada.totalProcentajeLleno < 95">
+                                    {{appService.CajaArmada.totalProcentajeLleno |
+                                    number: '1.2-2'}}% full.
+                                    </span>
+                                    <span class="icon-info cursor">
+                                        <div #myPopover
+                                            popover="There are 3 types of boxes: Small (EB), medium (QB) and large (HB). You have the option to customize each box with the packing of your choice."
+                                            popoverTitle="INFO" popoverPlacement="bottom-left" [popoverOnHover]="true"
+                                            [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                                            [popoverDisabled]="false" [popoverAnimation]="true">
+                                            <img src="../../../assets/images/recursos/iMini.png" alt="">
+                                        </div>
+                                    </span>
+
+                            </div>
+                            <div class="centrar" style="flex-direction: column;">
+                                <img class="progress-image" [src]="appService.barraProgresoImagen[0]" alt="">
+                            </div>
+
+                            <div class="centrar">
+                                <div style="height: 10px;"></div>
+                                <button
+                                    *ngIf="appService.CajaArmada.totalProcentajeLleno >= 95 &&  appService.CajaArmada.totalProcentajeLleno <= 105 && appService.cajaSeleccionada != 'HB'"
+                                    class="box-p-btn-large cursor" (click)="actualizarCajaSeleccionada()">Increase
+                                </button>
+                                <div style="height: 10px;"></div>
+                                <button *ngIf="appService.CajaArmada.totalProcentajeLleno >= 95 &&  appService.CajaArmada.totalProcentajeLleno <= 105"
+                                    class="box-p-btn-add cursor ml-2" (click)="agregarACaja('S')">Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-slider-v" style="text-align: center; margin-top: 40px;">
+                        <div *ngFor="let variedad of _varietiesNoRepeated(cajaArmada.variedades)"
+                            class="card-items-added">
+                            <div class="card-edit-items cursor">
+                                <img (click)="eliminarVariedad(variedad)"
+                                    src="./../../../../assets/images/recursos/eliminar.png">
+                            </div>
+                            <div style="display: flex;align-items: center;justify-content: center;">
+                                <img [src]="variedad.imagenes" class="card-avatar-items">
+                            </div>
+                            <div style="margin:0 auto">
+                                <p class="card-name-items"> {{variedad.nombreVariedad}} - {{variedad.producto}} </p>
+                                <p class="card-name-talla-stems"> {{variedad.talla}}
+                                    <br> +{{ _countVarietiesNoRepeat(variedad, cajaArmada.variedades) }} x
+                                    {{variedad.cantidadPorBunche}}
+                                    {{variedad.tipoPrecioVariedad=='T'?'stems':'stems'}}
+                                </p>
+                            </div>
+                            <app-product-controls [quantity]="_countVarietiesNoRepeat(variedad, cajaArmada.variedades)"
+                                (quantityChange)="actualizarCantidadBunchesMixtas($event, variedad)"></app-product-controls>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="card-stems" *ngIf="cajaArmada.totalCantidadPorBunche > 0">
+                            You have {{cajaArmada.totalCantidadPorBunche}} stems in your box</span>
+                    </div>
+
+                    <div style="margin-top: 10px; text-align: center;">
+                        <button class="box-p-btn-add cursor delete-all-items" (click)="_eliminarTodasVariedades()">Reset
+                            mix box
+                        </button>
+
+                    </div>
+                    <br><br>
+                </div>
+
+            </mat-sidenav>
+
+        </mat-sidenav-container>
+    </div>
+</div>
+<footer class="footer fondo-color">
+    <div *ngIf="productosPaginados.length == totalRegistros">
+        <p style="padding-left: 300px; font-size: 20px; color: #595959;">End of content</p>
+    </div>
+    <img src="../../../assets/images/recursos/footer.png" alt="">
+</footer>

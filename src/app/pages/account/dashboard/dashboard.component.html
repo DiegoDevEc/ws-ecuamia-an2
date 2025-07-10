@@ -1,0 +1,258 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+
+        
+        <div class="image-text-container">
+            <div>
+            <div class="image-containers">
+                <img loading="lazy" class="logo-image logo-overlay imagen-ajustada" [src]="imageURL">
+            </div>
+            </div>
+            <!-- <div class="card-detailc">
+                <div style="margin-left: 10%;margin-right: 10%;">
+                    <span class="Cabecera">Greeting name:</span>
+                    <span class="account2 cursor">{{appService.clientLogin.nombre}}</span>
+                </div>
+            </div><br> -->
+
+        </div>
+        <div>
+            <p class="confi"><span class="underline" style="margin-left: 18%;margin-right: 10%;">SETTINGS</span></p>
+        </div>
+        
+        
+            <div class="card-details">
+                <br><br>
+                <div style="margin-left: 10%;margin-right: 10%;">
+                    <div>
+                    <div style="margin-left: 30%;">
+                    <span class="Cabecera">Greeting name:</span>
+                    <span>{{appService.clientLogin.nombre}}</span>
+                    </div>
+                    </div>
+                </div>
+                        <div style="margin-left: 10%;margin-right: 10%;">
+                        <div>
+                            <div style="margin-left: 30%;">
+                            <span class="Cabecera">Address: </span>
+                            <span *ngIf="cliente.direcciones.length == 0" >{{direccionSubcliente}}</span>
+                            <span *ngIf="cliente.direcciones.length > 0" >{{cliente.direcciones[0].direccion}}</span>
+                            <span *ngIf="cliente.direcciones.length > 0" >{{cliente.direcciones[0].ciudad.nombre}}  {{cliente.direcciones[0].codigoEstado}} {{cliente.direcciones[0].codigoPostal}}</span><br>
+                            <span *ngIf="cliente.direcciones.length > 0" >{{cliente.direcciones[0].ciudad.pais.nombre}}</span>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div style="margin-left: 10%;margin-right: 10%;">
+                            <div>
+                            <div style="margin-left: 30%;">
+                            <span class="Cabecera">Phone: </span>
+                            <span *ngIf="cliente.telefonos.length == 0" >{{telefonoSubcliente}}</span>
+                            <span *ngIf="cliente.telefonos.length > 0">{{cliente.telefonos[0].telefono}}</span>
+                            </div>
+                            </div>
+                        </div>
+                        <br><br>
+            </div>
+            <br>
+        <div class="card-details">
+            <!-- <form [formGroup]="clienteInformacionForm">
+                <div style="margin-left: 10%;margin-right: 10%;">
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-12">
+                            <p class="confi-p">Company</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentCliente">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-6">
+                            <p class="confi-p">Contact name</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentContactName">
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="confi-p">Phone</p>
+                            <input class="input" [readonly]="disabled" type="text" min="1"
+                                formControlName="currentPhone">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-6">
+                            <p class="confi-p">Address</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentAdress">
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="confi-p">City</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentCity">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-6">
+                            <p class="confi-p">State</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentState">
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="confi-p">Zip code</p>
+                            <input class="input" [readonly]="disabled" type="text" formControlName="currentZipcode">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-12">
+                            <p class="confi-p">Carrier choice</p>
+                            <mat-select [disabled]="disabled" formControlName="currentCarrier"
+                                [(ngModel)]="carrierClient" class="form-control mat-select">
+                                <mat-option *ngFor="let camion of camionesAll" [value]="camion.nombre">
+                                    {{camion.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <br>
+            <form [formGroup]="userInformacionForm">
+                <div style="margin-left: 10%;margin-right: 10%;">
+                    <div class="row margen-row">
+                        <!-- <div class="col-lg-12">
+                            <p class="user-info">User information</p>
+                            <p class="confi-p">Name</p>
+                            <input class="input" type="text" formControlName="currentNamePerson">
+                            <small
+                                *ngIf="currentNamePerson.invalid && (currentNamePerson.dirty || currentNamePerson.touched)">
+                                <mat-error *ngIf="currentNamePerson.errors.required">Username is required
+                                </mat-error>
+                                <mat-error *ngIf="currentNamePerson.errors.minlength">Minimum 5 characters
+                                </mat-error>
+                            </small>
+                        </div> -->
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-12">
+                            <p class="confi-p">User name</p>
+                            <input class="input" type="text" style="opacity: 0.5;" formControlName="currentUserName"
+                                disabled>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-12">
+                            <p class="confi-p">E-mail</p>
+                            <input class="input" type="email" style="text-transform: lowercase;"
+                                formControlName="currentEmail" disabled>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row margen-row">
+                        <div class="col-lg-6">
+                            <p class="confi-p">Password</p>
+                            <div class="input-group mb-3">
+                                <input class="pass-search form-control" id="pass" [type]="passwordType"
+                                    [(ngModel)]="valuePassword" (keyup)="validarpassword($event)"
+                                    formControlName="currentPassword">
+                                <div class="input-group-prepend cursor">
+                                    <span (click)="togglePassword()" class="input-group-text"><i
+                                            class="fa fa-eye"></i></span>
+                                </div>
+                            </div>
+                            <small *ngIf="valuePassword.length > 0">
+                                <span class="icon-position" *ngIf="errorPassLongitud">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                                <span class="icon-position" *ngIf="!errorPassLongitud">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
+                                <mat-error
+                                    [ngClass]="{'error-invalid': errorPassLongitud, 'error-valid': !errorPassLongitud}">
+                                    {{contieneLongitud}}
+                                </mat-error>
+                                <br>
+                                <span class="icon-position" *ngIf="errorPassMayuscula">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                                <span class="icon-position" *ngIf="!errorPassMayuscula">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
+                                <mat-error
+                                    [ngClass]="{'error-invalid': errorPassMayuscula, 'error-valid': !errorPassMayuscula}">
+                                    {{contieneMayuscula}}</mat-error>
+                                <br>
+                                <span class="icon-position" *ngIf="errorPassNumero">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                                <span class="icon-position" *ngIf="!errorPassNumero">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
+                                <mat-error
+                                    [ngClass]="{'error-invalid': errorPassNumero, 'error-valid': !errorPassNumero}">
+                                    {{contieneNumero}}</mat-error>
+                                <br>
+                                <span class="icon-position" *ngIf="errorPassEspacio">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                                <span class="icon-position" *ngIf="!errorPassEspacio">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
+                                <mat-error
+                                    [ngClass]="{'error-invalid': errorPassEspacio, 'error-valid': !errorPassEspacio}">
+                                    {{contieneEspacio}}</mat-error>
+                            </small>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="confi-p">Confirm password</p>
+                            <div class="input-group mb-3">
+                                <input class="pass-search form-control" [type]="passwordType"
+                                    (keyup)="validarpassword($event)" formControlName="currentConfirmPassword">
+                                <div class="input-group-prepend cursor">
+                                    <span (click)="togglePassword()" class="input-group-text"><i
+                                            class="fa fa-eye"></i></span>
+                                </div>
+                            </div>
+                            <small>
+                                <mat-error *ngIf="valuePassword.length > 0"
+                                    [ngClass]="{'error-invalid': show, 'error-valid': !show}">Password does
+                                    not match</mat-error>
+                            </small>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <!-- <div *ngIf="cliente.codigoClientePadre == undefined" class="row margen-row">
+                        <div class="col-lg-12 centrar">
+                            <p class="update-logo">Update LOGO</p>
+                            <div *ngIf="verImagen == true">
+                                <img style="width: 100px;object-fit: contain;"
+                                    src="../../../../assets/images/recursos/imagen.png">
+                            </div>
+                            <div class="centar-contenido" *ngIf="viewUploadImage == true">
+                                <img *ngIf="temporaryImage" [src]="temporaryImage"
+                                    style="width: 100px;object-fit: contain;">
+                                <br>
+                                <br>
+                                <input style="border-radius: 20px;" lang="us" type="file"
+                                    (change)="loadImage($event.target.files[0])" class="form-control">
+                            </div>
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12 centrar">
+                            <button (click)="saveChanges()" class="btn-update cursor">Update</button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+<footer class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

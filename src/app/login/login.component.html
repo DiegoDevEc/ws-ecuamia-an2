@@ -1,0 +1,199 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="data.mode!=='login'">
+        <div class="col-lg-12" style="text-align: end;z-index: 1;margin-top: 2%;">
+            <div class="cursor" style="margin-right: 3%;">
+                <a (click)="cerrar()">
+                    <img style="width: 30px;height: 30px;" src="../../../assets/images/recursos/cerrar.png"> </a>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="data.mode!=='login'">
+        <div class="col-lg-6">
+
+        </div>
+        <div class="col-lg-6">
+            <div class="margin-logo">
+                <div *ngIf="mostrarRecordarPassword == 1 || mostrarLoginForm == 1 || enviarMensaje == 1" class="imagen-logo">
+                    <img src="../../assets/images/recursos/logoFlorexLogin.png">
+                </div>
+                <div *ngIf="mostrarlookingPartner == 1" class="imagen-partner">
+                    <img src="../../assets/images/recursos/logoPartner.png">
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="row" *ngIf="mostrarLoginForm == 1">
+        <div class="col lg-6" *ngIf="data.mode!=='login'">
+
+        </div>
+        <div class="col-lg-6">
+            <div [ngClass]="{'margin-login': data.mode!=='login'}">
+                <form method="POST" [formGroup]="loginForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="login-texto">Username</label>
+                        <input formControlName="nameUser" type="text" class="form-control input-f" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="login-texto">Password</label>
+                        <input formControlName="password" type="password" class="form-control input-f" (keyup)="validarFormularioLogin($event)" id="exampleInputPassword1">
+                    </div>
+                    <div class="mat-error">
+                        <mat-error *ngIf="mensaje != ''">{{mensaje}}</mat-error>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group centrar">
+                        <button [disabled]="loading || botonDisabledLogin" 
+                        [ngClass]="{'btn-disabled-login': loading || botonDisabledLogin }" 
+                        type="submit" class="login" (click)="onLoginFormSubmit()">Log In</button>
+                    </div>
+                    <br>
+                    <div class="form-group centrar">
+                        <div class="a-link cursor">
+                            <a (click)="_recordarPassword()">Forgot password</a>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%;" class="centrar parrafo" *ngIf="data.mode!=='login'">
+                        <br><br>
+                        <p>We will be happy to have you as a customer! <br><br>
+                            Looking to partner up? 
+                        <br>Enter your contact information below and someone from our team will contact you.<br>
+                        <br> Please <a (click)="_mostrarLokingPartner()" style="color: rgb(51, 102, 187);" class="cursor">click
+                here</a> if you don´t have an account.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="mostrarRecordarPassword == 1">
+        <div class="col lg-6">
+
+        </div>
+        <div class="col-lg-6">
+            <div [ngClass]="{'margin-login': data.mode!=='login'}">
+                <p class="forgot">Forgot your password?</p>
+                <div class="message-forgot">
+                    <p>Don't worry! just fill in your email and we'll send you a link to reset your password.</p>
+                </div>
+            </div>
+            <br><br>
+            <div [ngClass]="{'margin-login': data.mode!=='login'}">
+                <form method="POST" [formGroup]="enviarPasswordForm" autocomplete="off">
+                    <div class="margen-input-password">
+                        <div class="form-group">
+                            <label class="login-texto">E-mail</label>
+                            <input (keyup)="validarFormularioReset($event)" formControlName="email" type="email" class="form-control input-f" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <small *ngIf="email.invalid && (email.dirty || email.touched)">
+                <mat-error *ngIf="email.errors.required">Email is required
+                </mat-error>
+                <mat-error *ngIf="email.errors.pattern">
+                  Invalid email
+                </mat-error>
+              </small>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="centrar">
+                        <button [disabled]="botonDisabledReset" [ngClass]="{'btn-disabled-reset': botonDisabledReset == true }" (click)="_resetearPassword()" type="submit" class="reset-boton">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="mostrarlookingPartner == 1  && enviarMensaje == 0">
+        <div class="col lg-6">
+
+        </div>
+        <div class="col-lg-6">
+            <div class="margin-login">
+                <form [formGroup]="signupForm">
+                    <div class="formulario">
+                        <p class="color-texto">Looking to partner up?</p><br>
+                        <p class="color-texto">Fill out this form and we will be in touch really soon.</p>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="titulo-f-r">Name</label>
+                                    <input formControlName="name" type="text" class="form-control input-f" id="exampleInputPassword1">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="margen-input-r">
+                                    <div class="form-group">
+                                        <label class="titulo-f-r">E-mail</label>
+                                        <input formControlName="email" type="email" class="form-control input-f" id="exampleInputPassword1">
+                                        <small *ngIf="email.invalid && (email.dirty || email.touched)">
+                      <mat-error *ngIf="email.errors.required">Email is required
+                      </mat-error>
+                      <mat-error *ngIf="email.errors.pattern">
+                        Invalid email
+                      </mat-error>
+                    </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="margen-input-l">
+                                    <div class="form-group">
+                                        <label class="titulo-f-r">Phone</label>
+                                        <input formControlName="phone" type="number" class="form-control input-f" id="exampleInputPassword1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="titulo-f-r">Message</label>
+                                    <textarea (keyup)="validarFormularioLook($event)" formControlName="message" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="centrar cursor">
+                                    <button [disabled]="botonDisabledLook" [ngClass]="{'btn-disabled-look': botonDisabledLook == true }" (click)="registrarNuevoContacto()" class="boton-enviar">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mostrarlookingPartner == 0 && enviarMensaje == 1">
+        <div class="col lg-6">
+
+        </div>
+        <div class="col-lg-6">
+            <div class="margin-login">
+                <div class="centrar mensaje-enviado">
+                    <p>Your message was successfully sent.</p>
+                </div>
+                <br><br>
+                <div class="centrar">
+                    <img src="../../assets/images/recursos/send.png" width="23%" height="23%" alt="">
+                </div>
+                <br>
+                <br>
+                <div class="centrar mensaje-record">
+                    <p>We will be in touch within 24 business</p>
+                    <p>hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

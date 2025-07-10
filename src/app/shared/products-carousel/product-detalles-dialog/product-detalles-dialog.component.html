@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="boton-x cursor">
+        <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+    </div>
+    <div class="centrar">
+        <p class="nombre-caja"> {{nombreCaja}} </p>
+    </div>
+    <div class="centrar centrar-contenido">
+        <div class="combo-box">
+            <img class="combo-img" [src]="data.caja.imagen">
+        </div>
+    </div>
+    <br>
+    <div class="container px-0 px-md-3">
+        <div class="row">
+            <div *ngFor="let variedad of data.caja.variedades;let i = index" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 card-combo-box">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-0">
+                        <div class="card-linea-v">
+                            <p class="card-titulos-cus">Item</p>
+                            <p class="card-data-cus">{{i+1}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-0">
+                        <div class="card-linea-v">
+                            <p class="card-titulos-cus">Stems:</p>
+                            <p class="card-data-cus" *ngIf="data.caja.combo == undefined">{{variedad.cantidadPorBunche}}
+                            </p>
+                            <p class="card-data-cus" *ngIf="data.caja.combo == 'S'">{{variedad.cantidadPorCaja}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-0">
+                        <div class="card-linea-v">
+                            <p class="card-titulos-cus">Product:</p>
+                            <p class="card-data-cus">{{variedad.producto}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-0">
+                        <div class="card-linea-v">
+                            <p class="card-titulos-cus">Variety:</p>
+                            <p class="card-data-cus">{{variedad.nombreVariedad}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-0">
+                        <div class="card-linea-v">
+                            <p class="card-titulos-cus">Length:</p>
+                            <p class="card-talla">{{variedad.talla}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2 pr-2">
+                        <div class="top-precio">
+                            <p class="card-titulos-cus">Price per stem:</p>
+                            <p class="card-data-cus">$ {{variedad.precio | number : '1.2-2'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p class="total-piezas"> x {{data.caja.totalPiezas}} stems <br><br> Total price: $ {{data.caja.totalPrecio | number : '1.2-2'}}</p>
+        </div>
+    </div>
+</div>

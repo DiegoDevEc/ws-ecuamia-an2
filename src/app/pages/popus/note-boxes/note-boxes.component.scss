@@ -1,0 +1,95 @@
+.note {
+	font: normal normal normal 18px/20px Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+}
+.note-boxes {
+	font: normal normal normal 18px/18px Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+}
+.note-boxes-add{
+	font: normal normal normal 14px/14px Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+}
+.accept {
+	width: 122px;
+	height: 28px;
+	background: #4e9602 0% 0% no-repeat padding-box;
+	border: 1px solid #707070;
+	border-radius: 7px;
+	font: normal normal normal 16px/16px Montserrat;
+	letter-spacing: 0px;
+    color: #ffffff;
+    outline: none;
+}
+
+
+.edit-cancel {
+	width: 122px;
+	height: 28px;
+	background: #f6f6f6 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #0000001A;
+	border: 1px solid #707070;
+	border-radius: 7px;
+	outline: none;
+	font: normal normal normal 16px/16px Montserrat;
+	letter-spacing: 0px;
+	color: #595959;
+}
+.edit-cancel:focus {
+	width: 122px;
+	height: 28px;
+	background: #f6f6f6 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #0000001A;
+	border: 1px solid #707070;
+	border-radius: 7px;
+	outline: none;
+	font: normal normal normal 16px/16px Montserrat;
+	letter-spacing: 0px;
+	color: #595959;
+}
+.edit-save {
+	width: 122px;
+	height: 28px;
+	background: #4e9602 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #0000001A;
+	border-radius: 7px;
+	font: normal normal normal 16px/16px Montserrat;
+	letter-spacing: 0px;
+	color: #ffffff;
+}
+.edit-save:focus {
+	width: 122px;
+	height: 28px;
+	background: #4e9602 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #0000001A;
+	border-radius: 7px;
+	font: normal normal normal 16px/16px Montserrat;
+	letter-spacing: 0px;
+	color: #ffffff;
+	outline: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    width: 400px;
+  }
+
+.content {
+    text-align: center;
+  }
+  
+  .centrar {
+   // margin: 0 auto;
+	text-align: center;
+  }
+  
+  .imagen-logo-notebox img {
+    width: 150px; 
+    height: 80px;
+  }

@@ -1,0 +1,50 @@
+<div class="boton-x">
+  <button type="button" [mat-dialog-close]="true" class="btn btn-default btn-circle"><i
+      class="fa fa-times"></i></button>
+</div>
+<div class="centrar-img">
+  <img src="../../../assets/images/logo_home.png" style="width: 150px;height: 70px;">
+</div>
+<div class="modal-header" style="text-align: center;">
+  <h5 class="modal-title" id="exampleModalLabel">Looking to partner up?<br>
+    Fill out form below and amember of our team<br> will be in touch soon</h5>
+</div>
+<div mat-dialog-content class="card">
+  <div class="card-body">
+    <form [formGroup]="signupForm" (ngSubmit)="saveNewClient()">
+      <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Name:</label>
+        <input style="text-transform: uppercase;" type="text" class="form-control" id="recipient-name"
+          formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Company Name:</label>
+        <input style="text-transform: uppercase;" type="text" class="form-control" id="recipient-name"
+          formControlName="company">
+      </div>
+      <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Phone</label>
+        <input type="number" class="form-control" id="recipient-name" formControlName="phone">
+      </div>
+      <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Email:</label>
+        <input type="email" class="form-control" id="recipient-name" formControlName="email">
+        <small *ngIf="email.invalid && (email.dirty || email.touched)">
+          <mat-error *ngIf="email.errors.required">Email is required
+          </mat-error>
+          <mat-error *ngIf="email.errors.pattern">
+            Invalid email
+          </mat-error>
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="message-text" class="col-form-label">Message:</label>
+        <textarea style="text-transform: uppercase;" class="form-control" id="message-text"
+          formControlName="message"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer" style="text-align: center;">
+    <button mat-raised-button color="primary" (click)="saveNewClient()">Send</button>
+  </div>
+</div>

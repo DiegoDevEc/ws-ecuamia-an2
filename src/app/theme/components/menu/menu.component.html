@@ -1,0 +1,55 @@
+<mat-toolbar *ngIf="activoNormal" class="menu-principal" fxLayoutAlign="center center">
+    <a [ngClass]="{'boton-seleccionado': appService.btnHub == 1 }" class="botones-chip" mat-button
+        (click)="validarHome()" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Store</span>
+    </a>
+
+    <a [ngClass]="{'boton-seleccionado': appService.btnCustomers == 1 }" class="botones-chip" mat-button
+        *ngIf="seeTabCustomer" (click)=myCustomers() routerLinkActive="horizontal-active-link"
+        [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Customers</span>
+    </a>
+
+    <a [ngClass]="{'boton-seleccionado': appService.btnOrders == 1 }" class="botones-chip" mat-button
+        (click)=accountOrders() routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Orders Status</span>
+    </a>
+
+    <a [ngClass]="{'boton-seleccionado': appService.btnBilling == 1 }" class="botones-chip" mat-button
+        (click)=accountFiles() routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Billing</span>
+    </a>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="activoSubNormal" style="width: 800px;" class="menu-principal" fxLayoutAlign="center center">
+    <a [ngClass]="{'boton-seleccionado': appService.btnHub == 1 }" class="botones-chip" mat-button
+        (click)="validarHome()" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Store</span>
+    </a>
+
+<!--     <a [ngClass]="{'boton-seleccionado': appService.btnStading == 1 }" class="botones-chip" mat-button
+        (click)="validarStading()" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Standing Orders</span>
+    </a>
+
+    <a [ngClass]="{'boton-seleccionado': appService.btnCombo == 1 }" class="botones-chip" mat-button
+        (click)=validarCombo() routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Combo Boxes</span>
+    </a> -->
+
+    <a [ngClass]="{'boton-seleccionado': appService.btnOrders == 1 }" class="botones-chip" mat-button
+        (click)=accountOrders() routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-circle icon" aria-hidden="true"></i><span class="span">Orders Status</span>
+    </a>
+</mat-toolbar>
+
+
+
+<!--<a mat-button [routerLink]="['/queryRoses']" (click)=ValidaCombo() routerLinkActive="horizontal-active-link"
+        [routerLinkActiveOptions]="{exact:true}">Rose Mixer</a>
+    
+         <a mat-button [routerLink]="['/queryRoses']" (click)=ValidaCombo() routerLinkActive="horizontal-active-link"
+        [routerLinkActiveOptions]="{exact:true}">Rose Mixer</a>
+
+     <a class="botones-chip" mat-button routerLink="/account/dashboard" (click)=Files()
+        routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Settings</a>-->

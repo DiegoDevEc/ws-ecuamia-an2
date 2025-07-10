@@ -1,0 +1,10 @@
+<div fxLayout="row" fxLayout.xs="column" [fxLayoutAlign]="align" class="text-muted">
+  <div *ngIf="type=='all' || type=='wish' || type=='aumentar'">
+      <button class="btn-cart cursor" (click)="increment()">
+          Add to cart
+      </button>
+  </div>
+</div>
+<div *ngIf="type=='all'" class="bg-warn p-1 mt-2">
+  Sorry, this item is unavailable. Please choose a different one.
+</div>

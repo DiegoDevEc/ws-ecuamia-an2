@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="centrar">
+        <p *ngIf="data.starbuttons != 'L'" class="note">{{data.titulo}}</p>
+        <p *ngIf="data.starbuttons === 'L'" class="note" style="font-size: xx-large !important;">{{data.titulo}}</p>
+    </div>
+    <div *ngIf="data.starbuttons != 'L'" class="centrar">
+        <!-- <p class="note-boxes"> {{data.mensaje}} </p> -->
+        <p class="note-boxes" [innerHTML]="data.mensaje"></p>
+        <p class="note-boxes" *ngIf="data.mensajeDos != undefined">{{data.mensajeDos}}</p>
+    </div>
+
+    <div *ngIf="data.starbuttons === 'L'" class="">
+        <!-- <p class="note-boxes"> {{data.mensaje}} </p> -->
+        <p class="note-boxes" [innerHTML]="data.mensaje"></p>
+        <div>
+            <ul>
+                <li class="note-boxes" *ngFor="let item of data.items">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+        <p class="note-boxes" *ngIf="data.mensajeDos != undefined">{{data.mensajeDos}}</p>
+    </div>
+    <br>
+    <div *ngIf="data.starbuttons === 'S'">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="coast-titulo">Car #</th>
+                    <th class="coast-titulo">Ship Date</th>
+                    <th class="coast-titulo">Ship To</th>
+                    <th class="coast-titulo">Carrier Choice</th>
+                    <th class="coast-titulo">Mark Code</th>
+                    <th class="coast-titulo">Total Boxes</th>
+                    <th class="coast-titulo">Actions</th>
+                    <th class="coast-titulo">Delete</th>
+                    <th class="coast-titulo"></th>
+                </tr>
+                <tr *ngFor="let carrito of carritos">
+                    <td style="vertical-align: middle;" class="coast-titulo">{{carrito.idCarrito}}</td>
+                    <td style="vertical-align: middle;">{{carrito.fechaPedido}}</td>
+                    <td style="vertical-align: middle;">{{carrito.nombreEtiqueta}}</td>
+                    <td style="vertical-align: middle;">{{carrito.nombreCamion}}</td>
+                    <td style="vertical-align: middle;">{{carrito.destinoNombre}}</td>
+                    <td style="vertical-align: middle;">{{totalCajasPedido(carrito)}}</td>
+                    <td *ngIf="!carrito.pedidoCaducado" style="vertical-align: middle; cursor: pointer !important; color: blue; text-decoration: underline;" (click)="_continueCarSelect(carrito)">USE</td>
+                    <td *ngIf="carrito.pedidoCaducado" style="vertical-align: middle; cursor: pointer !important; color: blue; text-decoration: underline;" (click)="_continueCarSelect(carrito)">CHANGE DATE</td>
+                    <td style="text-align: center;">
+                        <img (click)="_EliminarCarrito(carrito)" height="20px" class="cursor" src="../../../../assets/images/recursos/eliminar.png" alt="">
+                    </td>
+                    <td style="vertical-align: middle;" class="coast-titulo">
+                        <img *ngIf="carrito.pedidoCaducado" width="60px" height="60px"
+                            src="../../../../assets/images/recursos/cut_off.png">
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <div class="centrar centrar-contenido">
+        <img *ngIf="data.imagen === undefined" width="25%" height="25%"
+            src="../../../../assets/images/recursos/advertencia-amarillo.png">
+        <img *ngIf="data.imagen === 'S'" width="25%" height="25%"
+            src="../../../../assets/images/recursos/informacion.png">
+        <div *ngIf="data.imagen === 'C'" class="top-cart cursor">
+            <!-- <img (click)="_notificacion()" src="../../assets/images/recursos/notificacion.png"> -->
+            <img style="margin-left: 3px;" src="../../assets/images/recursos/carrito2.png">
+            <span *ngIf="appService.Data.cartListCaja.length > 0"
+                class="cart-items-count">{{appService.Data.totalCartCount}}</span>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="data.starbuttons === undefined">
+        <div *ngIf="data.mostrarBoton === undefined" class="centrar">
+            <br>
+            <button (click)="_cancel()" class="mb-3 mb-md-none edit-cancel cursor">Cancel</button>
+
+            <button (click)="_continue()" class="ml-sm-3 edit-save cursor">Continue</button>
+        </div>
+        <div *ngIf="data.mostrarBoton === true" class="centrar">
+            <button (click)="_continue()" class="edit-save cursor">OK</button>
+        </div>
+    </div>
+    <div *ngIf="data.starbuttons === 'S'">
+        <div class="centrar">
+            <button (click)="_cancel()" class="btn-addcart cursor width-btn">START NEW ORDER</button>
+
+            <button *ngIf="false" (click)="_continue()" class="ml-sm-3 edit-save cursor width-btn"
+                style="white-space: nowrap;">Complete Order</button>
+        </div>
+    </div>
+    <div *ngIf="data.starbuttons === 'L'">
+        <div class="centrar">
+            <button (click)="_cancel()" class="edit-save cursor">OK</button>
+        </div>
+    </div>
+</div>

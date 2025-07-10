@@ -1,0 +1,11 @@
+<div class="boton-x cursor">
+    <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png">
+</div>
+<div class="centrar-img">
+    <img src="../../../assets/images/recursos/logoPartner.png" style="width: 150px;height: 100px;object-fit: cover;">
+    <div [hidden]="!hiddeniframe"><br><br><br>
+        <img src="../../../assets/images/recursos/loading_color.gif" style="width: 150px;height: 100px;object-fit: cover;">
+    </div>
+</div>
+<iframe [hidden]="hiddeniframe" [src]="link" width="100%" height="100%" (load)="uploadDone()">
+</iframe>

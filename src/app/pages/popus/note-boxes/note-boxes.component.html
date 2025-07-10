@@ -1,0 +1,151 @@
+<div class="container">
+
+  <div class="content" *ngIf="data.condicion === 'EDIT'">
+    <div class="centrar">
+      <p class="note-boxes">Your
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'HB'">large</span>
+        ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is now
+        {{appWebshopService.cajaMixtaArmada.porcentajeLleno}}% full
+      </p>
+    </div>
+    <br>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button class="accept cursor" (click)="_accept()">Accept</button>
+    </div>
+  </div>
+  <div class="content" *ngIf="data.condicion === 'ENLARGE'">
+    <div class="centrar">
+      <p class="note-boxes">Your
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'HB'">large</span>
+        ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is
+        {{appWebshopService.cajaMixtaArmada.porcentajeLleno}}% full
+      </p>
+      <p class="note-boxes-add">To add more items please enlarge the box.
+        <!--<span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">large</span>
+        box.-->
+      </p>
+    </div>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_addToCart()" class="edit-save cursor">Add to Cart</button>
+      &nbsp;&nbsp;
+      <button (click)="_accept()" class="edit-save cursor">Increase</button>
+      <!-- <button (click)="_enlarge()" class="edit-save cursor">Increase</button> -->
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'FULL'">
+    <div class="centrar">
+      <p class="note-boxes">Your
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'HB'">large</span>
+        ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is 100% full
+      </p>
+      <p class="note-boxes">Please add it to the cart</p>
+    </div>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">OK</button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'ADD'">
+    <div class="centrar">
+      <p class="note-boxes-add"> If you want to add more bunches please enlarge to a
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">(QB) medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'HB'">(HB) large</span>
+        box.
+      </p>
+    </div>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">Cancel</button>
+      &nbsp;&nbsp;
+      <button (click)="_enlarge()" class="edit-save cursor">Increase</button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'LOW'">
+    <div class="centrar">
+      <p class="note-boxes">Your
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'HB'">large</span>
+        ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is
+        {{appWebshopService.cajaMixtaArmada.porcentajeLleno}}% full
+      </p>
+    </div>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">OK</button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'OVERFLOWINGBOX'">
+    <div class="centrar">
+      <p class="note-boxes">
+        The amount exceeds the maximum allowed
+      </p>
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">OK</button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'OVERFLOWINGBOXCHANGE'">
+    <div class="centrar">
+      <p class="note-boxes">
+        The maximum quantity of the {{data.variedad}} variety is: <b>{{data.cantidad}}</b>. <br><br> Do you want to add them?
+      </p>
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">Cancel</button>
+      &nbsp;&nbsp;
+      <button (click)="_acceptRecal()" class="edit-save cursor">Accept</button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="data.condicion === 'OVERFLOWINGBOXCHANGES'">
+    <div class="centrar">
+      <p class="note-boxes-add"> If you want to add {{data.cantidad}} bunches, expand to a
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">(QB) medium</span>
+        <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'QB'">(HB) large</span>
+        box.
+      </p>
+    </div>
+    <div class="imagen-logo-notebox centrar">
+      <img [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+    </div>
+    <br>
+    <div class="centrar">
+      <button (click)="_cancel()" class="edit-cancel cursor">Cancel</button>
+      &nbsp;&nbsp;
+      <button (click)="_accept()" class="edit-save cursor">Increase</button>
+    </div>
+  </div>
+
+</div>

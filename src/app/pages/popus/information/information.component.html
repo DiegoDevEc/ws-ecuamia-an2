@@ -1,0 +1,351 @@
+<div>
+    <ng-container *ngIf="data.tipo!='T'; else tituloTemplate">
+    </ng-container>
+    <ng-template #tituloTemplate>
+        <div class="centrar">
+            <p class="pa-1 pa-1-tropical"><strong> TROPICAL FLOWERS </strong></p>
+        </div>
+        <div class="centrar">
+            <p class="pa-2 pa-2-red">DOOR TO DOOR SHIPPING SERVICE</p>
+        </div>
+        <div class="centrar">
+            <p class="pa-2 pa-2-tropical" style="line-height: 1.3;">Tropical flowers will be shipped directly from the
+                farm to your door. Kindly fill out the form below with the address you'd like to ship to and you desired
+                day of arrival to your door.</p>
+            <!--p class="pa-2 pa-2-tropical" style="line-height: 1.3;">Tropical flowers will be shipped directly from the farm to your door.</p-->
+        </div>
+    </ng-template>
+</div>
+<div [ngClass]="{'scroll-content': data.tipo=='T'}">
+    <!--INFORMACION PARA HUB ORDERS--->
+    <div class="container" *ngIf="data.data == 'N'">
+        <div class="centrar">
+            <p class="pa-2" style="color: #689f38;">Select your Ship to location, carrier and Mark Code.</p>
+        </div>
+        <br>
+        <div class="izquierda">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <p class="pa-4">Ship to</p>
+                    <div *ngIf="mostrarSubCliente.length > 0 && bloquearHub" style="margin-left: 6px; margin-top: -6px;"
+                        #myPopover
+                        popover="This field is blocked because you have to check out the current items in your cart before switching to a new Mark Code."
+                        popoverTitle="INFO" popoverPlacement="left" [popoverOnHover]="true"
+                        [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                        [popoverDisabled]="false" [popoverAnimation]="true">
+                        <img src="../../../assets/images/recursos/padlock.png">
+                    </div>
+                </div>
+                <p *ngIf="subclientes.length > 1" class="pa-4 cursor" (click)="_registrarMarcacion()"
+                    style="text-decoration: underline;">Add new ship to</p>
+            </div>
+            <input disabled="true" class="form-control mat-select" *ngIf="subclientes.length == 0"
+                value="{{mostrarSubCliente[0]}}" type="text">
+
+
+            <div *ngIf="subclientes.length > 0">
+                <mat-form-field style="width: 100%;" class="shipinput" [ngClass]="{'disabledInput': bloquearHub}">
+                    <mat-label></mat-label>
+                    <input class="shipinputext" #autoCompleteInput type="text" placeholder="" aria-label="Number"
+                        matInput [(formControl)]="shiptoControl" [matAutocomplete]="auto">
+                    <mat-icon matSuffix class="sipinputicon" (click)='openPanel($event)'>{{ icon }}</mat-icon>
+                </mat-form-field>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option (click)="_seleccionarMarcacion(option, 'H')"
+                        *ngFor="let option of filteredOptions | async" [value]="option.nombreEtiqueta">
+                        {{option.nombreEtiqueta}}
+                    </mat-option>
+                </mat-autocomplete>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="pa-4">Carrier choice</p>
+
+                <div *ngIf="mostrarCarrier.length > 0">
+                    <!-- <mat-form-field style="width: 100%;" class="shipinput" [ngClass]="{'disabledInput': bloquearHub}">
+                        <mat-label></mat-label>
+                        <input class="shipinputext" #autoCompleteInput type="text" placeholder="" aria-label="Number"
+                            matInput [(formControl)]="shiptoControl" [matAutocomplete]="auto">
+                        <mat-icon matSuffix class="sipinputicon" (click)='openPanel($event)'>{{ icon }}</mat-icon>
+                    </mat-form-field>
+                        <mat-option 
+                            *ngFor="let option of mostrarCarrier | async" [value]="option.nombre">
+                            {{option.nombre}}
+                        </mat-option>  -->
+
+
+                    <div class="input-group">
+                        <select  id="carrierSelect" class="form-select" [ngClass]="{'disabledInput': bloquearHub}"
+                            style="padding: 10px; text-align: left; border-radius: 50px;"
+                            (change)="seleccionarCarrier($event)">
+                            <option *ngFor="let option of mostrarCarrier; let i = index" [value]="option" >
+                                    {{option}}
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+                <!-- <ng-autocomplete *ngIf="mostrarCarrier[0] != undefined && mostrarCarrier[0].length > 0" [disabled]="bloquearHub || data.tipo=='T'" [data]="carrierFinal"
+                    [searchKeyword]="keyCarrier" (selected)="_seleccionarCarrier($event, 'H')"
+                    [itemTemplate]="itemTemplate" [initialValue]="mostrarCarrier[0]"
+                    [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre">
+                    </a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template> -->
+            </div>
+            <br>
+
+            <div class="col-lg-6 margen-po">
+                <p class="pa-4">Mark Code</p>
+                <!-- <ng-autocomplete *ngIf="mostrarDestino[0] != undefined && mostrarDestino[0].length > 0"
+                    [disabled]="bloquearHub" [data]="destinoFinal" [searchKeyword]="keyDestino"
+                    (selected)="_seleccionarPo($event, 'H')" [itemTemplate]="itemTemplate"
+                    [initialValue]="mostrarDestino[0]" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template> -->
+                
+                <div class="input-group" >
+                    <select class="form-select" [ngClass]="{'disabledInput': bloquearHub}"
+                        style="padding: 10px; text-align: left; border-radius: 50px;"
+                        (change)="_seleccionarPo($event, 'H')">
+                        <option *ngFor="let option of mostrarDestino" [value]="option" >
+                                {{option}}
+                        </option>
+                    </select>
+                </div>
+
+                <p class="skip cursor" (click)="_nuevoDestino('H')"
+                    style="text-align: end;font-size: 12px;margin-top: 8px;">Add Mark Code
+                </p>
+            </div>
+            
+        <br>
+
+        <div *ngIf="canOrder == true"  class="col-lg-12 centrar">
+            <p class="pa-2" style="color: red;">This account can't place orders, please contact your vendor</p>
+        </div>
+
+        <div *ngIf="seleccionoFecha == false  && canOrder == false"  class="col-lg-12 centrar">
+            <!-- <p class="pa-2">When do your want your product to be shipped?</p> -->
+            <p class="pa-2" style="color: red;">Select your shipping date</p>
+        </div>
+            
+        <div *ngIf="!loadingFecha"  class="col-lg-12 centrar">
+            <p *ngIf="seleccionoFecha == true" class="fecha-p cursor" (click)="_openCalendar(date)"> {{diaFecha}} {{mostrarFecha}}</p>
+            <input placeholder="Date" (click)="_openCalendar(date)" class="fecha cursor" matInput [min]="dateNowInit" [max]="fechaMaximaCalendario"
+                [value]="date" [matDatepicker]="date" (dateChange)="_updateDate($event)"
+                 #date readonly [matDatepickerFilter]="dateFilterNotTropical">
+            <mat-datepicker #date disabled="false"></mat-datepicker>
+        </div>
+        <br>
+
+        </div>
+        <!-- <div class="row">
+            <div *ngIf="seleccionoFecha == false" class="centrar">
+                <p class="pa-5">* Select your shipping date</p>
+            </div>
+        </div> -->
+        <div class="row">
+            <div *ngIf="seleccionoCamion == false" class="centrar">
+                <p class="pa-5">* Select carrier choice</p>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div *ngIf="seleccionoPo == false" class="centrar">
+                <p class="pa-5">* Select Mark Code</p>
+            </div>
+        </div> -->
+
+
+
+    </div>
+
+    <!--INFORMACION PARA STADING ORDERS--->
+    <div class="container" *ngIf="data.data == 'S'">
+        <div class="centrar">
+            <p class="fecha-p cursor">
+                Every
+                <mat-form-field appearance="none" class="select-day">
+                    <mat-label style="padding-left: 20px;">Select Day</mat-label>
+                    <mat-select [(ngModel)]="diaFecha">
+                        <mat-option *ngFor="let day of WeekDay" [value]="day.name" (click)="selectDayWeekStanding(day)">
+                            {{day.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+            <p class="fecha-p cursor">
+                Start in
+                <span class="text-danger">{{diaFecha}}</span> {{mostrarFecha}}
+            </p>
+            <input placeholder="Date" (click)="_openCalendar(date)" class="fecha cursor" matInput [min]="dateNowInit"
+                [value]="date" [matDatepicker]="date" (dateChange)="_updateDateStading($event)"
+                [matDatepickerFilter]="dateFilter" #date readonly>
+            <!--<mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>--->
+            <mat-datepicker #date disabled="false"></mat-datepicker>
+        </div>
+        <br>
+        <div class="izquierda">
+            <p class="pa-2">Where do you want your product to be shipped?</p>
+        </div>
+        <br>
+        <div class="izquierda">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <p class="pa-4">Ship to</p>
+                    <div *ngIf="mostrarSubCliente.length > 0 && bloquearStading"
+                        style="margin-left: 6px;margin-top: -6px;" #myPopover
+                        popover="This field is blocked because you have to check out the current items in your cart before switching to a new Mark Code."
+                        popoverTitle="INFO" popoverPlacement="left" [popoverOnHover]="true"
+                        [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                        [popoverDisabled]="false" [popoverAnimation]="true">
+                        <img src="../../../assets/images/recursos/padlock.png">
+                    </div>
+                </div>
+                <p *ngIf="subclientes.length > 1" class="pa-4 cursor" (click)="_registrarMarcacion()"
+                    style="text-decoration: underline;">Add new ship to</p>
+            </div>
+            <input disabled="true" class="form-control mat-select" *ngIf="subclientes.length == 0"
+                value="{{mostrarSubCliente[0]}}" type="text">
+
+            <div *ngIf="subclientes.length > 0">
+                <mat-form-field style="width: 100%;" class="shipinput" [ngClass]="{'disabledInput': bloquearStading}">
+                    <mat-label></mat-label>
+                    <input #autoCompleteInput class="shipinputext" type="text" placeholder="" aria-label="Number"
+                        matInput [(formControl)]="shiptoControl" [matAutocomplete]="auto">
+                    <mat-icon matSuffix class="sipinputicon" (click)='openPanel($event)'>{{ icon }}</mat-icon>
+                </mat-form-field>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option (click)="_seleccionarMarcacion(option, 'S')"
+                        *ngFor="let option of filteredOptions | async" [value]="option.nombreEtiqueta">
+                        {{option.nombreEtiqueta}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="pa-4">Carrier choice</p>
+                <!-- <ng-autocomplete [disabled]="bloquearStading || data.tipo=='T'" [data]="carrierFinal"
+                    [searchKeyword]="keyCarrier" (selected)="_seleccionarCarrier($event, 'S')"
+                    [itemTemplate]="itemTemplate" [initialValue]="mostrarCarrier[0]"
+                    [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template> -->
+
+            </div>
+            <br>
+            <div class="col-lg-6 margen-po">
+                <p class="pa-4">Mark Code</p>
+                <ng-autocomplete [disabled]="bloquearStading" [data]="destinoFinal" [searchKeyword]="keyDestino"
+                    (selected)="_seleccionarPo($event, 'S')" [itemTemplate]="itemTemplate"
+                    [initialValue]="mostrarDestino[0]" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+                <p class="skip cursor" (click)="_nuevoDestino('S')"
+                    style="text-align: end;font-size: 12px; margin-top: 8px;">Add Mark Code</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--INFORMACION PARA TROPICAL ORDERS--->
+    <div class="container">
+        <div *ngIf="data.tipo=='T'">
+            <div class="centrar">
+                <p class="pa-2 pa-2-tropical green_color">Additional information (instructions to delivery the box)<span
+                        class="text-danger">*</span></p>
+            </div>
+            <div class="row text-danger" *ngIf="errorInfoTropical">Information required</div>
+            <div class="d-flex justify-content-between align-items-center mt-2 ">
+                <p class="pa-4 col-2 m-0 pl-0 pr-2 ancho-tropical">Client Name</p>
+                <input class="form-control mat-select col-10 ancho-input-tropical" type="text" [(ngModel)]="nameInfo">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2 ">
+                <p class="pa-4 col-2 m-0 pl-0 pr-2 ancho-tropical">Phone</p>
+                <input class="form-control mat-select col-10 ancho-input-tropical" type="text" [(ngModel)]="phoneInfo">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <p class="pa-4 col-2 m-0 pl-0 ancho-tropical" style="padding-right: .3rem !important;">Address 1</p>
+                <input class="form-control mat-select col-10 ancho-input-tropical" type="text"
+                    [(ngModel)]="addressInfo">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <p class="pa-4 col-2 m-0 pl-0 ancho-tropical" style="padding-right: .3rem !important;">Address 2</p>
+                <input class="form-control mat-select col-10 ancho-input-tropical" type="text"
+                    [(ngModel)]="addressInfo2">
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <p class="pa-4 m-0 pl-0 pr-2 ancho-tropical">City</p>
+                            <input class="form-control mat-select ancho-input-tropical mr-3" type="text" [(ngModel)]="cityInfo">
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p class="pa-4 m-0 pl-0 pr-2 ancho-tropical">State</p>
+                            <input class="form-control mat-select ancho-input-tropical mr-3" type="text"
+                                [formControl]="stateInfoControl" [(ngModel)]="stateInfo" [matAutocomplete]="autoState">
+                            <mat-autocomplete autoActiveFirstOption #autoState="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptionsStates | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p class="pa-4 m-0 pl-0 pr-2 ancho-tropical">ZIP</p>
+                            <input class="form-control mat-select ancho-input-tropical" type="text" [(ngModel)]="zipInfo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="container">
+    <br>
+    <div  *ngIf="canOrder == false" class="centrar-contenido">
+        <button (click)="_guardarCambios()" type="submit" class="boton-saved cursor" style="font-size: 12px;">Confirm
+            Delivery Information</button>
+    </div>
+    <br>
+    <div *ngIf="canOrder == true" class="centrar-contenido">
+        <button class="cancel cursor" type="submit" (click)="_skip()" style="font-size: 12px;">OK</button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="boton-x cursor">
+  <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+</div>
+<div class="container" *ngIf="data.tipo == 'NEW'">
+  <div class="centrar">
+    <p class="po">Mark Code</p>
+  </div>
+  <br>
+  <div class="centrar">
+    <form [formGroup]="myGroup">
+      <input class="input" type="text" formControlName="nombre">
+    </form>
+  </div>
+  <br>
+  <div class="centrar">
+    <button *ngIf="data.tipoBoton == 'B1'" class="btn-save-po" (click)="savePO()" matTooltip="">Save</button>
+  </div>
+  <div class="centrar">
+    <button *ngIf="data.tipoBoton == 'B2'" class="btn-save-po" (click)="_persistirDestinoPorMarcacion(data)"
+      matTooltip="">Save</button>
+  </div>
+</div>
+
+<div class="container" *ngIf="data.tipo == 'SELECT PO'">
+  <p class="farm-p">Mark Code</p>
+  <form [formGroup]="destinoForm" autocomplete="off">
+    <mat-select [value]="mostrarDestino[0]" class="form-control farm-select-po" (openedChange)="destino.focus()">
+      <input autocomplete="off" class="myInput" #destino type="text" (keyup)="searchDestino($event.target.value)">
+      <mat-option (click)="_seleccionarDestino(opcion)" *ngFor="let opcion of selectDestino" [value]="opcion.nombre">
+        {{opcion.nombre}}
+      </mat-option>
+    </mat-select>
+  </form>
+  <br>
+  <!--<p class="skip cursor" (click)="_nuevoDestino()" style="text-align: end;font-size: 12px;">Add PO</p>-->
+  <br>
+</div>

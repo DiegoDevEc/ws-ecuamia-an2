@@ -1,0 +1,24 @@
+.download-p{
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+.img-files{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    img{
+        object-fit: cover;
+        object-position: center;
+        width: 50%;
+        height: 50%;
+    }
+}
+.p-descripcion{
+    font: normal normal normal 14px/14px Montserrat;
+    letter-spacing: 0px;
+    color: #595959;
+}

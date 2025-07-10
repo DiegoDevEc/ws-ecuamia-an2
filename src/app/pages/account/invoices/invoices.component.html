@@ -1,0 +1,165 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+        <div [routerLink]="['/account/files']" class="izquierda header-invoice">
+            <img src="../../../../assets/images/recursos/galon-izquierdo.png">
+            <span class="invoice cursor">INVOICES</span>
+        </div>
+        <br>
+        <br>
+        <div class="row inv-margin">
+            <div class="col-lg-5 col-12 centrar-contenido search-mp">
+                <div class="input-group">
+                    <input [(ngModel)]="filterValue" (keyup)="applyFilter($event, 'N')" placeholder="Search" class="invoice-search">
+                    <div class="input-group-append">
+                        <button class="btn btn-invoice" type="button">
+                            <span class="centrar">
+                                <img (click)="applyFilter(null,'S')" class="cursor"
+                                    src="../../../assets/images/recursos/lupa.png">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-12 centrar-contenido">
+                <div class="card-fecha centrar-contenido">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 borde-fecha">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">From:</span>
+                                <input style="text-align: center;" (click)="_openCalendar(dataSince)" [(ngModel)]="filterFechaSince" [matDatepicker]="dataSince" (dateChange)="_updateDate($event)" readonly #dataSince>
+                                <span (click)="_openCalendar(dataSince)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #dataSince disabled="false"></mat-datepicker>
+                                <div style="margin-left: 10px;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">To:</span>
+                                <input style="text-align: center;" (click)="_openCalendar(until)" [(ngModel)]="filterFechaUntil" [matDatepicker]="until" (dateChange)="_updateDate($event)" readonly #until>
+                                <span (click)="_openCalendar(until)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #until disabled="false"></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <span (click)="_limpiarFiltros()" class="clean cursor">
+                    Clean
+                </span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div *ngIf="facturas.length == 0 && mostrarMensaje == false" class="centrar">
+            <!-- <img src="https://www.fiberondecking.com/interface/images/loading.gif"> -->
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+        </div>
+        <div *ngIf="facturas.length == 0 && mostrarMensaje == true" class="centrar">
+            <br><br>
+            <p class="p-found">Your search couldn´t be found.</p>
+        </div>
+        <div *ngIf="facturas.length > 0" class="tabla-radio">
+            <table class="table table-bordered hoverTable">
+                <thead>
+                    <tr class="cabezera">
+                        <th># Invoice</th>
+                        <th>Date</th>
+                        <!-- <th>Box</th> -->
+                        <th>Truck</th>
+                        <th>Ship to</th>
+                        <th >PO</th>
+                        <th>Amount</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let factura of facturas | paginate: { itemsPerPage: 12, currentPage: page, totalItems: count }; let i = index ">
+                        <td>{{factura.numeroFactura}}</td>
+                        <td>{{factura.connectionDate | date:'MM/dd/yyyy'}}</td>
+                        <!-- <td>{{factura.boxes}}</td> -->
+                        <td>{{factura.carrier}}</td>
+                        <td>{{factura.shipTo}}</td>
+                        <td *ngIf="factura.po.length == 0" style="max-width: 150px !important; max-height: 50px !important; text-overflow: ellipsis !important; overflow: hidden !important;">
+                            
+                        </td>
+                        <td *ngIf="factura.po.length > 1" style="max-width: 150px !important; max-height: 50px !important; text-overflow: ellipsis !important; overflow: hidden !important;">
+                            Multiple PO
+                        </td>
+                        <td *ngIf="factura.po.length == 1" style="max-width: 150px !important; max-height: 50px !important; text-overflow: ellipsis !important; overflow: hidden !important;">
+                            {{ factura.po }}
+                        </td>
+                        <!-- <td style="max-width: 150px !important; max-height: 50px !important; text-overflow: ellipsis !important; overflow: hidden !important;">{{factura.po}}</td> -->
+                        <td>{{factura.total | number : '1.2-2'}}</td>
+                        <!--<td style="text-align: center;">
+                        <button mat-icon-button color="primary" matTooltip="WITHOUT PRICE"
+                            (click)="getPdfPackingSeleccionada(factura, 1)">
+                            <mat-icon>cloud_download</mat-icon>
+                        </button>
+    
+                        <button mat-icon-button color="primary" matTooltip="WITH PRICE"
+                            (click)="getPdfPackingSeleccionada(factura, 3)">
+                            <mat-icon>cloud_download</mat-icon>
+                        </button>
+                    </td>-->
+                        <td style="text-align: center;">
+                            <!--<button mat-icon-button color="primary" matTooltip="View"
+                            (click)="getPdfFacturaSeleccionada(factura)">
+                            <mat-icon>cloud_download</mat-icon>
+                        </button>-->
+                            <img class="cursor" width="30px" height="30px" style="object-fit: contain;" (click)="_listaDescargas(factura)" src="../../../../assets/images/recursos/descargaBoton.png">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <!-- <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div *ngIf="facturas.length > 0" fxLayout="row wrap">
+                    <div fxFlex="100" style="font-size: 10px;">
+                        <form class="text-center">
+                            <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged($event)">
+                            </pagination-controls>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div *ngIf="facturas.length > 0" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="50" style="font-size: 12px;">
+                  <form class="text-center">
+                    <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged2($event)"></pagination-controls>
+                  </form>
+                </div>
+                <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
+                    <button class="btn btn-homeEnd" (click)="goToFirstPage()">
+                        <img src="../../assets/images/recursos/HOME.png" alt="First Page" class="img-icon">
+                    </button>
+                  <span style="color: #000000; font-size: 14px;" font="Roboto"> Page:</span>&nbsp;&nbsp;
+                  <input
+                    class="form-control"
+                    style="width: 55px; height: 20px; text-align: center;"
+                    type="number"
+                    [(ngModel)]="page"  
+                    (ngModelChange)="onPageChanged2($event)"  
+                  />
+                  <button class="btn btn-homeEnd" (click)="goToLastPage()">
+                    <img src="../../assets/images/recursos/END.png" alt="First Page" class="img-icon">
+                </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+</div>
+<footer *ngIf="facturas.length > 0" class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

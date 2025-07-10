@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="boton-x cursor">
+    <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png">
+  </div>
+  <div class="centrar">
+    <p class="download-p">Download as</p>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="centrar-contenido">
+        <div style="width: 200px;height: 100px;">
+          <div class="img-files">
+            <a><img (click)="getPdfFacturaSeleccionada(data.factura)" class="cursor"
+                src="../../../../assets/images/recursos/credit.png"></a>
+          </div>
+        </div>
+      </div>
+      <p class="centrar p-descripcion">Invoice</p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="centrar-contenido">
+        <div style="width: 200px;height: 100px;">
+          <div class="img-files">
+            <a><img (click)="getPdfPackingSeleccionada(data.factura, 3)" class="cursor"
+                src="../../../../assets/images/recursos/invoice.png"></a>
+          </div>
+        </div>
+      </div>
+      <p class="centrar p-descripcion">Packing List <br> With Price</p>
+    </div>
+    <div class="col-lg-6">
+      <div class="centrar-contenido">
+        <div style="width: 200px;height: 100px;">
+          <div class="img-files">
+            <a><img (click)="getPdfPackingSeleccionada(data.factura, 1)" class="cursor"
+                src="../../../../assets/images/recursos/account.png"></a>
+          </div>
+        </div>
+      </div>
+      <p class="centrar p-descripcion">Packing List <br> Without Price</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div *ngIf="data.tipoMensaje == 'P'" class="container">
+  <div class="centrar">
+    <p class="pregunta"> {{data.question}} </p>
+    <div *ngIf="data.mostrarImagen == 'SI'">
+      <div class="card-advertencia">
+        <div class="advertencia">
+          <img src="../../../../assets/images/recursos/advertencia.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="centrar">
+    <button (click)="_no()" class="btn-no cursor"> No </button>
+    &nbsp; &nbsp;
+    <button (click)="_si()" class="btn-si cursor"> Yes </button>
+  </div>
+</div>
+
+<div *ngIf="data.tipoMensaje == 'C'" class="container">
+  <div class="centrar">
+    <p class="awesome"> Awesome! </p>
+  </div>
+  <br>
+  <div class="centrar">
+    <div class="card-medalla">
+      <div class="medalla">
+        <img src="../../../../assets/images/recursos/medalla.png" alt="">
+      </div>
+    </div>
+    <br>
+    <p class="awesome"> {{data.question}} </p>
+  </div>
+</div>

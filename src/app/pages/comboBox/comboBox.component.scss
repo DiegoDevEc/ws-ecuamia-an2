@@ -1,0 +1,194 @@
+.products-tabs {
+    margin-top: 30px;
+}
+
+.side-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.margin-right-button {
+    margin-left: 20px;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box div {
+    width: 100px;
+    height: 100px;
+}
+
+.body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: auto;
+    height: auto;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: auto;
+    height: auto;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: white;
+    color: black;
+}
+
+.flip-card-back {
+    background-color: white;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.zoom {
+    transition: 0.5s;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
+
+.example-button-row button,
+.example-button-row a {
+    margin-right: 8px;
+}
+
+.contenido-botones {
+    background: transparent;
+    background: rgba(133, 177, 45, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: blue;
+    border-radius: 7px;
+    margin: 5px;
+    height: 40px;
+    font-size: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 7px;
+}
+
+@media (min-width: 1080px) {
+    .botones-filtros {
+        width: 195px;
+    }
+}
+
+@media (max-width: 1370px) {
+    .botones-filtros {
+        width: 175px;
+        ;
+    }
+}
+
+.p-filtros {
+    font-size: 15px;
+}
+
+.mat-card-scroll:hover {
+    overflow: scroll;
+}
+
+.side-nav-scroll {
+    overflow: scroll;
+}
+
+//Nuevos estilos del home
+.productos-descripcion {
+    font-weight: bold;
+    color: navy;
+    text-align: center;
+    font-size: 12px;
+}
+
+.negrita {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.tamanio-letra {
+    font-size: 10px;
+}
+
+.tamanio-letra-stem {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.color-letras {
+    color: navy;
+}
+
+.center {
+    text-align: center;
+}
+
+.responsive {
+    width: 100%;
+    height: 190px;
+}
+
+.cart-items-count {
+    position: absolute;
+    top: -3px;
+    left: 26px;
+    background: #f44336;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    font-size: 11px;
+}
+
+.btn-sub-menu {
+    color: white !important;
+    background: navy !important;
+}
+
+.btn-sub-menu:hover {
+    color: white !important;
+    background: yellowgreen !important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.end {
+    text-align: end;
+}

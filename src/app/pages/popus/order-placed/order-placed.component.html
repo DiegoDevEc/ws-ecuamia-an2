@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="boton-x cursor">
+        <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+    </div>
+    <div class="centrar">
+        <p class="order-p">Thank you!</p>
+        <p class="order-p-1">{{data.mensaje}}</p>
+        <!--p class="order-p-1">{{data.mensaje2}}</p-->
+    </div>
+    <div *ngIf="appService.Data.cartListCaja.length == 0" class="centrar">
+        <p class="card-p-2">We will inform you when it is fully confirmed.
+        </p>
+    </div>
+    <div class="centrar" class="card-medalla">
+        <div class="medalla">
+            <img src="../../../../assets/images/recursos/just-relax-2.gif" alt="">
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div *ngIf="appService.Data.cartListCaja.length == 0" class="centrar">
+            <p class="card-p-3">For any change, please contact your sales representative.</p>
+        </div>
+        <div *ngIf="appService.Data.cartListCaja.length > 0" class="centrar">
+            <p class="card-p-2"> {{data.estado}} </p>
+            <p class="card-p-3">For any change, please contact your sales representative</p>
+        </div>
+        <div class="centrar">
+            <br>
+            <button *ngIf="appService.Data.cartListCaja?.length == 0" (click)="_orderPlace()" class="btn-order-status cursor">Order Status</button>
+            <button *ngIf="appService.Data.cartListCaja?.length > 0" (click)="_goToCart()" class="btn-order-status cursor">Go
+        to cart</button>
+        </div>
+    </div>
+</div>

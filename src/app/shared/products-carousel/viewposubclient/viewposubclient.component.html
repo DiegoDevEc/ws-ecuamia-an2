@@ -1,0 +1,14 @@
+<div class="boton-x cursor">
+  <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png" alt="">
+</div>
+<br>
+<br>
+<div class="centrar" style="height: 400px;width: 300px;overflow: scroll;" mat-dialog-content perfectScrollbar>
+  <div *ngFor="let code of this.data.po" class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card-destinos">
+        <p>{{code.nombre}}</p>
+      </div>
+    </div>
+  </div>
+</div>

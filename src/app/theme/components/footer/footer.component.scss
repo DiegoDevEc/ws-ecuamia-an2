@@ -1,0 +1,12 @@
+.footer {
+	min-height: 200px;
+	img {
+		object-fit: contain;
+		//background-image: url('');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 100% !important;
+		width: 100%;
+	}
+}

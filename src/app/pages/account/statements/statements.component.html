@@ -1,0 +1,159 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+        <div [routerLink]="['/account/files']" class="izquierda header-account">
+            <img src="../../../../assets/images/recursos/galon-izquierdo.png">
+            <span class="account cursor">ACCOUNT STATEMENT</span>
+        </div>
+        <br>
+        <div>
+            <p>
+                <span class="Cabecera">CLIENT:</span><br>
+                <span class="account cursor">{{clienteLogueado.nombrePersona}}</span><br>
+                <!-- <span class="account cursor">{{clienteLogueado.direcciones[0].direccion}}</span>
+                <span class="account cursor">  C.P. {{clienteLogueado.direcciones[0].codigoPostal}}</span><br>
+                <span class="account cursor">{{clienteLogueado.direcciones[0].ciudad.pais.nombre}}</span>
+                <span class="account cursor">  {{clienteLogueado.direcciones[0].ciudad.nombre}}</span> -->
+            </p>
+        </div>
+        <br>
+        <div class="centrar">
+            <p class="balance-p">Balance to date <span> {{balanceDate | date: 'MM-dd-yyyy'}} </span> &nbsp;&nbsp;
+                <span class="balance-monto">$ {{balanceToClient | number : '1.2-2'}}</span>
+            </p>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 centrar-contenido">
+                <div class="card-fecha centrar-contenido">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 borde-fecha">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">From:</span>
+                                <input (click)="_openCalendar(dataSince)" [(ngModel)]="filterFechaSince" [matDatepicker]="dataSince" (dateChange)="_updateDate($event)" readonly #dataSince>
+                                <span (click)="_openCalendar(dataSince)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #dataSince disabled="false"></mat-datepicker>
+                                <div style="margin-left: 10px;"></div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="fechas">
+                                <span class="fecha-p-ac">To:</span>
+                                <input (click)="_openCalendar(until)" [(ngModel)]="filterFechaUntil" [matDatepicker]="until" (dateChange)="_updateDate($event)" readonly #until>
+                                <span (click)="_openCalendar(until)" class="input-group-addon cursor">
+                                    <img src="../../../assets/images/recursos/editar.png" alt="">
+                                </span>
+                                <mat-datepicker #until disabled="false"></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <span (click)="_limpiarFiltros()" class="clean cursor">
+                    Clean
+                </span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <!--<div *ngIf="this.url==''" class="centrar">
+           
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+        </div>-->
+        <div *ngIf="newEstateListClient.length > 0" class="tabla-radio table-responsive-sm">
+            <table class="table table-bordered hoverTable">
+                <thead>
+                    <tr class="cabezera">
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Reference</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Running Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let estadoCuenta of newEstateListClient | paginate: { itemsPerPage: 15, currentPage: page }; let i = index">
+                        <td>{{estadoCuenta.fecha | date:'MM/dd/yyyy'}}</td>
+                        <td>{{estadoCuenta.descripcion | translate}}</td>
+                        <td>{{estadoCuenta.referencia}}</td>
+                        <td>{{estadoCuenta.tipo}}</td>
+                        <td>$ {{estadoCuenta.valor | number : '1.2-2'}}</td>
+                        <td>$ {{estadoCuenta.saldo | number : '1.2-2'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <!-- <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div *ngIf="newEstateListClient.length > 0" fxLayout="row wrap">
+                    <div fxFlex="100" style="font-size: 10px;">
+                        <form class="text-center">
+                            <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged($event)">
+                            </pagination-controls>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div *ngIf="listaEstadoCuenta.length > 0" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="50" style="font-size: 12px;">
+                  <form class="text-center">
+                    <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged2($event)"></pagination-controls>
+                  </form>
+                </div>
+                <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
+                    <button class="btn btn-homeEnd" (click)="goToFirstPage()">
+                        <img src="../../assets/images/recursos/HOME.png" alt="First Page" class="img-icon">
+                    </button>
+                  <span style="color: #000000; font-size: 14px;" font="Roboto"> Page:</span>&nbsp;&nbsp;
+                  <input
+                    class="form-control"
+                    style="width: 55px; height: 20px; text-align: center;"
+                    type="number"
+                    [(ngModel)]="page"  
+                    (ngModelChange)="onPageChanged2($event)"  
+                  />
+                  <button class="btn btn-homeEnd" (click)="goToLastPage()">
+                    <img src="../../assets/images/recursos/END.png" alt="First Page" class="img-icon">
+                </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+        <div class="centrar cursor" (click)="downloadStatementPDF('PDF')">
+            <p class="balance-p"><img class="cursor" width="30px" height="30px" style="object-fit: contain;" src="../../../../assets/images/recursos/descargaBoton.png"> PDF</p>
+        </div>
+
+        <!--<div [routerLink]="['/account/statements2']" target="_blank" class="centrar cursor">
+            <img src="../../../../assets/images/recursos/descargaBoton.png">
+            <span class="account cursor">PDF</span>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="img-files">
+                    <a [routerLink]="['/account/statements2']"><img src="../../../../assets/images/recursos/descargaBoton.png" alt=""></a>
+                </div>
+                <div>
+                    <p class="account cursor">PDF</p>
+                </div>
+            </div>
+        </div>-->
+
+
+
+    </div>
+</div>
+<footer *ngIf="newEstateListClient.length > 0" class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

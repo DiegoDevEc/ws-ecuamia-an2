@@ -1,0 +1,929 @@
+<div style="height: 80px;">
+</div>
+<div class="container-fluid fondo-color">
+  <div class="container-fluid">
+    <div *ngIf="appService.showNabvarCard" class="row fixed-top navbar-light bg-light"
+      style="margin-top: 70px;display: flex;justify-content: center;align-items: center;z-index: 3 !important;">
+      <div class="col-lg-3">
+        <div class="centrar" style="margin-top: 35px;">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control input-search" placeholder="Search" aria-label="Recipient's username"
+              aria-describedby="basic-addon2" [(ngModel)]="filterValue" [formControl]="myControl"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="buscarProductosFiltro(option,'S')" *ngFor="let option of filteredOptions | async"
+                [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+            <div class="input-group-append">
+              <button class="btn input-boton" type="button">
+                <span class="centrar">
+                  <img (click)="buscarProductosFiltro(filterValue,'S')" src="../../../assets/images/recursos/lupa.png">
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isMobile" style="margin-top: 16px;">
+        <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span> </span>&nbsp;
+        &nbsp; &nbsp; &nbsp;
+      </div>
+
+      <div class="col-lg-6">
+        <div (click)="_informationDialog(marcacionSleccionada,'NT')" class="cursor" style="margin-top: 35px;">
+          <div class="card-datos">
+            <span class="card-p">Ship to:&nbsp;</span>
+            <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+              {{marcacionSleccionada.nombreEtiqueta}}
+            </span> &nbsp;&nbsp;
+            <span class="linea-v"></span> &nbsp;&nbsp;
+            <span class="card-p">Carrier choice:&nbsp;</span>
+            <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}
+            </span> &nbsp;&nbsp;
+            <span class="linea-v"></span> &nbsp;&nbsp;
+            <span class="card-p">Mark Code:&nbsp;</span>
+            <span *ngIf="destinoSeleccionado != undefined" class="card-p-2">{{destinoSeleccionado.nombre}}
+            </span> &nbsp;&nbsp;
+            <span class="input-group-addon cursor"><img src="../../../assets/images/recursos/editar.png"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row fixed-mob" [ngClass]="{'deshabilitado-mob ': sidenav2.opened && isMobile}" *ngIf="isMobile">
+      <div class="col-lg-3">
+      </div>
+
+      <div class="col-lg-7" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length == 0">
+
+        <div *ngIf="appService.showNabvarCardActive" class="row cursor"
+          (click)="_informationDialog(marcacionSleccionada,'NT')">
+
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="margin-card-datos">
+
+              <div *ngIf="!isLoadingDate" class="card-datos d-none d-md-flex">
+                <div class="">
+                  <div class="input-fecha" style="border: none !important; box-shadow: none !important;">
+                    <span class="card-p">Date: </span>
+                    <span class="card-p-2"> &nbsp;&nbsp; {{getFechaPedido()}} </span>
+                  </div>
+                </div>
+                &nbsp;&nbsp;
+                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                <span class="card-p">Ship to:&nbsp;</span>
+                <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                  {{marcacionSleccionada.nombreEtiqueta}}
+                </span> &nbsp;&nbsp;
+              </div>
+              <br>
+              <div class="card-datos d-none d-md-flex">
+                <span class="card-p">Carrier choice:&nbsp;</span>
+                <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}</span>
+
+                &nbsp;&nbsp;
+
+                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                <span class="card-p">Mark Code:&nbsp;</span>
+                <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                  style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                </span>
+
+                <span class="input-group-addon cursor"><img src="../../../assets/images/recursos/editar.png"></span>
+              </div>
+
+              <div class="card-datos d-block d-md-none">
+                <div class="row mx-2 flex-row flex-nowrap align-items-center">
+
+                  <span class="material-icons" style="color: #689f38;">
+                    location_on
+                  </span>
+                  <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                    {{marcacionSleccionada.nombreEtiqueta}}</span>
+                </div>
+
+                <div class="row mt-1 mx-2 d-flex flex-row flex-nowrap">
+                  <span class="card-p">Carrier choice:&nbsp;</span>
+                  <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}</span>
+                  &nbsp;&nbsp;
+                  <span class="linea-v"></span> &nbsp;&nbsp;
+                  <span class="card-p">Mark Code:&nbsp;</span>
+                  <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                    style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                  </span>&nbsp;&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-1" *ngIf="isMobile">
+        <div *ngIf="isMobile" style="text-align: center !important; padding-top: 5px !important;">
+          <button class="box-p-btn-add cursor ml-2"
+            style="height: 35px !important; border: none; font-size: 12px !important;"
+            (click)="openDialogMensajeCliente()">
+            NEWS YOU <br> CAN USE
+          </button>
+
+          <button mat-button *ngIf="!sidenavClose" class="box-p-btn-add cursor ml-2"
+            style="height: 35px !important; border: none;" (click)="sidenav2.toggle()">
+            <mat-icon style="vertical-align: middle;">filter_list</mat-icon>
+            <span style="margin-left: 8px; vertical-align: middle;">Filters</span>
+          </button>
+        </div>
+
+        <div *ngIf="isMobile" class="input-group mb-3 search-nbutton" style="margin-top: 10px;">
+          <input type="text" class="form-control input-search" placeholder="Search" aria-label="Recipient's username"
+            aria-describedby="basic-addon2" [(ngModel)]="filterValue" [formControl]="myControl"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click)="buscarProductosFiltro(option,'S')" *ngFor="let option of filteredOptions | async"
+              [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div class="input-group-append">
+            <button class="btn input-boton" type="button">
+              <span class="centrar">
+                <img (click)="buscarProductosFiltro(filterValue,'S')" src="../../../assets/images/recursos/lupa.png">
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="isMobile" style="margin-top: 10px; margin-bottom: 10px; text-align: center !important">
+          <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span> </span>&nbsp;
+          &nbsp; &nbsp; &nbsp;
+        </div>
+        <!-- <div>
+          {{appWebshopService.cajaMixtaArmada.detalle.length}}
+        </div> -->
+
+        <div style="text-align: center;" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+          <div>
+            <div style="margin-top: 10px; text-align: center;">
+              <p>
+                <!-- <span class="card-your-box">Your box</span> -->
+                <span class="card-icon-stems cursor">
+                  <div #myPopover popover="The following varieties have been selected by you to build the box."
+                    popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false"
+                    [popoverAnimation]="true">
+                    <img src="../../../assets/images/recursos/iMini.png" alt="">
+                  </div>
+                </span>
+              </p>
+            </div>
+            <div>
+              <div class="box-p-linea"></div>
+              <div class="box-p-img">
+                <div class="centrar">
+                  <p class="box-p-p">Your
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'QB'">medium</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'HB'">large</span>
+                    ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is
+                    <span
+                      *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  >= 95 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno  <= 105">
+                      100% full.</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  < 95">
+                      {{appWebshopService.cajaMixtaArmada.porcentajeLleno |
+                      number: '1.2-2'}}% full.
+                    </span>
+                    <span class="icon-info cursor">
+                      <div #myPopover
+                        popover="There are 3 types of boxes: Small (EB), medium (QB) and large (HB). You have the option to customize each box with the packing of your choice."
+                        popoverTitle="INFO" popoverPlacement="bottom-left" [popoverOnHover]="true"
+                        [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                        [popoverDisabled]="false" [popoverAnimation]="true">
+                        <img src="../../../assets/images/recursos/iMini.png" alt="">
+                      </div>
+                    </span>
+                    <br>
+                    <span class="card-stems" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+                      You have {{appWebshopService.obtenerCantidadTallosCajaMixta()}} stems in your box</span>
+                </div>
+                <div class="centrar" style="flex-direction: column;">
+                  <img class="progress-image" style="width: 150px;" [src]="appWebshopService.barraProgresoImagen[0]"
+                    alt="">
+                  <button *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja != 'HB' && appWebshopService.cajaMixtaArmada.porcentajeLleno > 90 
+                      && appWebshopService.sePuedeAgrandar" class="box-p-btn-large cursor"
+                    (click)="aumentarTamanioCaja()">Increase
+                  </button>
+                  <button
+                    *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno >= 90 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno <= 110"
+                    class="box-p-btn-add cursor ml-2" (click)="agregarACaja('S')">Add to cart
+                  </button>
+                </div>
+
+
+
+                <!-- <div class="centrar">
+                <button *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja != 'HB' && appWebshopService.cajaMixtaArmada.porcentajeLleno > 90 
+                  && appWebshopService.sePuedeAgrandar" class="box-p-btn-large cursor"
+                  (click)="aumentarTamanioCaja()">Increase
+                </button>
+                <button
+                  *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno >= 90 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno <= 110"
+                  class="box-p-btn-add cursor ml-2" (click)="agregarACaja('S')">Add to cart
+                </button>
+              </div> -->
+
+                <div class="card-slider-h" style="text-align: center; margin-top: 5px;">
+                  <div *ngFor="let detalle of appWebshopService.cajaMixtaArmada.detalle let i = index"
+                    class="card-items-added" style="min-width: 200px !important;">
+                    <div class="card-edit-items cursor" style="margin-left: 10px;">
+                      <img (click)="eliminarVariedad(i)" src="./../../../../assets/images/recursos/eliminar.png">
+                    </div>
+                    <div style="display: flex;align-items: center;justify-content: center;">
+                      <img [src]="urlImagen+detalle.producto.imagenes[0]" class="card-avatar-items">
+                    </div>
+                    <div style="margin:0 auto">
+                      <p class="card-name-items"> {{detalle.producto.nombreVariedad}}</p>
+                      <p class="card-name-talla-stems">
+                        {{appWebshopService.obtenerTallaProducto(detalle.producto).talla}}
+                        <br> +{{ detalle.cantidadBunches }} x
+                        {{detalle.cantidadBunchePorCaja}}
+                        {{detalle.producto.tipoPrecioVariedad=='T'?'stems':'stems'}}
+                        <!-- {{detalle.porcentaje}} -->
+                      </p>
+                    </div>
+                    <app-product-controls [quantity]="detalle.cantidadBunches" [indexDetalle]="i"
+                      (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())">
+                    </app-product-controls>
+                  </div>
+                </div>
+                <!-- 
+                <div>
+                  <span class="card-stems" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+                    You have {{appWebshopService.obtenerCantidadTallosCajaMixta()}} stems in your box</span>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 5px; text-align: center;">
+            <button class="box-p-btn-add cursor delete-all-items" (click)="_eliminarTodasVariedades()">Reset
+              mix box
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-1" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length <= 0 && !isMobile">
+        <div *ngIf="!isMobile" class="padre">
+          <img loading="lazy" class="" width="100%" height="100%"
+            src="../../../assets/images/recursos/newsucanuse3.png">
+          <p><strong> {{messagePublishTitle}}</strong><br><br>
+            {{messagePublish}}
+          </p>
+          <p class="contenido2"><strong>NEWS YOU</strong> <br>
+            <strong>CAN USE</strong>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row" [ngClass]="{'deshabilitado ': sidenav2.opened && isMobile}" *ngIf="!isMobile">
+      <div class="col-lg-3">
+      </div>
+
+      <div class="col-lg-7">
+
+        <div *ngIf="appService.showNabvarCardActive" class="row cursor"
+          (click)="_informationDialog(marcacionSleccionada,'NT')">
+
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 separador">
+            <div class="margin-card-datos">
+
+              <div *ngIf="!isLoadingDate" class="card-datos d-none d-md-flex">
+                <div class="">
+                  <div class="input-fecha" style="border: none !important; box-shadow: none !important;">
+                    <span class="card-p">Date: </span>
+                    <span class="card-p-2"> &nbsp;&nbsp; {{getFechaPedido()}} </span>
+                  </div>
+                </div>
+                &nbsp;&nbsp;
+                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                <span class="card-p">Ship to:&nbsp;</span>
+                <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                  {{marcacionSleccionada.nombreEtiqueta}}
+                </span> &nbsp;&nbsp;
+              </div>
+              <br>
+              <div class="card-datos d-none d-md-flex">
+                <span class="card-p">Carrier choice:&nbsp;</span>
+                <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}</span>
+
+                &nbsp;&nbsp;
+
+                <span class="linea-v"></span> &nbsp;&nbsp;
+
+                <span class="card-p">Mark Code:&nbsp;</span>
+                <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                  style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                </span>
+
+                <span class="input-group-addon cursor"><img src="../../../assets/images/recursos/editar.png"></span>
+              </div>
+
+              <div class="card-datos d-block d-md-none">
+                <div class="row mx-2 flex-row flex-nowrap align-items-center">
+
+                  <span class="material-icons" style="color: #689f38;">
+                    location_on
+                  </span>
+                  <span *ngIf="marcacionSleccionada != undefined" class="card-p-2">
+                    {{marcacionSleccionada.nombreEtiqueta}}</span>
+                </div>
+
+                <div class="row mt-1 mx-2 d-flex flex-row flex-nowrap">
+                  <span class="card-p">Carrier choice:&nbsp;</span>
+                  <span *ngIf="camionSeleccionado != undefined" class="card-p-2">{{camionSeleccionado.nombre}}</span>
+                  &nbsp;&nbsp;
+                  <span class="linea-v"></span> &nbsp;&nbsp;
+                  <span class="card-p">Mark Code:&nbsp;</span>
+                  <span *ngIf="destinoSeleccionado != undefined" class="card-p-2"
+                    style="font-size: 14px;">{{destinoSeleccionado.nombre}}
+                  </span>&nbsp;&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-1" *ngIf="isMobile">
+        <div *ngIf="isMobile" style="text-align: center !important; padding-top: 10px !important;">
+          <button class="box-p-btn-add cursor ml-2"
+            style="height: 35px !important; border: none; font-size: 12px !important;"
+            (click)="openDialogMensajeCliente()">
+            NEWS YOU <br> CAN USE
+          </button>
+
+          <button mat-button *ngIf="!sidenavClose" class="box-p-btn-add cursor ml-2"
+            style="height: 35px !important; border: none;" (click)="sidenav2.toggle()">
+            <mat-icon style="vertical-align: middle;">filter_list</mat-icon>
+            <span style="margin-left: 8px; vertical-align: middle;">Filters</span>
+          </button>
+        </div>
+
+        <div *ngIf="isMobile" class="input-group mb-3 search-nbutton" style="margin-top: 10px;">
+          <input type="text" class="form-control input-search" placeholder="Search" aria-label="Recipient's username"
+            aria-describedby="basic-addon2" [(ngModel)]="filterValue" [formControl]="myControl"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click)="buscarProductosFiltro(option,'S')" *ngFor="let option of filteredOptions | async"
+              [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div class="input-group-append">
+            <button class="btn input-boton" type="button">
+              <span class="centrar">
+                <img (click)="buscarProductosFiltro(filterValue,'S')" src="../../../assets/images/recursos/lupa.png">
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="isMobile" style="margin-top: 16px; margin-bottom: 16px; text-align: center !important">
+          <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span> </span>&nbsp;
+          &nbsp; &nbsp; &nbsp;
+        </div>
+
+        <div style="text-align: center;" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+          <div>
+            <div style="margin-top: 10px; text-align: center;">
+              <p>
+                <span class="card-your-box">Your box</span>
+                <span class="card-icon-stems cursor">
+                  <div #myPopover popover="The following varieties have been selected by you to build the box."
+                    popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false"
+                    [popoverAnimation]="true">
+                    <img src="../../../assets/images/recursos/iMini.png" alt="">
+                  </div>
+                </span>
+              </p>
+            </div>
+            <div>
+              <div class="box-p-linea"></div>
+              <div class="box-p-img">
+                <div class="centrar">
+                  <p class="box-p-p">Your
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'QB'">medium</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'HB'">large</span>
+                    ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is
+                    <span
+                      *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  >= 95 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno  <= 105">
+                      100% full.</span>
+                    <span *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  < 95">
+                      {{appWebshopService.cajaMixtaArmada.porcentajeLleno |
+                      number: '1.2-2'}}% full.
+                    </span>
+                    <span class="icon-info cursor">
+                      <div #myPopover
+                        popover="There are 3 types of boxes: Small (EB), medium (QB) and large (HB). You have the option to customize each box with the packing of your choice."
+                        popoverTitle="INFO" popoverPlacement="bottom-left" [popoverOnHover]="true"
+                        [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                        [popoverDisabled]="false" [popoverAnimation]="true">
+                        <img src="../../../assets/images/recursos/iMini.png" alt="">
+                      </div>
+                    </span>
+
+                </div>
+                <div class="centrar" style="flex-direction: column;">
+                  <img class="progress-image" style="width: 150px;" [src]="appWebshopService.barraProgresoImagen[0]"
+                    alt="">
+                </div>
+
+
+
+                <div class="centrar">
+                  <div style="height: 10px;"></div>
+                  <button *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja != 'HB' && appWebshopService.cajaMixtaArmada.porcentajeLleno > 90 
+                  && appWebshopService.sePuedeAgrandar" class="box-p-btn-large cursor"
+                    (click)="aumentarTamanioCaja()">Increase
+                  </button>
+                  <div style="height: 10px;"></div>
+                  <button
+                    *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno >= 90 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno <= 110"
+                    class="box-p-btn-add cursor ml-2" (click)="agregarACaja('S')">Add to cart
+                  </button>
+                </div>
+
+                <div class="card-slider-h" style="text-align: center; margin-top: 20px;">
+                  <div *ngFor="let detalle of appWebshopService.cajaMixtaArmada.detalle let i = index"
+                    class="card-items-added" style="min-width: 200px !important;">
+                    <div class="card-edit-items cursor" style="margin-left: 10px;">
+                      <img (click)="eliminarVariedad(i)" src="./../../../../assets/images/recursos/eliminar.png">
+                    </div>
+                    <div style="display: flex;align-items: center;justify-content: center;">
+                      <img [src]="urlImagen+detalle.producto.imagenes[0]" class="card-avatar-items">
+                    </div>
+                    <div style="margin:0 auto">
+                      <p class="card-name-items"> {{detalle.producto.nombreVariedad}} - {{detalle.producto.producto}}
+                      </p>
+                      <p class="card-name-talla-stems">
+                        {{appWebshopService.obtenerTallaProducto(detalle.producto).talla}}
+                        <br> +{{ detalle.cantidadBunches }} x
+                        {{detalle.cantidadBunchePorCaja}}
+                        {{detalle.producto.tipoPrecioVariedad=='T'?'stems':'stems'}}
+                        <!-- {{detalle.porcentaje}} -->
+                      </p>
+                    </div>
+                    <app-product-controls [quantity]="detalle.cantidadBunches" [indexDetalle]="i"
+                      (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())">
+                    </app-product-controls>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="card-stems" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+                    You have {{appWebshopService.obtenerCantidadTallosCajaMixta()}} stems in your box</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 10px; text-align: center;">
+            <button class="box-p-btn-add cursor delete-all-items" (click)="_eliminarTodasVariedades()">Reset
+              mix box
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-1" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length <= 0 && !isMobile">
+        <div *ngIf="!isMobile" class="padre">
+          <img loading="lazy" class="" width="100%" height="100%"
+            src="../../../assets/images/recursos/newsucanuse3.png">
+          <p><strong> {{messagePublishTitle}}</strong><br><br>
+            {{messagePublish}}
+          </p>
+          <p class="contenido2"><strong>NEWS YOU</strong> <br>
+            <strong>CAN USE</strong>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <mat-sidenav-container style="background-color: #f6f6f6 !important;">
+
+      <mat-sidenav-content class="all-products fondo-color" style="overflow-x: hidden;" ngClass.gt-sm="p-left">
+        <!--div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6 text-left text-md-rigth my-2">
+              <button *ngIf="!sidenavClose" mat-button style="color: #096905; font-style: italic;"
+                (click)="sidenav2.toggle()">
+                Filters
+                <mat-icon [ngStyle]="{'color':'#096905'}">filter_alt</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <br -->
+        <!--PRODUCTOS WEB SHOP-->
+        <div id="miDiv" class="container-fluid" style="min-height: 800px !important; margin-right: 0 !important;"
+          *ngIf="!isMobile">
+
+          <div>
+            <p *ngIf="appService.resultadoBusqueda" class="card-result">Result</p>
+          </div>
+
+          <div *ngIf="productosPaginados.length > 0" class="row margin-top-productos margin-tropical">
+            <!--div class="card-productos-v2" *ngFor="let producto of productosPaginados let i = index"-->
+            <div class="card-productos-v2"
+              [ngClass]="{'card-productos-v2-promo': producto.promocion == 'S','card-productos-v2-limited': producto.limitado == 'S','card-productos-v2-seguridad': producto.seguridad == 'S' }"
+              *ngFor="let producto of productosPaginados let i = index">
+              <app-card-product (showDialogInformacion)="_informationDialogControl($event)"
+                *ngIf="!appWebshopService.paginador.aplicaFedex &&producto != undefined"
+                (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())"
+                (limpiarCarritoEmit)="(_limpiarWebShopFiltros())" [producto]="producto"></app-card-product>
+              <app-card-product-fedex (showDialogInformacion)="_informationDialogControl($event)"
+                *ngIf="appWebshopService.paginador.aplicaFedex && producto != undefined && producto.tallas[0].cajas.length > 0"
+                (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())" (refrescarTarjetas)="_refrescarTarjetas()"
+                (limpiarCarritoEmit)="(_limpiarWebShopFiltros())" [producto]="producto"></app-card-product-fedex>
+            </div>
+
+          </div>
+          <div *ngIf="isLoadingOne" class="centrar">
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+            <p style="margin-top: 0px;">Loading...</p>
+          </div>
+
+        </div>
+        <!--PRODUCTOS WEB SHOP MOBILE-->
+
+        <div id="miDiv" class="container-fluid"
+          [ngStyle]="{'margin-top' : appWebshopService.cajaMixtaArmada.detalle.length > 0 ? '520px' : '265px '}"
+          style="min-height: 800px !important; margin-right: 0 !important;" *ngIf="isMobile">
+
+          <div>
+            <p *ngIf="appService.resultadoBusqueda" class="card-result">Result</p>
+          </div>
+
+          <div *ngIf="productosPaginados.length > 0" class="row margin-top-productos margin-tropical">
+            <!--div class="card-productos-v2" *ngFor="let producto of productosPaginados let i = index"-->
+            <div class="card-productos-v2"
+              [ngClass]="{'card-productos-v2-promo': producto.promocion == 'S','card-productos-v2-limited': producto.limitado == 'S','card-productos-v2-seguridad-mob': producto.seguridad == 'S' }"
+              *ngFor="let producto of productosPaginados let i = index">
+              <app-card-product (showDialogInformacion)="_informationDialogControl($event)"
+                *ngIf="producto != undefined" (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())"
+                (limpiarCarritoEmit)="(_limpiarWebShopFiltros())" [producto]="producto"></app-card-product>
+            </div>
+
+          </div>
+          <div *ngIf="isLoadingOne" class="centrar">
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+            <p style="margin-top: 0px;">Loading...</p>
+          </div>
+
+        </div>
+
+        <!---LISTA BUSQUEDA PRODUCTOS MEZCLA-->
+
+      </mat-sidenav-content>
+
+      <!--NAVBAR NAVIGATION-->
+      <mat-sidenav #sidenav2 [opened]="sidenavClose" [mode]="sidenavClose ? 'side' : 'over'"
+        style="position: fixed; margin-top: 140px;" class="filter-sidenav fondo-color navbar-page pr-xs-4 pr-md-0"
+        perfectScrollbar>
+
+
+        <!-- Botón de cerrar -->
+
+        <div (click)="sidenav2.close()" class="boton-x cursor" *ngIf="isMobile">
+          <img height="20px" width="20px" src="../../../../assets/images/recursos/cerrarmin.png" width="20px">
+        </div>
+
+        <div [ngClass]="{'deshabilitado': isLoadingOne}" style="margin-right: 10px;">
+          <div class="col-lg-2">
+            <div class="izquierda">
+              <p>
+                <span class="hub-titulo hub-underline cursor" (click)="_eliminarFitros()">
+                  STORE
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Buscador por nombre -->
+          <div class="centrar margin-br-top">
+            <div class="card-nav-search-m">
+              <div *ngIf="!isMobile" class="input-group mb-3 search-nbutton">
+                <input type="text" class="form-control input-search" placeholder="Search"
+                  aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="filterValue"
+                  [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option (click)="buscarProductosFiltro(option,'S')" *ngFor="let option of filteredOptions | async"
+                    [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+                <div class="input-group-append">
+                  <button class="btn input-boton" type="button">
+                    <span class="centrar">
+                      <img (click)="buscarProductosFiltro(filterValue,'S')"
+                        src="../../../assets/images/recursos/lupa.png" *ngIf="!isLoadingOne">
+                      <img class="loading_color" *ngIf="isLoadingOne"
+                        style="width: 20px !important; background-color: white"
+                        src="../../../assets/images/recursos/loading_color.gif">
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!isMobile" style="margin-top: 16px;">
+                <span><strong>{{totalRegistros}}</strong>&nbsp;<span><strong>Varieties</strong></span>
+                </span>&nbsp; &nbsp; &nbsp; &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <!-- Opción: Door to Door -->
+          <div *ngIf="usuario?.aplicaFedex === false && appWebshopService.paginador?.aplicaFedex === false"
+            class="centrar card-fedex cursor margin-br-top" (click)="_aplicaFedexAllProducts(true)">
+            <button class="btn-dutch cursor">Door to Door</button>
+          </div>
+
+          <!-- Opción: All Products -->
+          <div *ngIf="usuario?.aplicaFedex === false && appWebshopService.paginador?.aplicaFedex === true"
+            class="centrar card-allProducts cursor margin-br-top" (click)="_aplicaFedexAllProducts(false)">
+            <button class="btn-dutch cursor">Miami Prices</button>
+          </div>
+
+          <!-- Opción: Tropicales -->
+          <div class="centrar card-tropical cursor margin-br-top" (click)="_tropicalFlowers()">
+            <button class="btn-dutch cursor">Tropical Flowers</button>
+          </div>
+
+          <div class="centrar card-dutch margin-br-top cursor" (click)="dutchDirect()">
+            <button class="btn-dutch cursor">Dutch Direct</button>
+          </div>
+
+          <div class="card-navbar margin-br-top">
+            <br>
+            <div class="centrar">
+              <p class="p-filters">Filters</p>
+            </div>
+            <div class="margen-chip">
+              <div *ngIf="appWebshopService.listaFiltrosSeleccionados.length > 0">
+                <div class="centrar">
+                  <p (click)="_eliminarFitros()" class="delete-all cursor">Reset Filters</p>
+                </div>
+                <mat-chip-list>
+                  <mat-chip class="chip-filters" *ngFor="let filtro of appWebshopService.listaFiltrosSeleccionados">
+                    {{filtro.valor}}
+                    <span class="derecha"><img class="cursor" (click)="eliminarFiltroSeleccionado(filtro,filtro.valor)"
+                        src="../../../assets/images/recursos/x.png"></span>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+
+            <div class="margin-filtros margin-br-top">
+              <p class="p-categorias"><strong>Search by categories</strong></p>
+            </div>
+
+            <div class="centrar" *ngIf="appWebshopService.productosWebShopFilter.length > 0">
+              <p (click)="_verFiltrosCategorias(listaFiltros)" class="see-all cursor">
+                Show More ({{appWebshopService.productosWebShopFilter.length}})
+              </p>
+            </div>
+
+            <div *ngIf="appWebshopService.productosWebShopFilter.length <= 0" class="centrar">
+              <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+              <p style="margin-top: 0px;">Loading...</p>
+            </div>
+            <div class="margin-filtros">
+              <div class="card-filtros-color">
+                <main class="main-filtros">
+                  <div *ngFor="let filtro of appWebshopService.productosWebShopFilter.slice(0, 15)">
+                    <div (click)="_buscarCategoriasConFiltroCheck(filtro)" class="input-group mb-3 cursor">
+                      <div class="cuadrado-filtros">
+                        <i *ngIf="filtro.select === 'S'" class="material-icons icon-visto">check</i>
+                      </div>
+                      <div style="margin-left: 2px;">
+                        <span class="p-filtros" style="text-transform: capitalize;">{{filtro.nombre}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </main>
+              </div>
+            </div>
+
+
+            <div class="margin-filtros margin-br-top">
+              <p class="producto-descuento">Products with discount</p>
+            </div>
+            <div class="margin-filtros">
+              <main class="main-filtros">
+                <div (click)="_mostrarPromociones()" class="input-group mb-3 cursor">
+                  <div class="cuadrado-filtros">
+                    <i *ngIf="appService.mostrarPromociones === true" class="material-icons icon-visto">check</i>
+                  </div>
+                  <div style="margin-left: 2px;">
+                    <span class="p-filtros cursor p-promo">PROMO</span>
+                  </div>
+                </div>
+              </main>
+            </div>
+
+            <div class="margin-filtros">
+              <main class="main-filtros">
+                <div (click)="_mostrarTinted()" class="input-group mb-3 cursor">
+                  <div class="cuadrado-filtros">
+                    <i *ngIf="appService.mostrarTinted === true" class="material-icons icon-visto">check</i>
+                  </div>
+                  <div style="margin-left: 2px;">
+                    <span class="p-filtros cursor p-promo">TINTED</span>
+                  </div>
+                </div>
+              </main>
+            </div>
+
+            <div class="margin-filtros">
+              <main class="main-filtros">
+                <div (click)="_mostrarLimited()" class="input-group mb-3 cursor">
+                  <div class="cuadrado-filtros">
+                    <i *ngIf="appService.mostrarLimited === true" class="material-icons icon-visto">check</i>
+                  </div>
+                  <div style="margin-left: 2px;">
+                    <span class="p-filtros cursor p-promo">LIMITED</span>
+                  </div>
+                </div>
+              </main>
+            </div>
+
+            <div class="centrar margin-br-top">
+              <p class="search-color"><strong> Search by color</strong></p>
+            </div>
+            <div class="margin-filtros">
+              <div class="card-filtros-color">
+                <main class="main-filtros">
+                  <div *ngFor="let item of appWebshopService.coloresWebShop">
+                    <div (click)="changeColor(item.nombre)" class="input-group mb-3 cursor">
+                      <div class="cuadrado-filtros">
+                        <i *ngIf="item.select === 'S'" class="material-icons icon-visto">check</i>
+                      </div>
+                      <div class="margen-color">
+                        <span>
+                          <!--div *ngIf="item.color2Hex != undefined" class="color-circle" [ngStyle]="getBackgroundGradient(item.colorHex, item.color2Hex)"></div-->
+                          <div *ngIf="item.color2Hex != undefined" class="color-circle2">
+                            <div class="color-half-left" [style.background-color]="item.colorHex"></div>
+                            <div class="color-half-right" [style.background-color]="item.color2Hex"></div>
+                          </div>
+                          <div *ngIf="item.color2Hex == undefined" class="color-circle"
+                            [style.background-color]="item.colorHex"></div>
+                          <!--div [ngClass]="item.estilo"></div-->
+                        </span>
+                      </div>
+                      <div style="margin-left: 2px;">
+                        <span class="p-filtros" style="text-transform: uppercase;">{{item.nombre}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </main>
+              </div>
+            </div>
+            <div class="centrar margin-br-top pb-4">
+
+            </div>
+
+          </div>
+        </div>
+
+      </mat-sidenav>
+
+      <!--ARMAR CAJA MIXTA-->
+      <mat-sidenav *ngIf="!isMobile" position="end" #sidenav3
+        [opened]="appWebshopService.cajaMixtaArmada.detalle.length > 0"
+        [mode]="appWebshopService.cajaMixtaArmada.detalle.length > 0 ? 'side' : 'over'"
+        style="position: fixed; margin-top: 70px; width: 250px !important;"
+        class="filter-sidenav fondo-color navbar-page " perfectScrollbar>
+        <div *ngIf="appWebshopService.cajaMixtaArmada.detalle.length  > 0">
+
+          <div style="margin-top: 10px; text-align: center;">
+            <p>
+              <span class="card-your-box">Your box</span>
+              <span class="card-icon-stems cursor">
+                <div #myPopover popover="The following varieties have been selected by you to build the box."
+                  popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                  [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false"
+                  [popoverAnimation]="true">
+                  <img src="../../../assets/images/recursos/iMini.png" alt="">
+                </div>
+              </span>
+            </p>
+          </div>
+
+          <div>
+            <div class="box-p-linea"></div>
+            <div class="box-p-img">
+              <div class="centrar">
+                <p class="box-p-p">Your
+                  <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja == 'EB'">small</span>
+                  <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'QB'">medium</span>
+                  <span *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja  == 'HB'">large</span>
+                  ({{appWebshopService.cajaMixtaArmada.tamanioCaja}}) box is
+                  <span
+                    *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  >= 95 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno  <= 105">
+                    100% full.</span>
+                  <span *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno  < 95">
+                    {{appWebshopService.cajaMixtaArmada.porcentajeLleno |
+                    number: '1.2-2'}}% full.
+                  </span>
+                  <span class="icon-info cursor">
+                    <div #myPopover
+                      popover="There are 3 types of boxes: Small (EB), medium (QB) and large (HB). You have the option to customize each box with the packing of your choice."
+                      popoverTitle="INFO" popoverPlacement="bottom-left" [popoverOnHover]="true"
+                      [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false"
+                      [popoverAnimation]="true">
+                      <img src="../../../assets/images/recursos/iMini.png" alt="">
+                    </div>
+                  </span>
+
+              </div>
+              <div class="centrar" style="flex-direction: column;">
+                <img class="progress-image" [src]="appWebshopService.barraProgresoImagen[0]" alt="">
+              </div>
+
+              <div class="centrar">
+                <div style="height: 10px;"></div>
+                <button *ngIf="appWebshopService.cajaMixtaArmada.tamanioCaja != 'HB' && appWebshopService.cajaMixtaArmada.porcentajeLleno > 90 
+                  && appWebshopService.sePuedeAgrandar" class="box-p-btn-large cursor"
+                  (click)="aumentarTamanioCaja()">Increase
+                </button>
+                <div style="height: 10px;"></div>
+                <button
+                  *ngIf="appWebshopService.cajaMixtaArmada.porcentajeLleno >= 90 &&  appWebshopService.cajaMixtaArmada.porcentajeLleno <= 110"
+                  class="box-p-btn-add cursor ml-2" (click)="agregarACaja('S')">Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-slider-v" style="text-align: center; margin-top: 40px;">
+            <div *ngFor="let detalle of appWebshopService.cajaMixtaArmada.detalle let i = index"
+              class="card-items-added">
+              <div class="card-edit-items cursor">
+                <img (click)="eliminarVariedad(i)" src="./../../../../assets/images/recursos/eliminar.png">
+              </div>
+              <div style="display: flex;align-items: center;justify-content: center;">
+                <img [src]="urlImagen+detalle.producto.imagenes[0]" class="card-avatar-items">
+              </div>
+              <div style="margin:0 auto">
+                <p class="card-name-items"> {{detalle.producto.nombreVariedad}} - {{detalle.producto.producto}}</p>
+                <p class="card-name-talla-stems"> {{appWebshopService.obtenerTallaProducto(detalle.producto).talla}}
+                  <br> +{{ detalle.cantidadBunches }} x
+                  {{detalle.cantidadBunchePorCaja}}
+                  {{detalle.producto.tipoPrecioVariedad=='T'?'stems':'stems'}}
+                  <!-- {{detalle.porcentaje}} -->
+                </p>
+              </div>
+              <app-product-controls [quantity]="detalle.cantidadBunches" [indexDetalle]="i"
+                (filtrarPorVariedadAgregada)="(filtrarPorVariedadAgregada())">
+              </app-product-controls>
+            </div>
+          </div>
+
+          <div>
+            <span class="card-stems" *ngIf="appWebshopService.cajaMixtaArmada.detalle.length > 0">
+              You have {{appWebshopService.obtenerCantidadTallosCajaMixta()}} stems in your box</span>
+          </div>
+          <div style="margin-top: 10px; text-align: center;">
+            <button class="box-p-btn-add cursor delete-all-items" (click)="_eliminarTodasVariedades()">Reset
+              mix box
+            </button>
+          </div>
+          <br><br>
+        </div>
+
+      </mat-sidenav>
+
+    </mat-sidenav-container>
+  </div>
+</div>
+
+
+<footer class="footer fondo-color">
+  <div *ngIf="productosPaginados.length == totalRegistros">
+    <p style="padding-left: 300px; font-size: 20px; color: #595959; padding-top: 100px;">End of content</p>
+  </div>
+  <img src="../../../assets/images/recursos/footer.png" alt="">
+</footer>

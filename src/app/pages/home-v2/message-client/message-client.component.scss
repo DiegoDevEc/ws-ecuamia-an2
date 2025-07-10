@@ -1,0 +1,42 @@
+.note {
+    font: normal normal normal 18px/20px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.note-boxes {
+    font: normal normal normal 18px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+
+.edit-save:focus {
+    width: 122px;
+    height: 28px;
+    background: #4e9602 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #0000001A;
+    border-radius: 7px;
+    font: normal normal normal 16px/16px Montserrat;
+    letter-spacing: 0px;
+    color: #ffffff;
+    outline: none;
+}
+
+.cart-items-count {
+    border-radius: 50%;
+    background: #4e9602;
+    position: absolute;
+    color: white;
+    width: 30px;
+    height: 28px;
+    margin-top: -9px;
+    margin-left: -16px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.width-btn {
+    width: 140px !important;
+}

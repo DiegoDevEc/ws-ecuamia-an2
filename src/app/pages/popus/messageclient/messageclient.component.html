@@ -1,0 +1,177 @@
+<div class="boton-x">
+  <button type="button" [mat-dialog-close]="true" class="btn btn-default btn-circle"><i
+      class="fa fa-times"></i></button>
+</div>
+<div class="centrar-img">
+  <img src="../../../assets/images/logo_home.png" style="width: 150px;height: 70px;">
+</div>
+<div mat-dialog-content *ngIf="inputFiltro.length > 0">
+  <div>
+    <div class="row">
+      <div class="col-lg-12" style="text-align: center;font-family: Verdana;">
+        <h4>Enter the information below, we'll get right back to you</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-5 col-md-5">
+        <div class="card" style="border: 1px solid rgb(218, 216, 216);border-radius: 10px;">
+          <div class="row"
+            style="margin: auto;background: rgb(173, 214, 91);color: navy;border-top-left-radius : 10px;border-top-right-radius: 10px;height: 50px;">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div style="margin-top: 15px;">
+                <span style="font-weight: bold;"><i class="glyphicon glyphicon-chevron-right"></i>
+                  &nbsp; Description product</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" style="margin: 30px;">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <span class="color-span">Quantity</span>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                    <input [(ngModel)]="quantity" type="number" pattern="^[0-9]+" class="form-control"
+                      style="text-transform: uppercase;">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <span class="color-span">Flower Type</span>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
+                    <input [(ngModel)]="flowerType" type="text" style="text-transform: uppercase;" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <span class="color-span">Variety</span>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
+                    <input [(ngModel)]="variety" type="text" style="text-transform: uppercase;" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <span class="color-span">Observation</span>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                    <input [(ngModel)]="observation" type="text" style="text-transform: uppercase;"
+                      class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12" style="text-align: center;">
+                <button mat-raised-button (click)="agregarFiltroInput()" style="background: navy;color: white;"
+                  mat-button>
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <div class="card" style="border: 1px solid rgb(218, 216, 216);border-radius: 10px;">
+          <div class="card-header">
+            <div class="row"
+              style="margin: auto;background: rgb(173, 214, 91);color: navy;border-top-left-radius : 10px;border-top-right-radius: 10px;height: 50px;">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div style="margin-top: 15px;">
+                  <span style="font-weight: bold;"><i class="glyphicon glyphicon-chevron-right"></i>
+                    &nbsp; List of products</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" style="margin: 20px;">
+            <div class="row">
+              <div class="col-lg-12" style="text-align: center;">
+                <table class="table">
+                  <thead>
+                    <tr style="text-align: start;">
+                      <th style="font-weight: bold;" scope="col">#</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Flower Type</th>
+                      <th scope="col">Variety</th>
+                      <th scope="col">Observation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="text-align: start;" *ngFor="let filtro of mensajeDescripcion; let i = index">
+                      <td style="font-weight: bold;"> {{i+1}} </td>
+                      <td> {{filtro.cantidad}} </td>
+                      <td> {{filtro.tipocaja}} </td>
+                      <td> {{filtro.variedad}} </td>
+                      <td> {{filtro.observacion}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12" style="text-align: center;">
+                <button mat-raised-button style="background: navy;color: white;" (click)="enviarMensaje()"
+                  cdkFocusInitial>Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!---
+ <div class="row">
+        <div class="col-lg-2">
+          <p>Quantity</p>
+        </div>
+        <div class="col-lg-3">
+          <p>Flower Type</p>
+        </div>
+        <div class="col-lg-4">
+          <p>Variety</p>
+        </div>
+        <div class="col-lg-3">
+          <p>Observation</p>
+        </div>
+        <div class="col-lg-2">
+        </div>
+      </div>
+      <div *ngFor="let filtro of inputFiltro; let i = index" class="row" style="margin-bottom: 10px;">
+        <div class="col-lg-2">
+          <input [(ngModel)]="quantity" class="form-control" min="1" pattern="^[0-9]+" type="number">
+        </div>
+        <div class="col-lg-3">
+          <input [(ngModel)]="flowerType" class="form-control" type="text">
+        </div>
+        <div class="col-lg-3">
+          <textarea [(ngModel)]="variety" style="height: 35px;" class="form-control" type="text"></textarea>
+        </div>
+        <div class="col-lg-3">
+          <textarea [(ngModel)]="observation" style="height: 35px;" class="form-control" type="text"></textarea>
+        </div>
+        <div class="col-lg-1">
+          <button mat-icon-button matTooltip="Add" (click)="agregarFiltroInput(filtro)">
+            <mat-icon color="primary">add_circle_outline</mat-icon>
+          </button>
+        </div>
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <button mat-raised-button style="background: navy;color: white;" (click)="enviarMensaje()"
+          cdkFocusInitial>Send</button>
+      </div>-->

@@ -1,0 +1,164 @@
+<div class="container-fluid fondo-color">
+    <div class="container fondo-color">
+        <br><br><br><br><br><br>
+        <div>
+            <p class="customer-p"><span class="underline">CUSTOMERS</span></p>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 margen-center">
+                <div class="input-group mb-3 input-center">
+                    <input (keyup)="applyFilter($event, 'N')" type="text" class="form-control input-search" placeholder="Search" [formControl]="marcacionesControl" [(ngModel)]="filterValue">
+                    <!--<mat-autocomplete #auto="matAutocomplete">
+                    <mat-option (click)="searchFilter(filterValue, 'S')"
+                        *ngFor="let option of filtrosOpcionesMarcaciones | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>-->
+                    <div class="input-group-append">
+                        <button class="btn input-boton" type="button">
+                            <span class="centrar">
+                                <img (click)="applyFilter(filterValue, 'S')"
+                                    src="../../../assets/images/recursos/lupa.png">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="derecha">
+                    <span (click)="registrarCliente()" class="new-customer cursor">Add new Ship to</span>
+                    <span>
+                        <img class="cursor" height="20px" width="20px" style="margin-left: 10px;margin-top: -3px;"
+                            src="../../../../assets/images/recursos/anadir.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div *ngIf="marcacionesClientes.length == 0 && mostrarMensaje == false" class="centrar">
+            <!-- <img src="https://www.fiberondecking.com/interface/images/loading.gif"> -->
+            <img class="loading_color" src="../../../assets/images/recursos/loading_color.gif">
+        </div>
+        <div *ngIf="marcacionesClientes.length == 0 && mostrarMensaje == true" class="centrar">
+            <br><br>
+            <p class="p-found">Your search couldn´t be found.</p>
+        </div>
+        <div class="tabla-radio">
+            <table class="table table-bordered hoverTable">
+                <thead>
+                    <tr class="cabezera">
+                        <th>Po</th>
+                        <th>Customer</th>
+                        <th>Adress</th>
+                        <th>City</th>
+                        <th >State</th>
+                        <th>Zip Code</th>
+                        <th>Status</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+            <tbody>
+                <tr class="cabezera" *ngFor="let data of marcacionesClientes | paginate: { itemsPerPage: 12, currentPage: page, totalItems: count }; let i = index">
+                    <td *ngIf="data.listaDestinos.length>0" (click)="getPoSubclient(data.listaDestinos)" class="card-data-cus cursor">{{data.listaDestinos[0].nombre}}</td>
+                    <td>{{data.nombreEtiqueta}}</td>
+                    <td>{{data.direccionEtiqueta}}</td>
+                    <td>{{data.ciudad}}</td>
+                    <td>{{data.destino}}</td>
+                    <td>{{data.codigoPostal}}</td>
+                    <!-- <td>{{user.estadoPadre == 'ACT' ? 'Active' : 'Disabled'}}</td> -->
+                    <td>{{data.estado == 'S' ? 'Active' : 'Disabled'}}</td>
+                    <td style="text-align: center;">
+                        <img (click)="editarCustomer(data.nombreEtiqueta)" height="20px" class="cursor" src="../../../../assets/images/recursos/eye.png" alt="">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+            <!-- <div class="col-lg-12" *ngFor="let data of marcacionesClientes | paginate: { itemsPerPage: 12, currentPage: page, totalItems: count }; let i = index">
+                <div>
+                    <div class="row card-customer">
+                        <div class="col-lg-1 col-md-12 col-sm-12 col-12 card-linea-v mt-1 mt-md-none">
+                            <div>
+                                <p class="card-titulos-cus">Po:</p>
+                                <p *ngIf="data.listaDestinos.length>0" (click)="getPoSubclient(data.listaDestinos)" class="card-data-cus cursor">
+                                    {{data.listaDestinos[0].nombre}}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 card-linea-v">
+                            <div>
+                                <p class="card-titulos-cus">Customer:</p>
+                                <p class="card-data-cus">{{data.nombreEtiqueta}}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 card-linea-v">
+                            <p class="card-titulos-cus">Address:</p>
+                            <p class="card-data-cus">{{data.direccionEtiqueta}}</p>
+                        </div>
+                        <div class="col-lg-2 card-linea-v">
+                            <p class="card-titulos-cus">City:</p>
+                            <p class="card-data-cus">{{data.ciudad}}</p>
+                        </div>
+                        <div class="col-lg-1 card-linea-v">
+                            <p class="card-titulos-cus">State:</p>
+                            <p class="card-data-cus">{{data.destino}}</p>
+                        </div>
+                        <div class="col-lg-2 card-linea-v">
+                            <p class="card-titulos-cus">Zip code:</p>
+                            <p class="card-data-cus">{{data.codigoPostal}}</p>
+                        </div>
+                        <div class="col-lg-1 centrar-data">
+                            <img (click)="editarCustomer(data.nombreEtiqueta)" height="20px" class="cursor" src="../../../../assets/images/recursos/ver.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <!-- <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div *ngIf="marcacionesClientes.length > 0" fxLayout="row wrap" style="margin-top: -15px;">
+                    <div fxFlex="100" style="font-size: 10px;">
+                        <form class="text-center">
+                            <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged($event)">
+                            </pagination-controls>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div *ngIf="subclientes.length > 0" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="50" style="font-size: 12px;">
+                  <form class="text-center">
+                    <pagination-controls class="product-pagination" maxSize="10" (pageChange)="onPageChanged2($event)"></pagination-controls>
+                  </form>
+                </div>
+                <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
+                    <button class="btn btn-homeEnd" (click)="goToFirstPage()">
+                        <img src="../../assets/images/recursos/HOME.png" alt="First Page" class="img-icon">
+                    </button>
+                  <span style="color: #000000; font-size: 14px;" font="Roboto"> Page:</span>&nbsp;&nbsp;
+                  <input
+                    class="form-control"
+                    style="width: 55px; height: 20px; text-align: center;"
+                    type="number"
+                    [(ngModel)]="page"  
+                    (ngModelChange)="onPageChanged2($event)"  
+                  />
+                  <button class="btn btn-homeEnd" (click)="goToLastPage()">
+                    <img src="../../assets/images/recursos/END.png" alt="First Page" class="img-icon">
+                </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+</div>
+<footer *ngIf="marcacionesClientes.length > 0" class="footer fondo-color">
+    <img src="../../../../assets/images/recursos/footer.png" alt="">
+</footer>

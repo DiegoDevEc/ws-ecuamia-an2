@@ -1,0 +1,47 @@
+<div class="container-fluid" style="margin-top: 80px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-10 box-p-img">
+        <div class="d-flex justify-content-start d-flex align-items-center">
+          <div>
+            <span class="card-your-box">Your box</span>
+            <span class="card-icon-stems cursor">
+              <div #myPopover popover="The following varieties have been selected by you to build the box."
+                popoverTitle="INFO" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true" [popoverDisabled]="false"
+                [popoverAnimation]="true">
+                <img src="../../../assets/images/recursos/iMini.png" alt="">
+              </div>
+            </span>
+          </div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div>
+            <img width="50%" height="50%" [src]="appService.barraProgresoImagen[0]">
+          </div>
+          <p class="box-p-info">Your
+            <span *ngIf="appService.cajaSeleccionada == 'EB'">small</span>
+            <span *ngIf="appService.cajaSeleccionada == 'QB'">medium</span>
+            <span *ngIf="appService.cajaSeleccionada == 'HB'">large</span>
+            ({{appService.cajaSeleccionada}}) box is
+            {{appService.CajaArmada.totalProcentajeLleno}}% full.
+          </p>
+        </div>
+        <!--<div class="card-slider-bp">
+          <div *ngFor="let variedad of cajaArmada.variedades" class="card-items-added-bp">
+            <div style="display: flex;align-items: center;justify-content: center;">
+              <img [src]="variedad.imagenes" class="card-avatar-bp">
+            </div>
+            <div>
+              <p class="card-name-items-bp"> {{variedad.nombreVariedad}} - {{variedad.producto}} </p>
+            </div>
+          </div>
+        </div>-->
+      </div>
+      <div class="col-lg-2 d-flex align-items-center">
+        <button *ngIf="appService.CajaArmada.totalProcentajeLleno >= 90" class="box-p-btn-add cursor"
+          (click)="agregarACaja()">Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

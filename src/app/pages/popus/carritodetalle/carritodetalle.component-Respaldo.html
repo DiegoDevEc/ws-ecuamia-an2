@@ -1,0 +1,502 @@
+<mat-dialog-content class="carrito-content">
+    <div class="boton-x cursor">
+        <img width="20px" height="20px" (click)="close()" src="../../../../assets/images/recursos/cerrarmin.png">
+    </div>
+    <div *ngIf="appService.Data.cartListCaja.length == 0">
+        <div class="centrar posicion-cart">
+            <p class="cart">Cart</p>
+        </div>
+        <div class="centrar">
+            <p class="frase-agregar">Go ahead and add something!</p>
+            <p class="frase-items">0 items in your cart</p>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="appService.Data.cartListCaja?.length > 0" class="centrar">
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div (click)="_activarTab(true)" [ngClass]="{'cart-tab-green': activarTab == true}" class="col-lg-6 col-6 cart-tabs-bottom cursor">
+                        <div class="centrar">
+                            <p [ngClass]="{'disabled-tab': activarTab == false}" class="cart">STORE <br> <span class="cart">Cart</span> </p>
+                        </div>
+                    </div>
+                    <!--div (click)="_activarTab(false)" [ngClass]="{'cart-tab-green': activarTab == false}" class="col-lg-6 col-6 cart-tabs-bottom border-left-tab cursor">
+                        <div class="centrar">
+                            <div class="centrar">
+                                <p [ngClass]="{'disabled-tab': activarTab == true}" class="cart">Standing Order<br> <span class="cart">Cart</span> </p>
+                            </div>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container contenerdor-carrito" [ngStyle]="{'height': '100%'}">
+        <div class="list-wrapper">
+            <div class="list">
+                <div class="list-cards">
+                    <!-----------------------------------DETALLE CARRITO THE HUB------------------------------------------------------------------------>
+                    <div *ngIf="activarTab == true">
+                        <div *ngIf="appService.Data.cartListCaja?.length > 0">
+                            <!--TARJETA CUANDO ES POR CAJAS-->
+                            <div *ngIf="cartItemTropicalCount>0" class="center">
+                                <p class="mix-box-below">Tropical boxes below</p>
+                            </div>
+                            <div class="row" *ngFor="let caja of appService.Data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoAgrega == 'C' && caja.combo == 'N' && caja.stadingOrder == false && this.appService.tropfilter.includes(caja.variedades[0]?.producto)" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="col-xl-2 col-lg-2 col-md-4 col-1">
+                                            <img class="img-card-detail" [src]="caja.imagenes">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-4  col-8">
+                                            <div class="centrar" style="margin-top: 10px;">
+                                                <p class="card-name-producto">{{caja.nombreCaja}} - {{caja.verificarVariedadCaja}}</p>
+                                                <p class="card-size">Lenght:</p>
+                                                <p class="card-talla">
+                                                    <mat-select [value]="caja.tallasDeCaja[0]" placeholder="select" class="box-select">
+                                                        <mat-option (click)="_editarTallaPorCaja(talla, caja, caja.variedades[0].productOriginal, i, false)" *ngFor="let talla of caja.tallasFinales" [value]="talla.valor">
+                                                            {{talla.valor}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </p>
+                                                <p class="card-p-bunches">Box</p>
+                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -15px;">
+                                                    <input (keyup)="_editarCantidadPorCaja($event, caja, caja.variedades[0].productOriginal, i, false)" class="card-input card-input-carrito" type="number" value="{{caja.cantidadIngresada}}" min="1" min="1" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                    <div><span class="card-descripcion"> x {{caja.totalPiezas}} stems </span></div>
+                                                    <div><span class="card-precio"> $
+                            {{caja.variedades[0].productOriginal[0].variedades[caja.variedades[0].indexPorVariedad].precio
+                            |
+                            number : '1.2-2'}}
+                          </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4  col-2 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p card-precio-p-carrito">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div *ngIf="caja.tipoAgrega === 'C'" class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja, false)" class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <!--STORE TARJETA CAJA SOLIDA-->
+                            <div *ngIf="cartItemNoTropicalCount>0" class="center">
+                                <p class="mix-box-below">TEST Solid boxes below</p>
+                            </div>
+                            <div class="row" *ngFor="let caja of appService.Data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoAgrega == 'C' && caja.combo == 'N' && caja.stadingOrder == false && !this.appService.tropfilter.includes(caja.variedades[0]?.producto)" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="col-xl-2 col-lg-2 col-md-4 col-1">
+                                            <img class="img-card-detail" [src]="caja.imagenes">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-4  col-8">
+                                            <div class="centrar" style="margin-top: 10px;">
+                                                <p class="card-name-producto">{{caja.nombreCaja}} - {{caja.verificarVariedadCaja}}</p>
+                                                <p class="card-size">Lenght: {{caja.tallasDeCaja[0]}}</p>
+                                                <p class="card-talla">
+                                                    <mat-select [value]="caja.tallasDeCaja[0]" placeholder="select" class="box-select">
+                                                        <mat-option (click)="_editarTallaPorCaja(talla, caja, caja.variedades[0].productOriginal, i, false)" *ngFor="let talla of caja.tallasFinales" [value]="talla.valor">
+                                                            {{talla.valor}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </p>
+                                                <p class="card-p-bunches">Box</p>
+                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -15px;">
+                                                    <input (keyup)="_editarCantidadPorCaja($event, caja, caja.variedades[0].productOriginal, i, false)" class="card-input card-input-carrito" type="number" value="{{caja.cantidadIngresada}}" min="1" min="1" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                    <div><span class="card-descripcion"> x {{caja.totalPiezas}} stems </span></div>
+                                                    <div><span class="card-precio"> $
+                            {{caja.variedades[0].productOriginal[0].variedades[caja.variedades[0].indexPorVariedad].precio
+                            |
+                            number : '1.2-2'}}
+                          </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4  col-2 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p card-precio-p-carrito">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div *ngIf="caja.tipoAgrega === 'C'" class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja, false)" class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <!--STORE TARJETA CUANDO ES POR CAJA SOLIDA (Combo Box)-->
+                            <div class="row" *ngFor="let caja of appService.Data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoAgrega == 'C' && caja.combo == 'S' && caja.stadingOrder == false" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="col-xl-2 col-lg-2 col-md-4 col-1">
+                                            <img class="img-card-detail" [src]="caja.imagenes">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-4 col-8">
+                                            <div class="centrar" style="margin-top: 10px;">
+                                                <p class="card-name-producto">{{caja.nombreCaja}}</p>
+                                                <br>
+                                                <p (click)="_verDetalleCajaCombo(caja)" class="card-talla cursor" style="text-decoration: underline;font-size: 14px;">Show details</p>
+                                                <p class="card-p-bunches">Box</p>
+                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -15px;">
+                                                    <input (keyup)="_editarCajaSolida($event, caja, false)" class="card-input" type="number" value="{{caja.cantidadIngresada}}" min="1" min="1" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                    <div><span class="card-descripcion"> x {{caja.totalPiezas}} stems </span></div>
+                                                    <div><span class="card-precio"> $
+                            {{caja.totalPrecio | number : '1.2-2'}}
+                          </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-2 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div *ngIf="caja.tipoAgrega === 'C'" class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja, false)" class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <!--TARJETA CUANDO ES POR BUNCHES-->
+                            <div *ngIf="mixBoxesBelow" class="center">
+                                <p class="mix-box-below">Mix boxes below</p>
+                            </div>
+                            <div *ngFor="let caja of appService.Data.cartListCaja;">
+                                <div *ngIf="caja.tipoAgrega == 'B' && caja.combo == 'N' && caja.stadingOrder == false" class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="row card-detail-bunches card-centrar" style="margin-left: 8%;">
+                                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10">
+
+                                                <!-- <div *ngIf="caja.variedades.length > 1">
+                                                    <div class="row card-centrar">
+                                                        <div class="col-xl-2 col-lg-2 col-md-1 col-sm-1 col-1">
+                                                            <img class="img-card-detail-bunches" [src]="caja.variedades[0].imagenes">
+                                                        </div>
+                                                        <div class="col-xl-10 col-lg-10 col-md-11 col-sm-11 col-11">
+                                                            <div class="centrar" style="margin-top: 10px;">
+                                                                <p class="card-name-producto">{{caja.variedades[0].nombreVariedad}} - {{caja.variedades[0].producto}}
+                                                                </p>
+                                                                <p class="card-size">Lenght:</p>
+                                                                <p class="card-talla"> {{caja.variedades[0].talla}}</p>
+                                                                <p class="card-p-bunches">Bunches</p>
+                                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                                                    <div class="box-cantidad"><span class="card-cantidad"> 1 </span></div>
+                                                                    <div><span class="card-descripcion"> x {{caja.variedades[0].cantidadPorBunche}} stems
+                                  </span>
+                                                                    </div>
+                                                                    <div><span class="card-precio"> $ {{caja.variedades[0].precioCliente | number :
+                                    '1.2-2'}}
+                                  </span></div>
+                                                                </div>
+                                                                <div style="border-top: 1px solid #707070;">
+                                                                    <p class="cursor show-more" (click)="_verMasProductos(caja)">Show items inside your Mix Box
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+                                                <!-- <div *ngFor="let variedad of caja.variedades" class="row card-centrar"> -->
+                                                <div *ngFor="let variedad of _varietiesNoRepeated(caja.variedades)" class="row card-centrar">
+                                                    <div class="col-xl-2 col-lg-2 col-md-4 col-2">
+                                                        <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                                                    </div>
+                                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                                        <div class="centrar" style="margin-top: 10px;">
+                                                            <p class="card-name-producto">{{variedad.nombreVariedad}} - {{variedad.producto}}</p>
+                                                            <p class="card-size">Lenght:</p>
+                                                            <p class="card-talla"> {{variedad.talla}} </p>
+                                                            <p class="card-p-bunches">Bunches</p>
+                                                            <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                                                <div class="box-cantidad"><span class="card-cantidad"> {{ _countVarietiesNoRepeat(variedad,caja.variedades) }} </span></div>
+                                                                <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems </span></div>
+                                                                <!-- <div><span class="card-precio"> $ {{variedad.precioCliente | number : '1.2-2'}} </span></div> -->
+                                                                <div><span class="card-precio"> $ {{_piceVarietiesNoRepeat(variedad,caja.variedades) | number : '1.2-2'}} </span></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-2 col-2 card-detail-precio">
+                                                <div class="card-l-bun"></div>
+                                                <div class="centrar" style="float: left;">
+                                                    <p class="card-precio-p">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="caja.tipoAgrega == 'B' && caja.combo == 'N' && caja.stadingOrder == false" class="row" style="margin-top: -30px;">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                        <button (click)="editarCaja(caja, 'B')" class="card-acciones cursor">Edit</button>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda linea-2">
+                                        <button (click)="_eliminarCaja(caja, false)" class="card-acciones cursor">Delete</button>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!------------------------------------DETALLE CARRITO STANDING ORDER------------------------------------------------------------------>
+                    <div *ngIf="activarTab == false">
+                        <div *ngIf="appService.Data.cartListCaja?.length > 0">
+                            <!--TARJETA CUANDO ES POR CAJAS-->
+                            <div *ngIf="cartItemTropicalCount>0" class="center">
+                                <p class="mix-box-below">Tropical boxes below</p>
+                            </div>
+                            <div class="row" *ngFor="let caja of appService.Data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoAgrega == 'C' && caja.combo =='N' && caja.stadingOrder == true && this.appService.tropfilter.includes(caja.variedades[0]?.producto)" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="col-xl-2 col-lg-2 col-md-4 col-1">
+                                            <img class="img-card-detail" [src]="caja.imagenes">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-4 col-8">
+                                            <div class="centrar" style="margin-top: 10px;">
+                                                <p class="card-name-producto">{{caja.nombreCaja}} - {{caja.verificarVariedadCaja}}</p>
+                                                <p class="card-size">Lenght:</p>
+                                                <p class="card-talla">
+                                                    <mat-select [value]="caja.tallasDeCaja[0]" placeholder="select" class="box-select">
+                                                        <mat-option (click)="_editarTallaPorCaja(talla, caja, caja.variedades[0].productOriginal, i, true)" *ngFor="let talla of caja.tallasFinales" [value]="talla.valor">
+                                                            {{talla.valor}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </p>
+                                                <p class="card-p-bunches">Box</p>
+                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -15px;">
+                                                    <input (keyup)="_editarCantidadPorCaja($event, caja, caja.variedades[0].productOriginal, i, true)" class="card-input" type="number" value="{{caja.cantidadIngresada}}" min="1" min="1" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                    <div><span class="card-descripcion"> x {{caja.totalPiezas}} stems </span></div>
+                                                    <div><span class="card-precio"> $
+                            {{caja.variedades[0].productOriginal[0].variedades[caja.variedades[0].indexPorVariedad].precio
+                            |
+                            number : '1.2-2'}}
+                          </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-2 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div *ngIf="caja.tipoAgrega === 'C'" class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja, true)" class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div *ngIf="cartItemNoTropicalCount>0" class="center">
+                                <p class="mix-box-below">Solid boxes below</p>
+                            </div>
+                            <div class="row" *ngFor="let caja of appService.Data.cartListCaja; let i = index">
+                                <div *ngIf="caja.tipoAgrega == 'C' && caja.combo =='N' && caja.stadingOrder == true && !this.appService.tropfilter.includes(caja.variedades[0]?.producto)" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="row card-detail card-centrar" style="margin-left: 8%;">
+                                        <div class="col-xl-2 col-lg-2 col-md-4 col-1">
+                                            <img class="img-card-detail" [src]="caja.imagenes">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-4 col-8">
+                                            <div class="centrar" style="margin-top: 10px;">
+                                                <p class="card-name-producto">{{caja.nombreCaja}} - {{caja.verificarVariedadCaja}}</p>
+                                                <p class="card-size">Lenght:</p>
+                                                <p class="card-talla">
+                                                    <mat-select [value]="caja.tallasDeCaja[0]" placeholder="select" class="box-select">
+                                                        <mat-option (click)="_editarTallaPorCaja(talla, caja, caja.variedades[0].productOriginal, i, true)" *ngFor="let talla of caja.tallasFinales" [value]="talla.valor">
+                                                            {{talla.valor}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </p>
+                                                <p class="card-p-bunches">Box</p>
+                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -15px;">
+                                                    <input (keyup)="_editarCantidadPorCaja($event, caja, caja.variedades[0].productOriginal, i, true)" class="card-input" type="number" value="{{caja.cantidadIngresada}}" min="1" min="1" maxlength="2" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        onwheel="this.blur()">
+                                                    <div><span class="card-descripcion"> x {{caja.totalPiezas}} stems </span></div>
+                                                    <div><span class="card-precio"> $
+                            {{caja.variedades[0].productOriginal[0].variedades[caja.variedades[0].indexPorVariedad].precio
+                            |
+                            number : '1.2-2'}}
+                          </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-2 col-margen">
+                                            <div class="linea-1"></div>
+                                            <div class="centrar">
+                                                <p class="card-precio-p">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div *ngIf="caja.tipoAgrega === 'C'" class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="centrar">
+                                                <button (click)="_eliminarCaja(caja, true)" class="card-acciones cursor">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <!--TARJETA CUANDO ES POR BUNCHES-->
+                            <div *ngIf="mixBoxesBelow" class="center">
+                                <p class="mix-box-below">Mix boxes below</p>
+                            </div>
+                            <div style="margin-top: -10px;" *ngFor="let caja of appService.Data.cartListCaja;">
+                                <div *ngIf="caja.tipoAgrega == 'B' && caja.combo == 'N' && caja.stadingOrder == true" class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="row card-detail-bunches card-centrar" style="margin-left: 8%;">
+                                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10">
+
+                                                <!-- <div *ngIf="caja.variedades.length > 1">
+                                                    <div class="row card-centrar">
+                                                        <div class="col-xl-2 col-lg-2 col-md-1 col-sm-1 col-1">
+                                                            <img class="img-card-detail-bunches" [src]="caja.variedades[0].imagenes">
+                                                        </div>
+                                                        <div class="col-xl-10 col-lg-10 col-md-11 col-sm-11 col-11">
+                                                            <div class="centrar" style="margin-top: 10px;">
+                                                                <p class="card-name-producto">{{caja.variedades[0].nombreVariedad}} - {{caja.variedades[0].producto}}
+                                                                </p>
+                                                                <p class="card-size">Lenght:</p>
+                                                                <p class="card-talla"> {{caja.variedades[0].talla}}</p>
+                                                                <p class="card-p-bunches">Bunches</p>
+                                                                <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                                                    <div class="box-cantidad"><span class="card-cantidad"> 1 </span></div>
+                                                                    <div><span class="card-descripcion"> x {{caja.variedades[0].cantidadPorBunche}} stems
+                                  </span>
+                                                                    </div>
+                                                                    <div><span class="card-precio"> $ {{caja.variedades[0].precioCliente | number :
+                                    '1.2-2'}}
+                                  </span></div>
+                                                                </div>
+                                                                <div style="border-top: 1px solid #707070;">
+                                                                    <p class="cursor show-more" (click)="_verMasProductos(caja)">Show items inside your Mix Box
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <div *ngFor="let variedad of _varietiesNoRepeated(caja.variedades)" class="row card-centrar">
+                                                    <div class="col-xl-2 col-lg-2 col-md-4 col-2">
+                                                        <img class="img-card-detail-bunches" [src]="variedad.imagenes">
+                                                    </div>
+                                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                                        <div class="centrar" style="margin-top: 10px;">
+                                                            <p class="card-name-producto">{{variedad.nombreVariedad}} - {{variedad.producto}}</p>
+                                                            <p class="card-size">Lenght:</p>
+                                                            <p class="card-talla"> {{variedad.talla}} </p>
+                                                            <p class="card-p-bunches">Bunches</p>
+                                                            <div class="input-group mb-3 d-flex justify-content-between" style="margin-top: -10px;">
+                                                                <div><span > {{ _countVarietiesNoRepeat(variedad,caja.variedades) }} </span></div>
+                                                                <div><span class="card-descripcion"> x {{variedad.cantidadPorBunche}} stems </span></div>
+                                                                <!-- <div><span class="card-precio"> $ {{variedad.precioCliente | number : '1.2-2'}} </span></div> -->
+                                                                <div><span class="card-precio"> $ {{_piceVarietiesNoRepeat(variedad,caja.variedades) | number : '1.2-2'}} </span></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-2 col-2 card-detail-precio">
+                                                <div class="card-l-bun"></div>
+                                                <div class="centrar" style="float: left;">
+                                                    <p class="card-precio-p">$ {{caja.totalPrecio | number : '1.2-2'}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="caja.tipoAgrega == 'B' && caja.combo == 'N' && caja.stadingOrder == true" class="row" style="margin-top: -30px;">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 derecha">
+                                        <button (click)="editarCaja(caja, 'B')" class="card-acciones cursor">Edit</button>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 izquierda linea-2">
+                                        <button (click)="_eliminarCaja(caja, false)" class="card-acciones cursor">Delete</button>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="appService.Data.cartListCaja?.length > 0" class="order-subtotal-flex">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-10 col-sm-10 col-10">
+                        <div style="margin-left: 50%;margin-right: 4%;">
+                            <div class="row">
+                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 derecha">
+                                    <p class="card-order-p">Order Subtotal:</p>
+                                </div>
+                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                                    <p class="card-order-p">$ {{appService.Data.totalPrice | number : '1.2-2'}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 derecha">
+                                    <p class="card-aditional cursor" (click)="cargosAdicionales()">Aditional Charges:</p>
+                                </div>
+                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                                    <p class="card-aditional-p">$ {{appService.totalTuckingBoxes | number : '1.2-2'}}</p>
+                                </div>
+                            </div>
+                            <div class="row" style="border-bottom: 1px solid #707070;margin: 0 auto;opacity: .5;"></div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
+                                    <p class="card-order-total">Order Total: </p>
+                                </div>
+                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 izquierda">
+                                    <p *ngIf="appService.totalWithTruckiBoxes != undefined" class="card-order-t-p">$ {{appService.totalWithTruckiBoxes | number : '1.2-2'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="appService.Data.cartListCaja?.length > 0 && activarTab" class="centrar">
+                    <button type="button" (click)="_checkout()" class="btn-checkout cursor">Check out</button>
+                </div>
+                <div *ngIf="appService.Data.cartListCaja?.length > 0 && !activarTab" class="centrar">
+                    <button type="button" (click)="_checkoutStading()" class="btn-checkout cursor">Check out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

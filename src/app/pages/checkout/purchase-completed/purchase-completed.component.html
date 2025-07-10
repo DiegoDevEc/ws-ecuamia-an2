@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="list-group">
+        <div class="row list-group-item list-group-item-action flex-column align-items-start" style="margin: auto;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div style="text-align: center;">
+                    <br>
+                    <button mat-icon-button color="primary">
+            <mat-icon style="font-size: 100px;color: navy;">flight_takeoff</mat-icon>
+          </button>
+                    <br>
+                    <br>
+                    <h4> Thank you. Your order has been received.</h4>
+                    <h4>The order will be reviewed and processed and we will inform you when it is fully approved</h4>
+                </div>
+                <br>
+                <div>
+                    <table class="table">
+                        <thead class="thead-dark" style="background: yellowgreen;color: navy;">
+                            <tr>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">CONNECTION DATE</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">CARRIER CONNECTION</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">PO</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">SHIP TO</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">BOXES</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">TOTAL</p>
+                                </th>
+                                <th style="font-weight: bold !important;" scope="col">
+                                    <p style="font-weight: bold;font-size: 12px;">STATUS</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-weight: bold;font-size: 12px;font-family: Verdana;">
+                                <td>{{fechaConexion | date:'MM/dd/yyyy'}}</td>
+                                <td>{{camionSeleccionado.nombre}}</td>
+                                <td>{{destinoSeleccionado.nombre}}</td>
+                                <td>
+                                    {{marcacionSleccionada.nombreEtiqueta}} - {{marcacionSleccionada.direccionEtiqueta}} - {{marcacionSleccionada.ciudad}} / {{marcacionSleccionada.destino}} / {{marcacionSleccionada.codigoPostal}}
+                                </td>
+                                <td *ngIf="cartList != null">{{cartList.length}}</td>
+                                <td *ngIf="cartList == null">0</td>
+                                <td style="font-size: 14px;">$ {{ appService.totalWithTruckiBoxes | number : '1.2-2'}}</td>
+                                <td>Pending to approve</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: center;">
+                        <span style="font-size: xx-small;">For any change, please contact your sales representative.</span>
+                    </div>
+                </div>
